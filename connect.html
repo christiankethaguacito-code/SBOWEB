@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect | Student Body Organization - SKSU Isulan Campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-green-900: #0c3b28;
+            --brand-green-800: #0f4a32;
+            --brand-green-700: #14663d;
+            --brand-green-500: #1ea75a;
+            --brand-green-300: #c8f0d9;
+            --brand-gold: #ffcc4d;
+            --brand-cream: #f7faf5;
+            --brand-white: #ffffff;
+            --brand-deep: #0a1d14;
+            --brand-slate: #4a5a55;
+            --brand-muted: #6c7b74;
+            --border-soft: rgba(12, 59, 40, 0.12);
+            --shadow-soft: 0 18px 48px rgba(12, 59, 40, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--brand-cream);
+            color: var(--brand-deep);
+            line-height: 1.65;
+            min-height: 100vh;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        .announcement-bar {
+            background: linear-gradient(135deg, var(--brand-green-900), var(--brand-green-700));
+            color: var(--brand-white);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .announcement-bar .container {
+            max-width: 1220px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-soft);
+            box-shadow: 0 12px 30px rgba(12, 59, 40, 0.06);
+        }
+
+        .nav-wrapper {
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 1.15rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--brand-green-900);
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: var(--brand-white);
+            padding: 0.35rem;
+            border: 1px solid var(--border-soft);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        nav a {
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 0.45rem 0.75rem;
+            border-radius: 999px;
+            color: var(--brand-slate);
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        nav a:is(:hover, .active) {
+            background: rgba(18, 102, 61, 0.12);
+            color: var(--brand-green-700);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-soft);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            color: var(--brand-slate);
+            background: var(--brand-white);
+        }
+
+        .theme-toggle:hover { background: rgba(18, 102, 61, 0.1); transform: translateY(-1px); }
+
+        .call-to-action {
+            padding: 0.65rem 1.1rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--brand-green-700), var(--brand-green-500));
+            color: var(--brand-white);
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .call-to-action:hover { transform: translateY(-2px); }
+
+        main { overflow: hidden; }
+        section { padding: 5rem 1.5rem; }
+        .container { max-width: 1220px; margin: 0 auto; }
+
+        .page-hero {
+            position: relative;
+            padding: 6rem 1.5rem 5rem;
+            background: linear-gradient(120deg, rgba(12, 59, 40, 0.92), rgba(18, 102, 61, 0.78)), url('group.jpg') center/cover no-repeat;
+            color: var(--brand-white);
+        }
+
+        .page-hero .container {
+            display: grid;
+            gap: 1rem;
+            max-width: 720px;
+        }
+
+        .page-hero h1 { font-size: clamp(2.3rem, 4vw, 3.2rem); line-height: 1.1; font-weight: 700; }
+        .page-hero p { color: rgba(255, 255, 255, 0.85); font-size: 1.05rem; }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.75rem;
+            align-items: start;
+        }
+
+        form {
+            background: var(--brand-white);
+            border-radius: 1.5rem;
+            border: 1px solid var(--border-soft);
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 1.1rem;
+        }
+
+        label { font-weight: 600; font-size: 0.9rem; color: var(--brand-green-900); }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(12, 59, 40, 0.18);
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: var(--brand-cream);
+            transition: border 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--brand-green-500);
+            box-shadow: 0 0 0 3px rgba(30, 167, 90, 0.2);
+            background: var(--brand-white);
+        }
+
+        textarea { min-height: 160px; resize: vertical; }
+
+        button[type="submit"] {
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.85rem 1.2rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--brand-green-700), var(--brand-green-500));
+            color: var(--brand-white);
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease;
+        }
+
+        button[type="submit"]:hover { transform: translateY(-2px); }
+
+        .info-card {
+            background: var(--brand-white);
+            border-radius: 1.5rem;
+            border: 1px solid var(--border-soft);
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 1rem;
+        }
+
+        .info-card h2 { font-size: 1.6rem; color: var(--brand-green-900); }
+
+        .info-card a { color: var(--brand-green-700); font-weight: 600; }
+
+        .office-hours { display: grid; gap: 0.25rem; }
+
+        .map { margin-top: 1rem; border-radius: 1.25rem; overflow: hidden; border: 0; width: 100%; height: 260px; box-shadow: var(--shadow-soft); }
+
+        .resources { background: var(--brand-cream); }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: var(--brand-white);
+            border-radius: 1.25rem;
+            border: 1px solid var(--border-soft);
+            padding: 1.6rem;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        footer {
+            background: var(--brand-green-900);
+            color: rgba(255, 255, 255, 0.82);
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        .footer-grid {
+            max-width: 1220px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-brand { font-size: 1.15rem; font-weight: 700; color: var(--brand-white); }
+        .footer-links a { display: block; margin-bottom: 0.6rem; color: rgba(255, 255, 255, 0.75); }
+
+        .footer-bottom {
+            max-width: 1220px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .dark body { background: #07160f; color: rgba(255, 255, 255, 0.9); }
+        .dark header { background: rgba(7, 22, 15, 0.96); border-bottom-color: rgba(255, 255, 255, 0.08); box-shadow: none; }
+        .dark nav a { color: rgba(255, 255, 255, 0.78); }
+        .dark nav a:is(:hover, .active) { background: rgba(30, 167, 90, 0.24); color: var(--brand-white); }
+        .dark form,
+        .dark .info-card,
+        .dark .resource-card { background: rgba(7, 22, 15, 0.92); border-color: rgba(30, 167, 90, 0.24); }
+        .dark input,
+        .dark textarea,
+        .dark select { background: rgba(7, 22, 15, 0.86); color: rgba(255, 255, 255, 0.9); }
+
+        @media (max-width: 1024px) {
+            nav { display: none; }
+            section { padding: 4.5rem 1.5rem; }
+        }
+
+        @media (max-width: 680px) {
+            section { padding: 4rem 1rem; }
+            .announcement-bar .container { flex-direction: column; align-items: flex-start; }
+            .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 520px) {
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="announcement-bar">
+        <div class="container">
+            <span>Need support right now? Our helpdesk responds within 48 hours.</span>
+            <span>Visit us weekdays 9:00 AM - 5:00 PM.</span>
+        </div>
+    </div>
+    <header>
+        <div class="nav-wrapper">
+            <a class="brand" href="index.html" aria-label="Student Body Organization home">
+                <img src="logo.png" alt="SBO crest">
+                <div>Student Body Organization<br><small>SKSU Isulan Campus</small></div>
+            </a>
+            <nav aria-label="Primary navigation">
+                <a href="index.html">Home</a>
+                <a href="index.html#feature-video">Feature Reel</a>
+                <a href="newsroom.html">Newsroom</a>
+                <a href="initiatives.html">Initiatives</a>
+                <a href="impact.html">Impact</a>
+                <a href="events.html">Events</a>
+                <a href="officers.html">Officers</a>
+                <a href="connect.html" class="active">Connect</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <span id="theme-icon">&#9789;</span>
+                </button>
+                <a class="call-to-action" href="#contact-form">Send a message</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="call-to-action" style="width:max-content;">Connect with SBO</div>
+                <h1>Let's collaborate on programs, policies, and campaigns that uplift SKSU students.</h1>
+                <p>Reach the Student Body Organization for consultations, partnership proposals, or quick assistance from our helpdesk.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container contact-grid">
+                <form id="contact-form">
+                    <h2 style="font-size:1.6rem;color:var(--brand-green-900);">Send us a message</h2>
+                    <div>
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="you@student.sksu.edu.ph" required>
+                    </div>
+                    <div>
+                        <label for="affiliation">Affiliation</label>
+                        <select id="affiliation" name="affiliation">
+                            <option value="Student">Student</option>
+                            <option value="Faculty">Faculty</option>
+                            <option value="Alumni">Alumni</option>
+                            <option value="Community Partner">Community Partner</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="message">How can we help?</label>
+                        <textarea id="message" name="message" placeholder="Tell us about your concern or proposal" required></textarea>
+                    </div>
+                    <button type="submit">Submit message</button>
+                    <p style="font-size:0.85rem;color:var(--brand-muted);">By submitting this form, you agree to our privacy guidelines. We'll get back within two working days.</p>
+                </form>
+
+                <aside class="info-card">
+                    <h2>Visit or contact us</h2>
+                    <p>Beside SKSU-Isulan Gym<br>SKSU Isulan Campus, Sultan Kudarat</p>
+                    <div class="office-hours">
+                        <strong>Office hours</strong>
+                        <span>Monday to Friday · 9:00 AM - 5:00 PM</span>
+                        <span>Saturdays by appointment for organizations</span>
+                    </div>
+                    <div>
+                        <strong>Email</strong>
+                        <p><a href="mailto:sbo@sksu.edu.ph">sbo@sksu.edu.ph</a></p>
+                    </div>
+                    <div>
+                        <strong>Phone</strong>
+                        <p><a href="tel:+639176001234">+63 917 600 1234</a></p>
+                    </div>
+                    <div>
+                        <strong>Helpdesk Portal</strong>
+                        <p><a href="https://bit.ly/sbo-helpdesk" target="_blank" rel="noopener">Submit a ticket</a></p>
+                    </div>
+                    <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2356.477552197416!2d124.60770854618256!3d6.633624950244322!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32f80ea62376e91b%3A0xfb97061301174daa!2sSultan%20Kudarat%20State%20University%20Isulan%20Campus!5e0!3m2!1sen!2sph!4v1760606413100!5m2!1sen!2sph" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </aside>
+            </div>
+        </section>
+
+        <section class="resources">
+            <div class="container">
+                <h2 style="font-size:1.8rem;color:var(--brand-green-900);margin-bottom:2rem;">Quick links & resources</h2>
+                <div class="resource-grid">
+                    <article class="resource-card">
+                        <h3>Student Services Directory</h3>
+                        <p>Find contacts for scholarship, guidance, registrar, and library offices.</p>
+                        <a class="call-to-action" href="https://drive.google.com" target="_blank" rel="noopener">Open directory</a>
+                    </article>
+                    <article class="resource-card">
+                        <h3>Organization Accreditation Kit</h3>
+                        <p>Download requirements and timelines for getting your organization recognized.</p>
+                        <a class="call-to-action" href="https://notion.so" target="_blank" rel="noopener">Download kit</a>
+                    </article>
+                    <article class="resource-card">
+                        <h3>Volunteer Network</h3>
+                        <p>Join brigades for relief, literacy, and sustainability initiatives around Sultan Kudarat.</p>
+                        <a class="call-to-action" href="events.html">See opportunities</a>
+                    </article>
+                    <article class="resource-card">
+                        <h3>Policy Feedback Form</h3>
+                        <p>Contribute insights for upcoming resolutions and campus policy recommendations.</p>
+                        <a class="call-to-action" href="https://forms.gle/" target="_blank" rel="noopener">Submit feedback</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">Student Body Organization</div>
+                <p>Sultan Kudarat State University<br>Isulan Campus</p>
+            </div>
+            <div class="footer-links">
+                <strong>Explore</strong>
+                <a href="index.html">Home</a>
+                <a href="index.html#feature-video">Feature Reel</a>
+                <a href="newsroom.html">Newsroom</a>
+                <a href="initiatives.html">Initiatives</a>
+                <a href="impact.html">Impact</a>
+            </div>
+            <div class="footer-links">
+                <strong>Resources</strong>
+                <a href="connect.html" class="active">Contact SBO</a>
+                <a href="https://www.facebook.com/SKSUSBO" target="_blank" rel="noopener">Facebook Page</a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube Channel</a>
+            </div>
+            <div class="footer-links">
+                <strong>Visit</strong>
+                <span>Learning Commons, 2nd floor</span>
+                <a href="mailto:sbo@sksu.edu.ph">sbo@sksu.edu.ph</a>
+                <a href="tel:+639176001234">+63 917 600 1234</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2025 Student Body Organization, SKSU Isulan Campus. All rights reserved.</span>
+            <span>Connect. Collaborate. Co-create.</span>
+        </div>
+    </footer>
+
+    <script>
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const toggler = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        function updateThemeIcon(mode) {
+            themeIcon.innerHTML = mode === 'dark' ? '&#9788;' : '&#9790;';
+        }
+
+        function applyTheme(mode) {
+            document.documentElement.classList.toggle('dark', mode === 'dark');
+            updateThemeIcon(mode);
+            localStorage.setItem('sbo-theme', mode);
+        }
+
+        const storedTheme = localStorage.getItem('sbo-theme');
+        applyTheme(storedTheme || (prefersDark ? 'dark' : 'light'));
+
+        toggler.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            applyTheme(isDark ? 'light' : 'dark');
+        });
+
+        document.getElementById('contact-form').addEventListener('submit', event => {
+            event.preventDefault();
+            event.target.reset();
+            alert('Thank you for reaching out! The SBO team will respond within two working days.');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsroom | Student Body Organization - SKSU Isulan Campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-green-900: #0c3b28;
+            --brand-green-800: #0f4a32;
+            --brand-green-700: #14663d;
+            --brand-green-500: #1ea75a;
+            --brand-green-300: #c8f0d9;
+            --brand-gold: #ffcc4d;
+            --brand-cream: #f7faf5;
+            --brand-white: #ffffff;
+            --brand-deep: #0a1d14;
+            --brand-slate: #4a5a55;
+            --brand-muted: #6c7b74;
+            --border-soft: rgba(12, 59, 40, 0.12);
+            --border-strong: rgba(12, 59, 40, 0.24);
+            --shadow-soft: 0 18px 48px rgba(12, 59, 40, 0.12);
+            --shadow-sm: 0 10px 24px rgba(12, 59, 40, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--brand-cream);
+            color: var(--brand-deep);
+            line-height: 1.65;
+            min-height: 100vh;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+        ul { list-style: none; }
+        button { font-family: inherit; }
+
+        .announcement-bar {
+            background: linear-gradient(135deg, var(--brand-green-900), var(--brand-green-700));
+            color: var(--brand-white);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .announcement-bar .container {
+            max-width: 1220px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-soft);
+            box-shadow: 0 12px 30px rgba(12, 59, 40, 0.06);
+        }
+
+        .nav-wrapper {
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 1.15rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--brand-green-900);
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: var(--brand-white);
+            padding: 0.35rem;
+            border: 1px solid var(--border-soft);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        nav a {
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 0.45rem 0.75rem;
+            border-radius: 999px;
+            color: var(--brand-slate);
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        nav a:is(:hover, .active) {
+            background: rgba(18, 102, 61, 0.12);
+            color: var(--brand-green-700);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-soft);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            color: var(--brand-slate);
+            background: var(--brand-white);
+        }
+
+        .theme-toggle:hover { background: rgba(18, 102, 61, 0.1); transform: translateY(-1px); }
+
+        .call-to-action {
+            padding: 0.65rem 1.1rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--brand-green-700), var(--brand-green-500));
+            color: var(--brand-white);
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .call-to-action:hover { transform: translateY(-2px); }
+
+        .ghost-button {
+            padding: 0.6rem 1.1rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            background: transparent;
+            color: var(--brand-green-700);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .ghost-button:hover {
+            background: rgba(18, 102, 61, 0.12);
+            color: var(--brand-green-800);
+        }
+
+        main { overflow: hidden; }
+        section { padding: 5rem 1.5rem; }
+        .container { max-width: 1220px; margin: 0 auto; }
+
+        .page-hero {
+            position: relative;
+            padding: 6rem 1.5rem 5rem;
+            background: linear-gradient(120deg, rgba(12, 59, 40, 0.92), rgba(18, 102, 61, 0.78)), url('group1.jpg') center/cover no-repeat;
+            color: var(--brand-white);
+        }
+
+        .page-hero .container {
+            display: grid;
+            gap: 1rem;
+            max-width: 760px;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(2.4rem, 4vw, 3.4rem);
+            line-height: 1.1;
+            font-weight: 700;
+        }
+
+        .page-hero p { color: rgba(255, 255, 255, 0.85); font-size: 1.05rem; }
+
+        .news-content { background: var(--brand-cream); }
+
+        .news-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .news-feed { display: grid; gap: 1.5rem; }
+
+        .news-card {
+            background: var(--brand-white);
+            border-radius: 1.25rem;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-sm);
+            padding: 1.85rem;
+            display: grid;
+            gap: 0.9rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+
+        .news-card h2 { font-size: 1.45rem; color: var(--brand-green-900); }
+        .news-card p { color: var(--brand-slate); }
+
+        .news-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--brand-muted);
+        }
+
+        .news-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: rgba(18, 102, 61, 0.12);
+            color: var(--brand-green-700);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        .news-side { display: grid; gap: 1.5rem; }
+
+        .digest-card {
+            background: var(--brand-white);
+            border-radius: 1.25rem;
+            border: 1px solid var(--border-soft);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            display: grid;
+            gap: 0.9rem;
+        }
+
+        .digest-card strong { font-size: 1.1rem; color: var(--brand-green-900); }
+
+        .digest-list li {
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(12, 59, 40, 0.12);
+        }
+
+        .digest-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+        .digest-list span { display: block; font-size: 0.8rem; color: var(--brand-muted); }
+
+        .news-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+        footer {
+            background: var(--brand-green-900);
+            color: rgba(255, 255, 255, 0.82);
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        .footer-grid {
+            max-width: 1220px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-brand { font-size: 1.15rem; font-weight: 700; color: var(--brand-white); }
+        .footer-links a { display: block; margin-bottom: 0.6rem; color: rgba(255, 255, 255, 0.75); }
+
+        .footer-bottom {
+            max-width: 1220px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .dark body { background: #07160f; color: rgba(255, 255, 255, 0.9); }
+        .dark header { background: rgba(7, 22, 15, 0.96); border-bottom-color: rgba(255, 255, 255, 0.08); box-shadow: none; }
+        .dark nav a { color: rgba(255, 255, 255, 0.78); }
+        .dark nav a:is(:hover, .active) { background: rgba(30, 167, 90, 0.24); color: var(--brand-white); }
+        .dark .news-card,
+        .dark .digest-card { background: rgba(7, 22, 15, 0.92); color: rgba(255, 255, 255, 0.9); border-color: rgba(30, 167, 90, 0.24); }
+
+        @media (max-width: 1024px) {
+            nav { display: none; }
+            section { padding: 4.5rem 1.5rem; }
+            .news-layout { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 680px) {
+            section { padding: 4rem 1rem; }
+            .announcement-bar .container { flex-direction: column; align-items: flex-start; }
+            .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 520px) {
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="announcement-bar">
+        <div class="container">
+            <span>OneSBO Spotlight: Innovation Sprints return October 28 - November 15.</span>
+            <span>Need assistance? Email <a href="mailto:sbo@sksu.edu.ph" style="color:#ffe6a6;">sbo@sksu.edu.ph</a> or visit the SBO Hub.</span>
+        </div>
+    </div>
+    <header>
+        <div class="nav-wrapper">
+            <a class="brand" href="index.html" aria-label="Student Body Organization home">
+                <img src="logo.png" alt="SBO crest">
+                <div>Student Body Organization<br><small>SKSU Isulan Campus</small></div>
+            </a>
+            <nav aria-label="Primary navigation">
+                <a href="index.html">Home</a>
+                <a href="index.html#feature-video">Feature Reel</a>
+                <a href="newsroom.html" class="active">Newsroom</a>
+                <a href="initiatives.html">Initiatives</a>
+                <a href="impact.html">Impact</a>
+                <a href="events.html">Events</a>
+                <a href="officers.html">Officers</a>
+                <a href="connect.html">Connect</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <span id="theme-icon">&#9789;</span>
+                </button>
+                <a class="call-to-action" href="connect.html">Join SBO</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="news-tag">SBO Newsroom</div>
+                <h1>Stories that amplify student leadership and impact.</h1>
+                <p>Stay current with campus governance, community projects, and student-led breakthroughs curated by the SBO Communications Council.</p>
+                <div class="news-actions">
+                    <a class="call-to-action" href="#latest">Read latest briefs</a>
+                    <a class="ghost-button" href="mailto:press@sbo.sksu.edu.ph">Submit a story tip</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="latest" class="news-content">
+            <div class="container news-layout">
+                <div class="news-feed">
+                    <article class="news-card">
+                        <div class="news-tag">Campus Governance</div>
+                        <h2>SBO ratifies 2025-2026 Student Agenda with 92% assembly turnout</h2>
+                        <div class="news-meta">
+                            <span>October 10, 2025</span>
+                            <span>By SBO Policy and Research</span>
+                        </div>
+                        <p>The OneSBO council secured overwhelming support for its student-first agenda after a multi-sectoral assembly that combined live deliberations, virtual polling, and sector breakouts.</p>
+                        <a class="call-to-action" href="#">View plenary recap</a>
+                    </article>
+
+                    <article class="news-card">
+                        <div class="news-tag">Community Impact</div>
+                        <h2>Barangay Innovation Fellows launch shoreline resilience sprint</h2>
+                        <div class="news-meta">
+                            <span>October 6, 2025</span>
+                            <span>By Community Development Desk</span>
+                        </div>
+                        <p>Four barangays around Isulan signed on to co-design livelihood and climate resilience pilots with multidisciplinary student teams deploying over a six-week sprint.</p>
+                        <a class="ghost-button" href="#">Download field brief</a>
+                    </article>
+
+                    <article class="news-card">
+                        <div class="news-tag">Student Services</div>
+                        <h2>OneSBO Helpdesk resolves 1,200 student concerns within opening month</h2>
+                        <div class="news-meta">
+                            <span>September 29, 2025</span>
+                            <span>By Campus Services</span>
+                        </div>
+                        <p>Integrating walk-in support, online ticketing, and WhatsApp hotline, the Helpdesk now processes academic appeals, scholarship inquiries, and facility requests in under 48 hours.</p>
+                        <a class="ghost-button" href="#">Browse helpdesk stats</a>
+                    </article>
+
+                    <article class="news-card">
+                        <div class="news-tag">Leadership Development</div>
+                        <h2>Mentor Link pairs 180 upperclass mentors with first-year scholars</h2>
+                        <div class="news-meta">
+                            <span>September 20, 2025</span>
+                            <span>By Scholars & Mentors Collective</span>
+                        </div>
+                        <p>The mentoring initiative now includes micro-grants for peer-led review hubs, industry dialogues, and licensure preparation bootcamps in partnership with alumni alliances.</p>
+                        <a class="ghost-button" href="#">Meet the mentors</a>
+                    </article>
+                </div>
+
+                <aside class="news-side">
+                    <div class="digest-card">
+                        <strong>Quick Briefs</strong>
+                        <ul class="digest-list">
+                            <li>
+                                OneSBO Transparency Portal publishes Q3 financial snapshot.
+                                <span>Posted October 8, 2025</span>
+                            </li>
+                            <li>
+                                Culture Council opens entries for Mindanao Student Arts Festival.
+                                <span>Posted October 4, 2025</span>
+                            </li>
+                            <li>
+                                Student Assembly convenes hybrid consultation on transit subsidies.
+                                <span>Posted September 30, 2025</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="digest-card">
+                        <strong>Press Resources</strong>
+                        <p>Download high-resolution media kits, request interviews, or subscribe to the newsroom digest for weekly highlights.</p>
+                        <a class="call-to-action" href="mailto:press@sbo.sksu.edu.ph">Connect with press desk</a>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">Student Body Organization</div>
+                <p>Sultan Kudarat State University<br>Isulan Campus</p>
+            </div>
+            <div class="footer-links">
+                <strong>Explore</strong>
+                <a href="index.html">Home</a>
+                <a href="index.html#feature-video">Feature Reel</a>
+                <a href="newsroom.html" class="active">Newsroom</a>
+            </div>
+            <div class="footer-links">
+                <strong>Resources</strong>
+                <a href="connect.html">Contact SBO</a>
+                <a href="https://www.facebook.com/SKSUSBO" target="_blank" rel="noopener">Facebook Page</a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube Channel</a>
+            </div>
+            <div class="footer-links">
+                <strong>Visit</strong>
+                <span>Learning Commons, 2nd floor</span>
+                <a href="mailto:sbo@sksu.edu.ph">sbo@sksu.edu.ph</a>
+                <a href="tel:+639176001234">+63 917 600 1234</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2025 Student Body Organization, SKSU Isulan Campus. All rights reserved.</span>
+            <span>Stories of student leadership and community impact.</span>
+        </div>
+    </footer>
+
+    <script>
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const toggler = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        function updateThemeIcon(mode) {
+            themeIcon.innerHTML = mode === 'dark' ? '&#9788;' : '&#9790;';
+        }
+
+        function applyTheme(mode) {
+            document.documentElement.classList.toggle('dark', mode === 'dark');
+            updateThemeIcon(mode);
+            localStorage.setItem('sbo-theme', mode);
+        }
+
+        const storedTheme = localStorage.getItem('sbo-theme');
+        applyTheme(storedTheme || (prefersDark ? 'dark' : 'light'));
+
+        toggler.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            applyTheme(isDark ? 'light' : 'dark');
+        });
+    </script>
+</body>
+</html>

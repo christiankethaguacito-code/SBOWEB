@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Dashboard | Student Body Organization - SKSU Isulan Campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-green-900: #0c3b28;
+            --brand-green-800: #0f4a32;
+            --brand-green-700: #14663d;
+            --brand-green-500: #1ea75a;
+            --brand-green-300: #c8f0d9;
+            --brand-gold: #ffcc4d;
+            --brand-cream: #f7faf5;
+            --brand-white: #ffffff;
+            --brand-deep: #0a1d14;
+            --brand-slate: #4a5a55;
+            --brand-muted: #6c7b74;
+            --border-soft: rgba(12, 59, 40, 0.12);
+            --shadow-soft: 0 18px 48px rgba(12, 59, 40, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--brand-cream);
+            color: var(--brand-deep);
+            line-height: 1.65;
+            min-height: 100vh;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+
+        .announcement-bar {
+            background: linear-gradient(135deg, var(--brand-green-900), var(--brand-green-700));
+            color: var(--brand-white);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .announcement-bar .container {
+            max-width: 1220px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-soft);
+            box-shadow: 0 12px 30px rgba(12, 59, 40, 0.06);
+        }
+
+        .nav-wrapper {
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 1.15rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--brand-green-900);
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: var(--brand-white);
+            padding: 0.35rem;
+            border: 1px solid var(--border-soft);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        nav a {
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 0.45rem 0.75rem;
+            border-radius: 999px;
+            color: var(--brand-slate);
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        nav a:is(:hover, .active) {
+            background: rgba(18, 102, 61, 0.12);
+            color: var(--brand-green-700);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-soft);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            color: var(--brand-slate);
+            background: var(--brand-white);
+        }
+
+        .theme-toggle:hover { background: rgba(18, 102, 61, 0.1); transform: translateY(-1px); }
+
+        .call-to-action {
+            padding: 0.65rem 1.1rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--brand-green-700), var(--brand-green-500));
+            color: var(--brand-white);
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .call-to-action:hover { transform: translateY(-2px); }
+
+        .ghost-button {
+            width: max-content;
+            padding: 0.65rem 1.1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s ease, color 0.3s ease;
+            backdrop-filter: blur(6px);
+        }
+
+        .ghost-button:hover { background: rgba(255, 255, 255, 0.18); color: var(--brand-white); }
+
+        main { overflow: hidden; }
+        section { padding: 5rem 1.5rem; }
+        .container { max-width: 1220px; margin: 0 auto; }
+
+        .page-hero {
+            position: relative;
+            padding: 6rem 1.5rem 5rem;
+            background: linear-gradient(120deg, rgba(12, 59, 40, 0.9), rgba(18, 102, 61, 0.78)), url('group.jpg') center/cover no-repeat;
+            color: var(--brand-white);
+        }
+
+        .page-hero .container {
+            display: grid;
+            gap: 1rem;
+            max-width: 760px;
+        }
+
+        .page-hero h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); line-height: 1.1; font-weight: 700; }
+        .page-hero p { color: rgba(255, 255, 255, 0.85); font-size: 1.05rem; }
+
+        .metrics {
+            background: var(--brand-white);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .metric-card {
+            background: var(--brand-cream);
+            border: 1px solid var(--border-soft);
+            border-radius: 1.25rem;
+            padding: 2rem 1.75rem;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 0.65rem;
+        }
+
+        .metric-card strong {
+            font-size: 2.6rem;
+            color: var(--brand-green-700);
+        }
+
+        .metric-card span {
+            font-size: 0.9rem;
+            color: var(--brand-muted);
+        }
+
+        .milestones { background: var(--brand-cream); }
+
+        .timeline {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .timeline-card {
+            background: var(--brand-white);
+            border-radius: 1.25rem;
+            border: 1px solid var(--border-soft);
+            padding: 1.75rem;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 0.6rem;
+        }
+
+        .timeline-card h3 { font-size: 1.25rem; color: var(--brand-green-900); }
+        .timeline-card time { font-size: 0.85rem; color: var(--brand-muted); }
+
+        .evidence {
+            background: var(--brand-white);
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .evidence-card {
+            border: 1px solid var(--border-soft);
+            border-radius: 1.25rem;
+            padding: 1.9rem;
+            background: var(--brand-cream);
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        footer {
+            background: var(--brand-green-900);
+            color: rgba(255, 255, 255, 0.82);
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        .footer-grid {
+            max-width: 1220px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-brand { font-size: 1.15rem; font-weight: 700; color: var(--brand-white); }
+        .footer-links a { display: block; margin-bottom: 0.6rem; color: rgba(255, 255, 255, 0.75); }
+
+        .footer-bottom {
+            max-width: 1220px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .dark body { background: #07160f; color: rgba(255, 255, 255, 0.9); }
+        .dark header { background: rgba(7, 22, 15, 0.96); border-bottom-color: rgba(255, 255, 255, 0.08); box-shadow: none; }
+        .dark nav a { color: rgba(255, 255, 255, 0.78); }
+        .dark nav a:is(:hover, .active) { background: rgba(30, 167, 90, 0.24); color: var(--brand-white); }
+        .dark .metric-card,
+        .dark .timeline-card,
+        .dark .evidence-card { background: rgba(7, 22, 15, 0.92); color: rgba(255, 255, 255, 0.9); border-color: rgba(30, 167, 90, 0.24); }
+
+        @media (max-width: 1024px) {
+            nav { display: none; }
+            section { padding: 4.5rem 1.5rem; }
+        }
+
+        @media (max-width: 680px) {
+            section { padding: 4rem 1rem; }
+            .announcement-bar .container { flex-direction: column; align-items: flex-start; }
+            .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 520px) {
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="announcement-bar">
+        <div class="container">
+            <span>OneSBO Spotlight: Innovation Sprints return October 28 - November 15.</span>
+            <span>Need assistance? Email <a href="mailto:sbo@sksu.edu.ph" style="color:#ffe6a6;">sbo@sksu.edu.ph</a> or visit the SBO Hub.</span>
+        </div>
+    </div>
+    <header>
+        <div class="nav-wrapper">
+            <a class="brand" href="index.html" aria-label="Student Body Organization home">
+                <img src="logo.png" alt="SBO crest">
+                <div>Student Body Organization<br><small>SKSU Isulan Campus</small></div>
+            </a>
+            <nav aria-label="Primary navigation">
+                <a href="index.html">Home</a>
+                <a href="index.html#feature-video">Feature Reel</a>
+                <a href="newsroom.html">Newsroom</a>
+                <a href="initiatives.html">Initiatives</a>
+                <a href="impact.html" class="active">Impact</a>
+                <a href="events.html">Events</a>
+                <a href="officers.html">Officers</a>
+                <a href="connect.html">Connect</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <span id="theme-icon">&#9789;</span>
+                </button>
+                <a class="call-to-action" href="connect.html">Join SBO</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="call-to-action" style="width:max-content;">Impact Dashboard</div>
+                <h1>Evidence of student-led governance, community service, and shared wins.</h1>
+                <p>We track participation, policy progress, and civic impact in partnership with college councils, sectoral representatives, and volunteer networks.</p>
+                <a class="ghost-button" href="https://drive.google.com" target="_blank" rel="noopener">Download latest impact brief</a>
+            </div>
+        </section>
+
+        <section class="metrics">
+            <div class="container">
+                <div class="metrics-grid">
+                    <article class="metric-card">
+                        <strong data-target="4275">0</strong>
+                        <span>Students engaged in SBO-led programs</span>
+                    </article>
+                    <article class="metric-card">
+                        <strong data-target="46">0</strong>
+                        <span>Policy papers endorsed to administration</span>
+                    </article>
+                    <article class="metric-card">
+                        <strong data-target="820">0</strong>
+                        <span>Scholarship consults facilitated</span>
+                    </article>
+                    <article class="metric-card">
+                        <strong data-target="12800">0</strong>
+                        <span>Community service hours recorded</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="milestones">
+            <div class="container">
+                <div class="timeline">
+                    <article class="timeline-card">
+                        <time>Sept 2025</time>
+                        <h3>Transparency portal launches real-time budget dashboard</h3>
+                        <p>Students can now monitor disbursements for welfare programs, council grants, and facilities enhancements through an open data interface.</p>
+                    </article>
+                    <article class="timeline-card">
+                        <time>Aug 2025</time>
+                        <h3>Barangay Innovation Fellows deploy 12 community pilots</h3>
+                        <p>Teams produced livelihood playbooks, co-ops, and climate resilience guides across the province, generating four permanent partner cooperatives.</p>
+                    </article>
+                    <article class="timeline-card">
+                        <time>Jul 2025</time>
+                        <h3>OneSBO Helpdesk resolves 1,200 student concerns in 30 days</h3>
+                        <p>Integrated digital ticketing and on-site help hubs reduced average response times to 36 hours, improving satisfaction scores by 28%.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="evidence">
+            <div class="container">
+                <div class="evidence-grid">
+                    <article class="evidence-card">
+                        <h3>Participation Heatmap</h3>
+                        <p>College councils report 82% average turnout for governance consultations thanks to hybrid assemblies and asynchronous polling.</p>
+                        <a class="call-to-action" href="https://docs.google.com" target="_blank" rel="noopener">View heatmap</a>
+                    </article>
+                    <article class="evidence-card">
+                        <h3>Policy Tracker</h3>
+                        <p>Track the lifecycle of policy endorsements from drafting to administrative approval, including actionable feedback loops.</p>
+                        <a class="call-to-action" href="https://airtable.com" target="_blank" rel="noopener">Open tracker</a>
+                    </article>
+                    <article class="evidence-card">
+                        <h3>Volunteer Stories</h3>
+                        <p>Read how student volunteers mobilize for relief drives, literacy camps, and sustainability labs across Sultan Kudarat.</p>
+                        <a class="call-to-action" href="newsroom.html#latest">Explore stories</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">Student Body Organization</div>
+                <p>Sultan Kudarat State University<br>Isulan Campus</p>
+            </div>
+            <div class="footer-links">
+                <strong>Explore</strong>
+                <a href="index.html">Home</a>
+                <a href="index.html#feature-video">Feature Reel</a>
+                <a href="newsroom.html">Newsroom</a>
+                <a href="initiatives.html">Initiatives</a>
+                <a href="impact.html" class="active">Impact</a>
+            </div>
+            <div class="footer-links">
+                <strong>Resources</strong>
+                <a href="connect.html">Contact SBO</a>
+                <a href="https://www.facebook.com/SKSUSBO" target="_blank" rel="noopener">Facebook Page</a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube Channel</a>
+            </div>
+            <div class="footer-links">
+                <strong>Visit</strong>
+                <span>Learning Commons, 2nd floor</span>
+                <a href="mailto:sbo@sksu.edu.ph">sbo@sksu.edu.ph</a>
+                <a href="tel:+639176001234">+63 917 600 1234</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2025 Student Body Organization, SKSU Isulan Campus. All rights reserved.</span>
+            <span>Impact backed by data, stories, and shared action.</span>
+        </div>
+    </footer>
+
+    <script>
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const toggler = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const metricTargets = document.querySelectorAll('.metric-card strong');
+
+        function updateThemeIcon(mode) {
+            themeIcon.innerHTML = mode === 'dark' ? '&#9788;' : '&#9790;';
+        }
+
+        function applyTheme(mode) {
+            document.documentElement.classList.toggle('dark', mode === 'dark');
+            updateThemeIcon(mode);
+            localStorage.setItem('sbo-theme', mode);
+        }
+
+        const storedTheme = localStorage.getItem('sbo-theme');
+        applyTheme(storedTheme || (prefersDark ? 'dark' : 'light'));
+
+        toggler.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            applyTheme(isDark ? 'light' : 'dark');
+        });
+
+        const metricObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = Number(el.dataset.target || '0');
+                    const start = performance.now();
+                    const duration = 1800;
+                    const step = now => {
+                        const progress = Math.min((now - start) / duration, 1);
+                        el.textContent = Math.floor(progress * target).toLocaleString('en-US');
+                        if (progress < 1) requestAnimationFrame(step);
+                    };
+                    requestAnimationFrame(step);
+                    metricObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        metricTargets.forEach(target => metricObserver.observe(target));
+    </script>
+</body>
+</html>

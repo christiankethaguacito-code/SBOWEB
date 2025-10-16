@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Officers | Student Body Organization - SKSU Isulan Campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-green-900: #0c3b28;
+            --brand-green-800: #0f4a32;
+            --brand-green-700: #14663d;
+            --brand-green-500: #1ea75a;
+            --brand-green-300: #c8f0d9;
+            --brand-gold: #ffcc4d;
+            --brand-cream: #f7faf5;
+            --brand-white: #ffffff;
+            --brand-deep: #0a1d14;
+            --brand-slate: #4a5a55;
+            --brand-muted: #6c7b74;
+            --border-soft: rgba(12, 59, 40, 0.12);
+            --shadow-soft: 0 18px 48px rgba(12, 59, 40, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--brand-cream);
+            color: var(--brand-deep);
+            line-height: 1.65;
+            min-height: 100vh;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+
+        .announcement-bar {
+            background: linear-gradient(135deg, var(--brand-green-900), var(--brand-green-700));
+            color: var(--brand-white);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .announcement-bar .container {
+            max-width: 1220px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-soft);
+            box-shadow: 0 12px 30px rgba(12, 59, 40, 0.06);
+        }
+
+        .nav-wrapper {
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 1.15rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--brand-green-900);
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: var(--brand-white);
+            padding: 0.35rem;
+            border: 1px solid var(--border-soft);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        nav a {
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 0.45rem 0.75rem;
+            border-radius: 999px;
+            color: var(--brand-slate);
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        nav a:is(:hover, .active) {
+            background: rgba(18, 102, 61, 0.12);
+            color: var(--brand-green-700);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-soft);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            color: var(--brand-slate);
+            background: var(--brand-white);
+        }
+
+        .theme-toggle:hover { background: rgba(18, 102, 61, 0.1); transform: translateY(-1px); }
+
+        .call-to-action {
+            padding: 0.65rem 1.1rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--brand-green-700), var(--brand-green-500));
+            color: var(--brand-white);
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .call-to-action:hover { transform: translateY(-2px); }
+
+        .role-badge {
+            justify-self: center;
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin-bottom: 0.35rem;
+        }
+
+        .badge-blue { background: #1b4ed0; color: #ffffff; }
+        .badge-green { background: #1ea75a; color: #ffffff; }
+        .badge-yellow { background: #f4b400; color: var(--brand-deep); }
+        .badge-orange { background: #f37c22; color: #ffffff; }
+        .badge-purple { background: #7d4bff; color: #ffffff; }
+        .badge-brown { background: #7a4f2e; color: #ffffff; }
+        .badge-black { background: #222222; color: #ffffff; }
+        .badge-white { background: rgba(255, 255, 255, 0.85); color: var(--brand-green-900); border: 1px solid rgba(12, 59, 40, 0.25); }
+        .badge-teal { background: #0f8b8d; color: #ffffff; }
+
+        main { overflow: hidden; }
+        section { padding: 5rem 1.5rem; }
+        .container { max-width: 1220px; margin: 0 auto; }
+
+        .page-hero {
+            position: relative;
+            padding: 6rem 1.5rem 5rem;
+            background: linear-gradient(120deg, rgba(12, 59, 40, 0.92), rgba(18, 102, 61, 0.78)), url('group1.jpg') center/cover no-repeat;
+            color: var(--brand-white);
+        }
+
+        .page-hero .container {
+            display: grid;
+            gap: 1rem;
+            max-width: 760px;
+        }
+
+        .page-hero h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); line-height: 1.1; font-weight: 700; }
+        .page-hero p { color: rgba(255, 255, 255, 0.85); font-size: 1.05rem; }
+
+        .officer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .officer-card {
+            background: var(--brand-white);
+            border-radius: 1.5rem;
+            padding: 1.75rem;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            justify-items: center;
+            gap: 0.75rem;
+            text-align: center;
+        }
+
+        .officer-card figure {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid rgba(18, 102, 61, 0.3);
+            display: grid;
+            place-items: center;
+            background: var(--brand-cream);
+        }
+
+        .officer-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .officer-card h3 { font-size: 1.15rem; color: var(--brand-green-900); }
+        .officer-card span { font-size: 0.9rem; color: var(--brand-muted); }
+        .officer-card p { font-size: 0.88rem; color: var(--brand-slate); }
+
+        .leadership {
+            background: var(--brand-cream);
+        }
+
+        .cluster {
+            margin-bottom: 3rem;
+        }
+
+        .cluster h2 {
+            font-size: 1.7rem;
+            margin-bottom: 1.5rem;
+            color: var(--brand-green-900);
+        }
+
+        footer {
+            background: var(--brand-green-900);
+            color: rgba(255, 255, 255, 0.82);
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        .footer-grid {
+            max-width: 1220px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-brand { font-size: 1.15rem; font-weight: 700; color: var(--brand-white); }
+        .footer-links a { display: block; margin-bottom: 0.6rem; color: rgba(255, 255, 255, 0.75); }
+
+        .footer-bottom {
+            max-width: 1220px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .dark body { background: #07160f; color: rgba(255, 255, 255, 0.9); }
+        .dark header { background: rgba(7, 22, 15, 0.96); border-bottom-color: rgba(255, 255, 255, 0.08); box-shadow: none; }
+        .dark nav a { color: rgba(255, 255, 255, 0.78); }
+        .dark nav a:is(:hover, .active) { background: rgba(30, 167, 90, 0.24); color: var(--brand-white); }
+        .dark .officer-card { background: rgba(7, 22, 15, 0.92); border-color: rgba(30, 167, 90, 0.24); }
+
+        @media (max-width: 1024px) {
+            nav { display: none; }
+            section { padding: 4.5rem 1.5rem; }
+        }
+
+        @media (max-width: 680px) {
+            section { padding: 4rem 1rem; }
+            .announcement-bar .container { flex-direction: column; align-items: flex-start; }
+            .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 520px) {
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="announcement-bar">
+        <div class="container">
+            <span>Meet the 2024-2025 Student Body Organization Executive Council.</span>
+            <span>Download the leadership charter at the bottom of this page.</span>
+        </div>
+    </div>
+    <header>
+        <div class="nav-wrapper">
+            <a class="brand" href="index.html" aria-label="Student Body Organization home">
+                <img src="logo.png" alt="SBO crest">
+                <div>Student Body Organization<br><small>SKSU Isulan Campus</small></div>
+            </a>
+            <nav aria-label="Primary navigation">
+                <a href="index.html">Home</a>
+                <a href="index.html#feature-video">Feature Reel</a>
+                <a href="newsroom.html">Newsroom</a>
+                <a href="initiatives.html">Initiatives</a>
+                <a href="impact.html">Impact</a>
+                <a href="events.html">Events</a>
+                <a href="officers.html" class="active">Officers</a>
+                <a href="connect.html">Connect</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <span id="theme-icon">&#9789;</span>
+                </button>
+                <a class="call-to-action" href="connect.html">Collaborate</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="call-to-action" style="width:max-content;">Leadership</div>
+                <h1>Student leaders powering shared governance and inclusive student life.</h1>
+                <p>Our executive officers, board members, support teams, and advisers co-create programs, policies, and partnerships anchored on student voices.</p>
+                <a class="call-to-action" href="https://drive.google.com" target="_blank" rel="noopener">Download leadership charter</a>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="cluster">
+                    <h2>Adviser</h2>
+                    <div class="officer-grid">
+                        <article class="officer-card">
+                            <span class="role-badge badge-green">Adviser</span>
+                            <figure><img src="officer-romel-recopuerto.jpg" alt="Adviser Romel P. Recopuerto"></figure>
+                            <h3>Romel P. Recopuerto</h3>
+                            <p>Provides oversight, mentorship, and alignment between the SBO council and university leadership.</p>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="cluster">
+                    <h2>Executive Officers</h2>
+                    <div class="officer-grid">
+                        <article class="officer-card">
+                            <span class="role-badge badge-blue">Governor</span>
+                            <figure><img src="Rayan.jpg" alt="Governor Rayan Hembra"></figure>
+                            <h3>Rayan Hembra</h3>
+                            <p>Guides the organization's vision and leads policy negotiations with university stakeholders.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-green">Vice Governor</span>
+                            <figure><img src="officer-franz-cadungog.jpg" alt="Vice Governor Franz Aldrich Cadungog"></figure>
+                            <h3>Franz Aldrich Cadungog</h3>
+                            <p>Coordinates cross-campus teams so initiatives land smoothly across colleges and sectors.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-yellow">Executive Secretary</span>
+                            <figure><img src="officer-angel-salome.jpg" alt="Executive Secretary Angel Assunta Salome"></figure>
+                            <h3>Angel Assunta Salome</h3>
+                            <p>Maintains deliberation records, agenda briefs, and compliance requirements for the council.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-orange">Public Relations Officer</span>
+                            <figure><img src="Marynn.jpg" alt="Public Relations Officer Marynn Angel Be&ntilde;as"></figure>
+                            <h3>Marynn Angel Be&ntilde;as</h3>
+                            <p>Amplifies student stories, manages media partnerships, and leads crisis communication.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-purple">Publication Officer</span>
+                            <figure><img src="officer-clareus-tubana.jpg" alt="Publication Officer Clareus Myrald P. Tuba&ntilde;a"></figure>
+                            <h3>Clareus Myrald P. Tuba&ntilde;a</h3>
+                            <p>Produces official releases and creatives that document SBO campaigns.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-purple">Publication Officer</span>
+                            <figure><img src="officer-axell-matulac.jpg" alt="Publication Officer Axell G. Matulac"></figure>
+                            <h3>Axell G. Matulac</h3>
+                            <p>Designs visual narratives and multimedia content to keep students informed.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-brown">External Treasurer</span>
+                            <figure><img src="officer-chzyle-suelan.jpg" alt="External Treasurer Chzyle N. Suelan"></figure>
+                            <h3>Chzyle N. Suelan</h3>
+                            <p>Stewards funding partnerships, sponsorships, and fiscal accountability with external partners.</p>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="cluster">
+                    <h2>Board Members</h2>
+                    <div class="officer-grid">
+                        <article class="officer-card">
+                            <span class="role-badge badge-blue">Board Member</span>
+                            <figure><img src="Edcel.jpg" alt="Board Member Edcel Mae Romero"></figure>
+                            <h3>Edcel Mae Romero</h3>
+                            <p>Strengthens representation for academic councils during policy deliberations.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-blue">Board Member</span>
+                            <figure><img src="officer-when-rose-laudato.jpg" alt="Board Member When Rose Laudato"></figure>
+                            <h3>When Rose Laudato</h3>
+                            <p>Coordinates community engagement briefings and constituency consults.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-blue">Board Member</span>
+                            <figure><img src="James Noel.jpg" alt="Board Member James Noel Laforteza"></figure>
+                            <h3>James Noel Laforteza</h3>
+                            <p>Monitors program milestones and shares insights from sector partners.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-blue">Board Member</span>
+                            <figure><img src="officer-hannah-ortiz.jpg" alt="Board Member Hannah Ortiz"></figure>
+                            <h3>Hannah Ortiz</h3>
+                            <p>Supports inclusive policy design and advocates for student welfare initiatives.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-blue">Board Member</span>
+                            <figure><img src="officer-kaithcel-ventura.jpg" alt="Board Member Kaithcel Ventura"></figure>
+                            <h3>Kaithcel Ventura</h3>
+                            <p>Leads campus forums that surface priorities from diverse student groups.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-blue">Board Member</span>
+                            <figure><img src="officer-michael-abad.jpg" alt="Board Member Michael M. Abad"></figure>
+                            <h3>Michael M. Abad</h3>
+                            <p>Guides legislative drafting and ensures resolutions are grounded in data.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-blue">Board Member</span>
+                            <figure><img src="officer-cristel-oribe.jpg" alt="Board Member Cristel Jade B. Oribe"></figure>
+                            <h3>Cristel Jade B. Oribe</h3>
+                            <p>Maintains links with student organizations to co-create joint initiatives.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-blue">Board Member</span>
+                            <figure><img src="officer-dapny-estolano.jpg" alt="Board Member Dapny Estolano"></figure>
+                            <h3>Dapny Estolano</h3>
+                            <p>Tracks implementation commitments and reports outcomes to the student body.</p>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="cluster">
+                    <h2>SBO Staff</h2>
+                    <div class="officer-grid">
+                        <article class="officer-card">
+                            <span class="role-badge badge-orange">Staff</span>
+                            <figure><img src="officer-marvin-caritativo.jpg" alt="SBO Staff Marvin Caritativo"></figure>
+                            <h3>Marvin Caritativo</h3>
+                            <p>Coordinates daily operations and manages logistics for flagship events.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-orange">Staff</span>
+                            <figure><img src="officer-christian-aguacito.jpg" alt="SBO Staff Christian Keth Aguacito"></figure>
+                            <h3>Christian Keth Aguacito</h3>
+                            <p>Supports digital platforms, documentation, and technical production.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-orange">Staff</span>
+                            <figure><img src="officer-john-loyd-mallo.jpg" alt="SBO Staff John Loyd Mallo"></figure>
+                            <h3>John Loyd Mallo</h3>
+                            <p>Assists program teams with venue setups and volunteer coordination.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-orange">Staff</span>
+                            <figure><img src="Clifford.jpg" alt="SBO Staff Clifford John Dolor"></figure>
+                            <h3>Clifford John Dolor</h3>
+                            <p>Handles technical requirements and on-site audiovisual support.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-orange">Staff</span>
+                            <figure><img src="officer-julia-ocado.jpg" alt="SBO Staff Julia Rey Ocado"></figure>
+                            <h3>Julia Rey Ocado</h3>
+                            <p>Leads helpdesk coverage and assists students with immediate concerns.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-orange">Staff</span>
+                            <figure><img src="officer-marwah-lidasan.jpg" alt="SBO Staff Marwah P. Lidasan"></figure>
+                            <h3>Marwah P. Lidasan</h3>
+                            <p>Organizes welfare drives and nurtures partnerships with service offices.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-orange">Staff</span>
+                            <figure><img src="Jericho.jpg" alt="SBO Staff Jericho Barangan"></figure>
+                            <h3>Jericho Barangan</h3>
+                            <p>Supports inventory management and resource deployment for programs.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-orange">Staff</span>
+                            <figure><img src="officer-ayman-apad.jpg" alt="SBO Staff Ayman Apad"></figure>
+                            <h3>Ayman Apad</h3>
+                            <p>Facilitates volunteer onboarding and assists with campus outreach.</p>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="cluster">
+                    <h2>Commissions</h2>
+                    <div class="officer-grid">
+                        <article class="officer-card">
+                            <span class="role-badge badge-purple">SCOMELEC</span>
+                            <figure><img src="officer-cheenelie-gregorio.jpg" alt="SCOMELEC Chair Cheenelie Gregorio"></figure>
+                            <h3>Cheenelie Gregorio</h3>
+                            <p>Leads the student commission on elections with integrity and transparency.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-purple">SCOMELEC</span>
+                            <figure><img src="Joe Jeth.jpg" alt="SCOMELEC Commissioner Joe Jeth T. Pun-an"></figure>
+                            <h3>Joe Jeth T. Pun-an</h3>
+                            <p>Ensures election procedures follow the SBO constitution and bylaws.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-purple">SCOMELEC</span>
+                            <figure><img src="officer-justine-paranga.jpg" alt="SCOMELEC Commissioner Justine Miles J. Paranga"></figure>
+                            <h3>Justine Miles J. Paranga</h3>
+                            <p>Manages poll operations, canvassing, and voter education campaigns.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-black">Commission on Audit</span>
+                            <figure><img src="John Dela Cruz.jpg" alt="Commission on Audit Member John Dela Cruz"></figure>
+                            <h3>John Dela Cruz</h3>
+                            <p>Audits financial performance and ensures compliance across SBO initiatives.</p>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="cluster">
+                    <h2>Representatives & Consultants</h2>
+                    <div class="officer-grid">
+                        <article class="officer-card">
+                            <span class="role-badge badge-teal">NABA Representative</span>
+                            <figure><img src="officer-michael-carcasitas.jpg" alt="Representative Michael T. Carcasitas"></figure>
+                            <h3>Michael T. Carcasitas</h3>
+                            <p>Advocates for the needs of NABA students within the SBO legislative agenda.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-teal">ESO Representative</span>
+                            <figure><img src="officer-carl-jason-tionson.jpg" alt="Representative Carl Jason Tionson"></figure>
+                            <h3>Carl Jason Tionson</h3>
+                            <p>Brings Extension Services Office perspectives into student-centered policies.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-teal">CCS Representative</span>
+                            <figure><img src="officer-gremae-asuncion.jpg" alt="Representative Gremae Asuncion"></figure>
+                            <h3>Gremae Asuncion</h3>
+                            <p>Champions tech and computing learners, ensuring programs stay future-ready.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-brown">Technical Consultant</span>
+                            <figure><img src="officer-jeron-lanciso.jpg" alt="Technical Consultant Jeron Gil C. Lanciso"></figure>
+                            <h3>Jeron Gil C. Lanciso</h3>
+                            <p>Provides expertise on governance design and performance evaluation.</p>
+                        </article>
+                        <article class="officer-card">
+                            <span class="role-badge badge-brown">Technical Consultant</span>
+                            <figure><img src="officer-sittie-badal.jpg" alt="Technical Consultant Sittie Alaiza M. Badal"></figure>
+                            <h3>Sittie Alaiza M. Badal</h3>
+                            <p>Advises on student development strategies and innovation lab initiatives.</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">Student Body Organization</div>
+                <p>Sultan Kudarat State University<br>Isulan Campus</p>
+            </div>
+            <div class="footer-links">
+                <strong>Explore</strong>
+                <a href="index.html">Home</a>
+                <a href="index.html#feature-video">Feature Reel</a>
+                <a href="newsroom.html">Newsroom</a>
+                <a href="initiatives.html">Initiatives</a>
+                <a href="impact.html">Impact</a>
+            </div>
+            <div class="footer-links">
+                <strong>Resources</strong>
+                <a href="connect.html">Contact SBO</a>
+                <a href="https://www.facebook.com/SKSUSBO" target="_blank" rel="noopener">Facebook Page</a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube Channel</a>
+            </div>
+            <div class="footer-links">
+                <strong>Visit</strong>
+                <span>Learning Commons, 2nd floor</span>
+                <a href="mailto:sbo@sksu.edu.ph">sbo@sksu.edu.ph</a>
+                <a href="tel:+639176001234">+63 917 600 1234</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2025 Student Body Organization, SKSU Isulan Campus. All rights reserved.</span>
+            <span>Leadership built on accountability and collaboration.</span>
+        </div>
+    </footer>
+
+    <script>
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const toggler = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+
+        function updateThemeIcon(mode) {
+            themeIcon.innerHTML = mode === 'dark' ? '&#9788;' : '&#9790;';
+        }
+
+        function applyTheme(mode) {
+            document.documentElement.classList.toggle('dark', mode === 'dark');
+            updateThemeIcon(mode);
+            localStorage.setItem('sbo-theme', mode);
+        }
+
+        const storedTheme = localStorage.getItem('sbo-theme');
+        applyTheme(storedTheme || (prefersDark ? 'dark' : 'light'));
+
+        toggler.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            applyTheme(isDark ? 'light' : 'dark');
+        });
+    </script>
+</body>
+</html>

@@ -1,1228 +1,639 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Student Body Organization | SKSU Isulan Campus</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-	<script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-U5Cznpk09kQd8159UVzci4aSbdpUaIMIqjlSHCuOCcBwQ0PpFPCRldKxt0ttXtsi" crossorigin="anonymous"></script>
-	<style>
-		:root {
-			--green-900: #0e472a;
-			--green-700: #11783e;
-			--green-500: #17a854;
-			--green-100: #e5f6ec;
-			--yellow-400: #ffd042;
-			--gray-900: #0f172a;
-			--gray-700: #1f2937;
-			--gray-500: #6b7280;
-			--gray-300: #d1d5db;
-			--gray-200: #e5e7eb;
-			--white: #ffffff;
-			--shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.12);
-		}
-
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
-
-		body {
-			font-family: 'Inter', sans-serif;
-			background: linear-gradient(180deg, var(--white) 0%, #f4fbf6 40%, var(--white) 100%);
-			color: var(--gray-900);
-			line-height: 1.6;
-		}
-
-		img {
-			max-width: 100%;
-			display: block;
-		}
-
-		a {
-			color: inherit;
-			text-decoration: none;
-		}
-
-		ul { list-style: none; }
-
-		header {
-			position: sticky;
-			top: 0;
-			z-index: 1000;
-			backdrop-filter: blur(12px);
-			background: rgba(255, 255, 255, 0.9);
-			border-bottom: 1px solid rgba(17, 120, 62, 0.1);
-		}
-
-		.nav-wrapper {
-			max-width: 1200px;
-			margin: 0 auto;
-			padding: 1.25rem 1.5rem;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-		}
-
-		.brand {
-			display: flex;
-			align-items: center;
-			gap: 0.75rem;
-			font-weight: 700;
-			font-size: 1.05rem;
-			color: var(--green-900);
-		}
-
-		.brand span {
-			display: inline-block;
-			padding: 0.45rem 0.65rem;
-			border-radius: 0.75rem;
-			background: var(--green-100);
-			color: var(--green-700);
-			font-size: 0.85rem;
-			font-weight: 600;
-		}
-
-		nav {
-			display: flex;
-			align-items: center;
-			gap: 1.25rem;
-		}
-
-		nav a {
-			font-size: 0.95rem;
-			font-weight: 500;
-			padding: 0.35rem 0.65rem;
-			border-radius: 999px;
-			transition: all 0.25s ease;
-		}
-
-		nav a:is(:hover, .active) {
-			background: rgba(23, 168, 84, 0.12);
-			color: var(--green-700);
-		}
-
-		.nav-actions {
-			display: flex;
-			align-items: center;
-			gap: 0.75rem;
-		}
-
-		.theme-toggle {
-			width: 40px;
-			height: 40px;
-			border-radius: 50%;
-			border: 1px solid rgba(17, 120, 62, 0.2);
-			display: grid;
-			place-items: center;
-			cursor: pointer;
-			transition: background 0.3s ease;
-		}
-
-		.theme-toggle:hover { background: rgba(14, 71, 42, 0.08); }
-
-		.call-to-action {
-			padding: 0.65rem 1.1rem;
-			border-radius: 999px;
-			background: linear-gradient(135deg, var(--green-700), var(--green-500));
-			color: var(--white);
-			font-weight: 600;
-			font-size: 0.95rem;
-			box-shadow: var(--shadow-sm);
-			transition: transform 0.3s ease;
-		}
-
-		.call-to-action:hover { transform: translateY(-2px); }
-
-		main { overflow: hidden; }
-
-		section {
-			padding: 5rem 1.5rem;
-		}
-
-		.container {
-			max-width: 1200px;
-			margin: 0 auto;
-		}
-
-		.hero {
-			display: grid;
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 3rem;
-			align-items: center;
-		}
-
-		.hero-copy h1 {
-			font-size: clamp(2.4rem, 4vw, 3.4rem);
-			font-weight: 700;
-			margin-bottom: 1.25rem;
-			color: var(--green-900);
-		}
-
-		.hero-copy p {
-			font-size: 1.05rem;
-			color: var(--gray-700);
-			margin-bottom: 1.75rem;
-		}
-
-		.hero-deck {
-			display: grid;
-			gap: 1rem;
-		}
-
-		.hero-stat {
-			padding: 1.25rem;
-			border-radius: 1.1rem;
-			background: var(--white);
-			box-shadow: var(--shadow-sm);
-		}
-
-		.hero-stat strong {
-			display: block;
-			font-size: 2rem;
-			color: var(--green-700);
-		}
-
-		.hero-media {
-			position: relative;
-			isolation: isolate;
-		}
-
-		.hero-media::before {
-			content: "";
-			position: absolute;
-			inset: -12%;
-			background: radial-gradient(circle at 30% 30%, rgba(255, 208, 66, 0.35), transparent 55%), radial-gradient(circle at 80% 20%, rgba(17, 168, 84, 0.25), transparent 60%);
-			z-index: -1;
-		}
-
-		.hero-media img {
-			border-radius: 1.5rem;
-			box-shadow: var(--shadow-sm);
-		}
-
-		.section-heading {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			gap: 1.5rem;
-			margin-bottom: 2.75rem;
-		}
-
-		.section-heading h2 {
-			font-size: clamp(1.75rem, 3vw, 2.5rem);
-			color: var(--green-900);
-		}
-
-		.section-subtitle {
-			max-width: 520px;
-			color: var(--gray-700);
-		}
-
-		.cards-grid {
-			display: grid;
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-			gap: 1.75rem;
-		}
-
-		.card {
-			background: var(--white);
-			border-radius: 1.25rem;
-			box-shadow: var(--shadow-sm);
-			padding: 2rem;
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
-		}
-
-		.card:hover {
-			transform: translateY(-8px);
-			box-shadow: 0 16px 40px rgba(17, 120, 62, 0.12);
-		}
-
-		.card span {
-			display: inline-block;
-			font-weight: 600;
-			color: var(--green-700);
-			margin-bottom: 1rem;
-		}
-
-		.card h3 {
-			font-size: 1.35rem;
-			margin-bottom: 0.75rem;
-			color: var(--gray-900);
-		}
-
-		.card p {
-			color: var(--gray-700);
-			font-size: 0.95rem;
-		}
-
-		.timeline {
-			display: grid;
-			gap: 1.5rem;
-		}
-
-		.timeline-event {
-			display: grid;
-			grid-template-columns: 120px 1fr;
-			gap: 1.5rem;
-			align-items: center;
-			background: var(--white);
-			border-radius: 1.25rem;
-			padding: 1.5rem;
-			box-shadow: var(--shadow-sm);
-		}
-
-		.timeline-event time {
-			font-weight: 700;
-			color: var(--green-700);
-			font-size: 1.1rem;
-		}
-
-		.timeline-event h4 { margin-bottom: 0.5rem; }
-
-		.filter-controls {
-			display: flex;
-			gap: 0.75rem;
-			flex-wrap: wrap;
-			margin-bottom: 2rem;
-		}
-
-		.filter-controls button {
-			padding: 0.5rem 1rem;
-			border-radius: 999px;
-			border: 1px solid rgba(17, 120, 62, 0.2);
-			background: var(--white);
-			color: var(--gray-700);
-			cursor: pointer;
-			font-weight: 500;
-			transition: all 0.25s ease;
-		}
-
-		.filter-controls button.active {
-			background: var(--green-700);
-			border-color: var(--green-700);
-			color: var(--white);
-		}
-
-		.officers-grid {
-			display: grid;
-			grid-template-columns: repeat(4, minmax(0, 1fr));
-			gap: 1.5rem;
-		}
-
-		.officer-card {
-			background: var(--white);
-			border-radius: 1.5rem;
-			padding: 1.5rem;
-			text-align: center;
-			box-shadow: var(--shadow-sm);
-			transition: transform 0.3s ease;
-		}
-
-		.officer-card:hover { transform: translateY(-6px); }
-
-		.officer-card img {
-			width: 96px;
-			height: 96px;
-			border-radius: 50%;
-			margin: 0 auto 1rem;
-			object-fit: cover;
-			border: 4px solid rgba(17, 120, 62, 0.1);
-		}
-
-		.officer-name {
-			font-weight: 600;
-			color: var(--gray-900);
-		}
-
-		.officer-role {
-			color: var(--green-700);
-			font-size: 0.9rem;
-		}
-
-		.metrics {
-			display: grid;
-			grid-template-columns: repeat(4, minmax(0, 1fr));
-			gap: 1.5rem;
-		}
-
-		.metric-card {
-			background: var(--white);
-			padding: 1.75rem;
-			border-radius: 1.25rem;
-			text-align: center;
-			box-shadow: var(--shadow-sm);
-		}
-
-		.metric-card strong {
-			display: block;
-			font-size: 2.1rem;
-			color: var(--green-700);
-		}
-
-		.initatives-grid {
-			display: grid;
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 1.5rem;
-		}
-
-		.initiative {
-			background: var(--white);
-			padding: 2rem;
-			border-radius: 1.25rem;
-			box-shadow: var(--shadow-sm);
-		}
-
-		.initiative h3 {
-			color: var(--green-900);
-			margin-bottom: 0.75rem;
-		}
-
-		.initiative ul { list-style: disc; margin-left: 1.25rem; }
-
-		.initiative li {
-			margin-bottom: 0.5rem;
-			color: var(--gray-700);
-		}
-
-		.spotlight {
-			background: var(--green-900);
-			border-radius: 1.5rem;
-			padding: 2.5rem;
-			color: var(--white);
-			display: grid;
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			gap: 2rem;
-			align-items: center;
-		}
-
-		.spotlight h3 {
-			font-size: 2rem;
-			margin-bottom: 1rem;
-		}
-
-		.spotlight p { color: rgba(255, 255, 255, 0.92); }
-
-		.timeline-empty {
-			text-align: center;
-			padding: 3rem;
-			background: var(--white);
-			border-radius: 1.5rem;
-			box-shadow: var(--shadow-sm);
-			color: var(--gray-500);
-		}
-
-		.htmx-indicator {
-			display: inline-flex;
-			align-items: center;
-			gap: 0.5rem;
-			background: rgba(17, 120, 62, 0.12);
-			color: var(--green-700);
-			padding: 0.5rem 0.85rem;
-			border-radius: 999px;
-			font-size: 0.85rem;
-			opacity: 0;
-			transition: opacity 0.3s ease;
-		}
-
-		.htmx-request.htmx-indicator { opacity: 1; }
-
-		.accordion {
-			display: grid;
-			gap: 1rem;
-		}
-
-		.accordion-item {
-			background: var(--white);
-			border-radius: 1.25rem;
-			box-shadow: var(--shadow-sm);
-			overflow: hidden;
-		}
-
-		.accordion-header {
-			width: 100%;
-			background: none;
-			border: 0;
-			padding: 1.25rem 1.5rem;
-			text-align: left;
-			font-weight: 600;
-			font-size: 1rem;
-			cursor: pointer;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			gap: 1rem;
-		}
-
-		.accordion-header span { color: var(--green-700); }
-
-		.accordion-content {
-			max-height: 0;
-			overflow: hidden;
-			transition: max-height 0.35s ease;
-			padding: 0 1.5rem;
-		}
-
-		.accordion-content p {
-			padding-bottom: 1.5rem;
-			color: var(--gray-700);
-		}
-
-		.newsletter {
-			background: var(--white);
-			padding: 2.5rem;
-			border-radius: 1.5rem;
-			box-shadow: var(--shadow-sm);
-			display: grid;
-			grid-template-columns: 1.3fr 1fr;
-			gap: 2rem;
-			align-items: center;
-		}
-
-		.newsletter form {
-			display: grid;
-			gap: 1rem;
-		}
-
-		.newsletter input,
-		.newsletter textarea {
-			width: 100%;
-			padding: 0.9rem 1.1rem;
-			border-radius: 0.85rem;
-			border: 1px solid var(--gray-200);
-			font-family: inherit;
-			font-size: 0.95rem;
-		}
-
-		.newsletter button {
-			padding: 0.9rem 1.2rem;
-			border: 0;
-			border-radius: 0.85rem;
-			background: linear-gradient(135deg, var(--green-700), var(--green-500));
-			color: var(--white);
-			font-weight: 600;
-			cursor: pointer;
-		}
-
-		.newsletter small {
-			color: var(--gray-500);
-		}
-
-		footer {
-			padding: 3rem 1.5rem 4rem;
-			background: var(--gray-900);
-			color: rgba(255, 255, 255, 0.78);
-		}
-
-		.footer-grid {
-			max-width: 1200px;
-			margin: 0 auto;
-			display: grid;
-			grid-template-columns: repeat(4, minmax(0, 1fr));
-			gap: 2rem;
-		}
-
-		.footer-brand {
-			font-size: 1.1rem;
-			font-weight: 600;
-			color: var(--white);
-		}
-
-		.footer-links a {
-			display: block;
-			margin-bottom: 0.5rem;
-			color: rgba(255, 255, 255, 0.75);
-		}
-
-		.footer-bottom {
-			margin-top: 2rem;
-			padding-top: 1.5rem;
-			border-top: 1px solid rgba(255, 255, 255, 0.1);
-			display: flex;
-			justify-content: space-between;
-			flex-wrap: wrap;
-			gap: 1rem;
-		}
-
-		.pill {
-			display: inline-flex;
-			align-items: center;
-			gap: 0.45rem;
-			padding: 0.35rem 0.65rem;
-			border-radius: 999px;
-			background: rgba(17, 120, 62, 0.1);
-			color: var(--green-700);
-			font-size: 0.75rem;
-			font-weight: 600;
-		}
-
-		.modal-backdrop {
-			position: fixed;
-			inset: 0;
-			background: rgba(15, 23, 42, 0.55);
-			display: none;
-			align-items: center;
-			justify-content: center;
-			padding: 1.5rem;
-			z-index: 2000;
-		}
-
-		.modal {
-			background: var(--white);
-			max-width: 520px;
-			width: 100%;
-			border-radius: 1.25rem;
-			padding: 2rem;
-			box-shadow: 0 24px 64px rgba(15, 23, 42, 0.22);
-		}
-
-		.modal header {
-			position: static;
-			border-bottom: none;
-			background: none;
-			padding: 0;
-			margin-bottom: 1rem;
-		}
-
-		.modal-close {
-			border: none;
-			background: none;
-			font-size: 1.5rem;
-			cursor: pointer;
-			color: var(--gray-500);
-		}
-
-		.status-banner {
-			background: var(--white);
-			border-radius: 1.25rem;
-			padding: 1.5rem;
-			box-shadow: var(--shadow-sm);
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-			gap: 1.25rem;
-			align-items: center;
-		}
-
-		.status-item strong { display: block; color: var(--green-900); }
-
-		.dark body { background: #0b1a11; color: rgba(255, 255, 255, 0.9); }
-
-		.dark header { background: rgba(15, 23, 42, 0.8); border-bottom-color: rgba(23, 168, 84, 0.2); }
-
-		.dark nav a { color: rgba(255, 255, 255, 0.78); }
-
-		.dark nav a:is(:hover, .active) { background: rgba(23, 168, 84, 0.3); color: var(--white); }
-
-		.dark .card,
-		.dark .timeline-event,
-		.dark .officer-card,
-		.dark .initiative,
-		.dark .newsletter,
-		.dark .metric-card,
-		.dark .status-banner,
-		.dark .accordion-item { background: rgba(15, 23, 42, 0.92); color: rgba(255, 255, 255, 0.9); }
-
-		.dark .newsletter input,
-		.dark .newsletter textarea { background: rgba(11, 26, 17, 0.8); border-color: rgba(23, 168, 84, 0.3); color: rgba(255, 255, 255, 0.88); }
-
-		.dark .timeline-empty { background: rgba(15, 23, 42, 0.92); }
-
-		.dark .accordion-header { color: rgba(255, 255, 255, 0.92); }
-
-		.dark .accordion-content p { color: rgba(255, 255, 255, 0.75); }
-
-		@media (max-width: 999px) {
-			nav { display: none; }
-			.call-to-action { display: none; }
-		}
-
-		@media (max-width: 900px) {
-			.hero { grid-template-columns: 1fr; }
-			.hero-media { order: -1; }
-			.cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-			.officers-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-			.metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-			.initatives-grid { grid-template-columns: 1fr; }
-			.spotlight { grid-template-columns: 1fr; text-align: center; }
-			.newsletter { grid-template-columns: 1fr; }
-		}
-
-		@media (max-width: 640px) {
-			.nav-wrapper { padding: 1rem; }
-			section { padding: 4rem 1rem; }
-			.cards-grid { grid-template-columns: 1fr; }
-			.officers-grid { grid-template-columns: 1fr; }
-			.metrics { grid-template-columns: 1fr; }
-			.timeline-event { grid-template-columns: 1fr; }
-			.footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-		}
-
-		@media (max-width: 480px) {
-			.footer-grid { grid-template-columns: 1fr; }
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Body Organization | SKSU Isulan Campus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-green-900: #0c3b28;
+            --brand-green-800: #0f4a32;
+            --brand-green-700: #14663d;
+            --brand-green-500: #1ea75a;
+            --brand-green-300: #c8f0d9;
+            --brand-gold: #ffcc4d;
+            --brand-cream: #f7faf5;
+            --brand-white: #ffffff;
+            --brand-deep: #0a1d14;
+            --brand-slate: #4a5a55;
+            --brand-muted: #6c7b74;
+            --border-soft: rgba(12, 59, 40, 0.12);
+            --border-strong: rgba(12, 59, 40, 0.24);
+            --shadow-soft: 0 18px 48px rgba(12, 59, 40, 0.12);
+            --shadow-sm: 0 10px 24px rgba(12, 59, 40, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--brand-cream);
+            color: var(--brand-deep);
+            line-height: 1.65;
+            min-height: 100vh;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul { list-style: none; }
+
+        button { font-family: inherit; }
+
+        .announcement-bar {
+            background: linear-gradient(135deg, var(--brand-green-900), var(--brand-green-700));
+            color: var(--brand-white);
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .announcement-bar .container {
+            max-width: 1220px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .announcement-bar span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-soft);
+            box-shadow: 0 12px 30px rgba(12, 59, 40, 0.06);
+        }
+
+        .nav-wrapper {
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 1.15rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--brand-green-900);
+        }
+
+        .brand img {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: var(--brand-white);
+            padding: 0.35rem;
+            border: 1px solid var(--border-soft);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        nav a {
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 0.45rem 0.75rem;
+            border-radius: 999px;
+            color: var(--brand-slate);
+            transition: background 0.25s ease, color 0.25s ease;
+        }
+
+        nav a:is(:hover, .active) {
+            background: rgba(18, 102, 61, 0.12);
+            color: var(--brand-green-700);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid var(--border-soft);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            color: var(--brand-slate);
+            background: var(--brand-white);
+        }
+
+        .theme-toggle:hover { background: rgba(18, 102, 61, 0.1); transform: translateY(-1px); }
+
+        .call-to-action {
+            padding: 0.65rem 1.1rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--brand-green-700), var(--brand-green-500));
+            color: var(--brand-white);
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .call-to-action:hover { transform: translateY(-2px); }
+
+        main { overflow: hidden; }
+
+        section { padding: 5rem 1.5rem; }
+
+        .container { max-width: 1220px; margin: 0 auto; }
+
+        .showcase {
+            position: relative;
+            padding: 0;
+            min-height: 520px;
+            display: grid;
+            place-items: stretch;
+            isolation: isolate;
+            overflow: hidden;
+        }
+
+        .showcase img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.02);
+            filter: brightness(0.78);
+            transition: opacity 0.6s ease;
+        }
+
+        .showcase::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(12, 59, 40, 0.85) 0%, rgba(12, 59, 40, 0.45) 45%, rgba(12, 59, 40, 0.15) 100%);
+            z-index: 0;
+        }
+
+        .showcase-content {
+            position: relative;
+            z-index: 1;
+            padding: 4.5rem 1.5rem;
+            max-width: 1220px;
+            margin: 0 auto;
+            display: grid;
+            gap: 1.5rem;
+            color: var(--brand-white);
+        }
+
+        .showcase-content .pill {
+            background: rgba(255, 204, 77, 0.18);
+            color: #ffe6a6;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .showcase-content h1 {
+            font-size: clamp(2.35rem, 4vw, 3.4rem);
+            line-height: 1.1;
+            font-weight: 700;
+        }
+
+        .showcase-content p {
+            max-width: 640px;
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        .showcase-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .ghost-button {
+            padding: 0.65rem 1rem;
+            border-radius: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.52);
+            background: transparent;
+            color: var(--brand-white);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .ghost-button:hover { background: rgba(255, 255, 255, 0.2); }
+
+        .showcase-controls {
+            position: absolute;
+            inset: auto 1.5rem 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 2;
+            gap: 1.25rem;
+        }
+
+        .slide-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .slide-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(12, 59, 40, 0.4);
+            color: var(--brand-white);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .slide-btn:hover { background: rgba(255, 255, 255, 0.22); }
+
+        .slide-dots {
+            display: inline-flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .slide-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .slide-dot.active {
+            background: var(--brand-gold);
+            transform: scale(1.2);
+        }
+
+        .feature-video {
+            background: var(--brand-cream);
+            padding: 0 1.5rem 4rem;
+        }
+
+        .feature-video-content {
+            max-width: 1220px;
+            margin: 3rem auto 0;
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .feature-video-copy .section-title { margin-bottom: 0.75rem; }
+
+        .feature-video-wrapper {
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            background: var(--brand-deep);
+        }
+
+        .feature-video-player {
+            width: 100%;
+            display: block;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 3vw, 2.4rem);
+            color: var(--brand-green-900);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--brand-muted);
+            max-width: 640px;
+        }
+
+        footer {
+            background: var(--brand-green-900);
+            color: rgba(255, 255, 255, 0.82);
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        .footer-grid {
+            max-width: 1220px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-brand {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--brand-white);
+        }
+
+        .footer-links a {
+            display: block;
+            margin-bottom: 0.6rem;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .footer-bottom {
+            max-width: 1220px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .dark body { background: #07160f; color: rgba(255, 255, 255, 0.9); }
+
+        .dark header { background: rgba(7, 22, 15, 0.96); border-bottom-color: rgba(255, 255, 255, 0.08); box-shadow: none; }
+
+        .dark nav a { color: rgba(255, 255, 255, 0.78); }
+
+        .dark nav a:is(:hover, .active) { background: rgba(30, 167, 90, 0.24); color: var(--brand-white); }
+
+        @media (max-width: 1024px) {
+            nav { display: none; }
+            .showcase-content { padding: 3.5rem 1.5rem; }
+            .showcase-controls { inset: auto 1.5rem 1.5rem; }
+            .feature-video { padding: 2rem 1.5rem 4rem; }
+            .feature-video-content {
+                margin-top: 0;
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 680px) {
+            section { padding: 4rem 1rem; }
+            .announcement-bar .container { flex-direction: column; align-items: flex-start; }
+            .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .showcase-controls { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+            .slide-nav { gap: 0.5rem; }
+            .feature-video { padding: 1rem 1rem 3.5rem; }
+            .feature-video-wrapper { border-radius: 1rem; }
+        }
+
+        @media (max-width: 520px) {
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-	<header>
-		<div class="nav-wrapper">
-			<a class="brand" href="#home" aria-label="Student Body Organization home">
-				<span>SBO</span>
-				Student Body Organization<br>SKSU Isulan Campus
-			</a>
-			<nav aria-label="Primary navigation">
-				<a href="#home" class="active">Home</a>
-				<a href="#about">About</a>
-				<a href="#initiatives">Initiatives</a>
-				<a href="#events">Events</a>
-				<a href="#officers">Officers</a>
-				<a href="#contact">Contact</a>
-			</nav>
-			<div class="nav-actions">
-				<button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-					<span id="theme-icon">&#9789;</span>
-				</button>
-				<a class="call-to-action" href="#contact">Join SBO</a>
-			</div>
-		</div>
-	</header>
+    <div class="announcement-bar">
+        <div class="container">
+            <span>OneSBO Spotlight: Innovation Sprints return October 28 - November 15.</span>
+            <span>Need assistance? Email <a href="mailto:sbo@sksu.edu.ph" style="color:#ffe6a6;">sbo@sksu.edu.ph</a> or visit the SBO Hub.</span>
+        </div>
+    </div>
+    <header>
+        <div class="nav-wrapper">
+            <a class="brand" href="#showcase" aria-label="Student Body Organization home">
+                <img src="logo.png" alt="SBO crest">
+                <div>Student Body Organization<br><small>SKSU Isulan Campus</small></div>
+            </a>
+            <nav aria-label="Primary navigation">
+                    <a href="index.html" class="active">Home</a>
+                    <a href="index.html#feature-video">Feature Reel</a>
+                    <a href="newsroom.html">Newsroom</a>
+                    <a href="initiatives.html">Initiatives</a>
+                    <a href="impact.html">Impact</a>
+                    <a href="events.html">Events</a>
+                    <a href="officers.html">Officers</a>
+                    <a href="connect.html">Connect</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <span id="theme-icon">&#9789;</span>
+                </button>
+                    <a class="call-to-action" href="connect.html">Join SBO</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section id="showcase" class="showcase" data-nav-target="showcase">
+            <img src="group.jpg" alt="SBO leaders collaborating at SKSU Isulan Campus" id="showcase-image">
+            <div class="showcase-content">
+                <div class="pill" id="showcase-tag">Student Leadership</div>
+                <h1 id="showcase-title">SBO charts a student-first agenda for A.Y. 2025-2026</h1>
+                <p id="showcase-excerpt">We amplify student voices through collaborative governance, inclusive engagement, and future-ready programs rooted in the SKSU Isulan experience.</p>
+                <div class="showcase-actions">
+                    <a class="call-to-action" id="showcase-link" href="index.html#feature-video">Explore the feature reel</a>
+                </div>
+            </div>
+            <div class="showcase-controls">
+                <div class="slide-nav">
+                    <button class="slide-btn" id="slide-prev" aria-label="Previous headline">&#10094;</button>
+                    <button class="slide-btn" id="slide-next" aria-label="Next headline">&#10095;</button>
+                </div>
+                <div class="slide-dots" id="slide-dots"></div>
+            </div>
+        </section>
 
-	<main>
-		<section id="home">
-			<div class="container hero">
-				<div class="hero-copy">
-					<div class="pill">Vision 2025: Student-led, Future-ready</div>
-					<h1>Amplifying the student voice and shaping a vibrant SKSU community.</h1>
-					<p>We empower every SKSU Isulan student to lead, collaborate, and create positive impact across academics, culture, and community development.</p>
-					<div class="hero-deck">
-						<div class="hero-stat">
-							<strong id="engaged-count">0</strong>
-							Active members across colleges
-						</div>
-						<div class="hero-stat">
-							<strong id="initiative-count">0</strong>
-							Initiatives completed this semester
-						</div>
-						<div class="hero-stat">
-							<strong id="volunteer-hours">0</strong> Volunteer hours logged in 2025
-						</div>
-					</div>
-				</div>
-				<div class="hero-media">
-					<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80" alt="Students collaborating at SKSU campus">
-				</div>
-			</div>
-		</section>
+        <section id="feature-video" class="feature-video" data-nav-target="feature-video" aria-labelledby="feature-video-title">
+            <div class="container">
+                <div class="feature-video-content">
+                    <div class="feature-video-copy">
+                        <h2 class="section-title" id="feature-video-title">Feature Reel</h2>
+                        <p class="section-subtitle">Experience the latest highlights from the Student Body Organization—streamed directly from campus events and initiatives.</p>
+                    </div>
+                    <div class="feature-video-wrapper">
+                        <video class="feature-video-player" src="feature.mp4" poster="group.jpg" autoplay muted loop playsinline controls>
+                            Sorry, your browser does not support embedded videos.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-		<section id="about">
-			<div class="container">
-				<div class="section-heading">
-					<h2>Who We Are</h2>
-					<p class="section-subtitle">The Student Body Organization of SKSU Isulan Campus unites leaders, advocates, and creatives to co-design breakthrough student experiences.</p>
-				</div>
-				<div class="cards-grid">
-					<article class="card">
-						<span>Our Mission</span>
-						<h3>Champion student-centered governance</h3>
-						<p>We cultivate inclusive leadership, amplify student rights, and co-create programs that respond to the needs and aspirations of the SKSU community.</p>
-					</article>
-					<article class="card">
-						<span>Our Promise</span>
-						<h3>Transparency, empathy, and action</h3>
-						<p>Through open dialogues, data-driven decisions, and collaborative partnerships, we make sure every student story translates into meaningful change.</p>
-					</article>
-					<article class="card">
-						<span>Our Culture</span>
-						<h3>Lead with purpose, serve with heart</h3>
-						<p>We nurture servant-leaders who model integrity, push for innovation, and celebrate the diverse identities and talents of SKSU Isulan students.</p>
-					</article>
-				</div>
-			</div>
-		</section>
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">Student Body Organization</div>
+                <p>Sultan Kudarat State University<br>Isulan Campus</p>
+            </div>
+            <div class="footer-links">
+                <strong>Explore</strong>
+                <a href="index.html">Home</a>
+                <a href="index.html#feature-video">Feature Reel</a>
+                <a href="newsroom.html">Newsroom</a>
+                <a href="initiatives.html">Initiatives</a>
+                <a href="impact.html">Impact</a>
+                <a href="events.html">Events</a>
+                <a href="officers.html">Officers</a>
+                <a href="connect.html">Connect</a>
+            </div>
+            <div class="footer-links">
+                <strong>Resources</strong>
+                <a href="mailto:sbo@sksu.edu.ph">Contact SBO</a>
+                <a href="https://www.facebook.com/SKSUSBO" target="_blank" rel="noopener">Facebook Page</a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube Channel</a>
+            </div>
+            <div class="footer-links">
+                <strong>Contact</strong>
+                <a href="mailto:sbo@sksu.edu.ph">sbo@sksu.edu.ph</a>
+                <a href="tel:+639176001234">+63 917 600 1234</a>
+                <span>Learning Commons, 2nd floor</span>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2025 Student Body Organization, SKSU Isulan Campus. All rights reserved.</span>
+            <span>Your partner in student leadership and community impact.</span>
+        </div>
+    </footer>
 
-		<section id="status">
-			<div class="container">
-				<div class="section-heading">
-					<h2>Campus Pulse</h2>
-					<p class="section-subtitle">A quick snapshot of live updates coming from our community-driven dashboard.</p>
-				</div>
-				<div class="status-banner" id="status-board">
-					<div class="status-item">
-						<small class="pill">Election</small>
-						<strong>Student Assembly voting opens Oct 22</strong>
-						<span>Check your SKSU email for verification link.</span>
-					</div>
-					<div class="status-item">
-						<small class="pill">Volunteer</small>
-						<strong>River Clean-up drive needs 27 more hands</strong>
-						<span>Sign up before slots fill this Friday.</span>
-					</div>
-					<div class="status-item">
-						<small class="pill">Announcement</small>
-						<strong>SBO Hub open daily 8 AM - 6 PM</strong>
-						<span>Visit the Learning Commons, 2nd floor.</span>
-					</div>
-				</div>
-			</div>
-		</section>
+    <script>
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const toggler = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
 
-		<section id="initiatives">
-			<div class="container">
-				<div class="section-heading">
-					<h2>Initiatives That Matter</h2>
-					<p class="section-subtitle">We launch multi-semester programs to elevate student well-being, academic excellence, and community-driven change.</p>
-				</div>
-				<div class="initatives-grid">
-					<article class="initiative">
-						<h3>Academic & Career Accelerator</h3>
-						<ul>
-							<li>Peer-led review hubs for licensure prep and major courses.</li>
-							<li>Career roadmapping with alumni mentors and industry partners.</li>
-							<li>Innovation labs showcasing student-led research prototypes.</li>
-						</ul>
-					</article>
-					<article class="initiative">
-						<h3>Wellness & Inclusion Collective</h3>
-						<ul>
-							<li>Mental health first response training for peer counselors.</li>
-							<li>Affinity gatherings celebrating culture, arts, and student diversity.</li>
-							<li>Accessible campus advocacy with quarterly progress reporting.</li>
-						</ul>
-					</article>
-					<article class="initiative">
-						<h3>Community Impact Network</h3>
-						<ul>
-							<li>Service sprints supporting barangay partners in Sultan Kudarat.</li>
-							<li>Social enterprise bootcamps with local MSMEs.</li>
-							<li>Annual impact summit amplifying student-led change stories.</li>
-						</ul>
-					</article>
-					<article class="initiative">
-						<h3>Future-ready Leaders Program</h3>
-						<ul>
-							<li>Leadership residencies with campus offices and NGOs.</li>
-							<li>Project grants for cross-college collaborative solutions.</li>
-							<li>Digital literacy accelerators advancing tech-driven projects.</li>
-						</ul>
-					</article>
-				</div>
-			</div>
-		</section>
+        function updateThemeIcon(mode) {
+            themeIcon.innerHTML = mode === 'dark' ? '&#9788;' : '&#9790;';
+        }
 
-		<section id="events">
-			<div class="container">
-				<div class="section-heading">
-					<h2>Upcoming & Recent Events</h2>
-					<p class="section-subtitle">Explore programs tailored for every SKSU student. Filter by the experience you are looking for.</p>
-				</div>
-				<div class="filter-controls" role="group" aria-label="Filter events">
-					<button class="active" hx-get="partials/events-all.html" hx-target="#events-timeline" hx-swap="innerHTML" hx-indicator="#events-loading">All Events</button>
-					<button hx-get="partials/events-academic.html" hx-target="#events-timeline" hx-swap="innerHTML" hx-indicator="#events-loading">Academic</button>
-					<button hx-get="partials/events-leadership.html" hx-target="#events-timeline" hx-swap="innerHTML" hx-indicator="#events-loading">Leadership</button>
-					<button hx-get="partials/events-community.html" hx-target="#events-timeline" hx-swap="innerHTML" hx-indicator="#events-loading">Community</button>
-					<button hx-get="partials/events-culture.html" hx-target="#events-timeline" hx-swap="innerHTML" hx-indicator="#events-loading">Culture &amp; Arts</button>
-				</div>
-				<div class="timeline" id="events-timeline" aria-live="polite" hx-get="partials/events-all.html" hx-trigger="load" hx-target="this" hx-swap="innerHTML" hx-indicator="#events-loading">
-					<div class="timeline-empty">Loading events...</div>
-				</div>
-				<div id="events-loading" class="htmx-indicator" role="status">Loading events…</div>
-			</div>
-		</section>
+        function applyTheme(mode) {
+            document.documentElement.classList.toggle('dark', mode === 'dark');
+            updateThemeIcon(mode);
+            localStorage.setItem('sbo-theme', mode);
+        }
 
-		<section id="officers">
-			<div class="container">
-				<div class="section-heading">
-					<h2>Meet the 2025 Executive Board</h2>
-					<p class="section-subtitle">The SBO Executive Board collaborates with college councils and student organizations to deliver unified, student-first governance.</p>
-				</div>
-				<div class="officers-grid" id="officers-grid"></div>
-			</div>
-		</section>
+        const storedTheme = localStorage.getItem('sbo-theme');
+        applyTheme(storedTheme || (prefersDark ? 'dark' : 'light'));
 
-		<section id="impact">
-			<div class="container">
-				<div class="section-heading">
-					<h2>Impact Snapshot</h2>
-					<p class="section-subtitle">Our progress metrics update every term to keep the community informed and inspired.</p>
-				</div>
-				<div class="metrics">
-					<div class="metric-card">
-						<strong data-target="4275">0</strong>
-						Students engaged in SBO-led programs
-					</div>
-					<div class="metric-card">
-						<strong data-target="46">0</strong>
-						Student-led policies submitted to administration
-					</div>
-					<div class="metric-card">
-						<strong data-target="820">0</strong>
-						Scholarship consultations facilitated
-					</div>
-					<div class="metric-card">
-						<strong data-target="12800">0</strong>
-						Community service hours in Sultan Kudarat
-					</div>
-				</div>
-			</div>
-		</section>
+        toggler.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            applyTheme(isDark ? 'light' : 'dark');
+        });
 
-		<section id="spotlight">
-			<div class="container">
-				<div class="spotlight">
-					<div>
-						<h3>Spotlight: Innovation Sprints</h3>
-						<p>Bi-weekly design labs where student teams prototype solutions for campus life improvements. Pitch your ideas, iterate with mentors, and receive seed backing from the SBO Innovation Fund.</p>
-					</div>
-					<div>
-						<p><strong>Next Sprint Cycle:</strong> October 28 - November 15</p>
-						<p><strong>Themes:</strong> Sustainable campus living, inclusive learning experiences, digital transformation.</p>
-						<a class="call-to-action" href="#contact">Submit your team</a>
-					</div>
-				</div>
-			</div>
-		</section>
+        const slides = [
+            {
+                tag: 'Student Leadership',
+                title: 'SBO male officers lead the charge',
+                excerpt: 'Meet the core leaders coordinating college councils and strategic programs for the 2025 term.',
+                image: 'group.jpg',
+                link: 'index.html#feature-video'
+            },
+            {
+                tag: 'Community Impact',
+                title: 'OneSBO unites for shoreline outreach',
+                excerpt: 'Collaborative drives with partner barangays highlight environmental stewardship and student volunteerism.',
+                image: 'group1.jpg',
+                link: 'index.html#feature-video'
+            },
+            {
+                tag: 'Student Empowerment',
+                title: 'Women of SBO champion inclusive spaces',
+                excerpt: 'Trailblazing officers craft programs around wellness, advocacy, and representation across SKSU Isulan.',
+                image: 'group2.jpg',
+                link: 'index.html#feature-video'
+            }
+        ];
 
-		<section id="faqs">
-			<div class="container">
-				<div class="section-heading">
-					<h2>Frequently Asked Questions</h2>
-					<p class="section-subtitle">Everything you need to know about engaging with the Student Body Organization.</p>
-				</div>
-				<div class="accordion" id="faq-list"></div>
-			</div>
-		</section>
+        const slideImage = document.getElementById('showcase-image');
+        const slideTag = document.getElementById('showcase-tag');
+        const slideTitle = document.getElementById('showcase-title');
+        const slideExcerpt = document.getElementById('showcase-excerpt');
+        const slideLink = document.getElementById('showcase-link');
+        const slideDots = document.getElementById('slide-dots');
+        const prevBtn = document.getElementById('slide-prev');
+        const nextBtn = document.getElementById('slide-next');
+        let slideIndex = 0;
+        let slideInterval;
 
-		<section id="contact">
-			<div class="container">
-				<div class="newsletter">
-					<div>
-						<div class="pill">Let us collaborate</div>
-						<h2>Pitch an idea, request support, or volunteer for a program.</h2>
-						<p>Our student engagement team responds within two working days. We welcome proposals from organizations, faculty, and community partners.</p>
-						<small>By submitting this form you agree to our student data use guidelines.</small>
-					</div>
-					<form id="contact-form" novalidate data-endpoint="https://formspree.io/f/YOUR_FORM_ID">
-						<input type="text" id="name" name="name" placeholder="Full name" required>
-						<input type="email" id="email" name="email" placeholder="SKSU email" required>
-						<textarea id="message" name="message" placeholder="Tell us how we can collaborate" rows="4" required></textarea>
-						<button type="submit">Send Message</button>
-						<small id="form-status" role="status"></small>
-					</form>
-				</div>
-			</div>
-		</section>
-	</main>
+        function renderSlide(index) {
+            const slide = slides[index];
+            slideImage.src = slide.image;
+            slideImage.alt = slide.title;
+            slideTag.textContent = slide.tag;
+            slideTitle.textContent = slide.title;
+            slideExcerpt.textContent = slide.excerpt;
+            slideLink.href = slide.link;
+            [...slideDots.children].forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === index));
+        }
 
-	<footer>
-		<div class="footer-grid">
-			<div>
-				<div class="footer-brand">Student Body Organization</div>
-				<p>Sultan Kudarat State University<br>Isulan Campus</p>
-			</div>
-			<div class="footer-links">
-				<strong>Quick Links</strong>
-				<a href="#about">About</a>
-				<a href="#events">Events</a>
-				<a href="#impact">Impact</a>
-				<a href="#contact">Contact</a>
-			</div>
-			<div class="footer-links">
-				<strong>Contact</strong>
-				<a href="mailto:sbo@sksu.edu.ph">sbo@sksu.edu.ph</a>
-				<a href="tel:+639176001234">+63 917 600 1234</a>
-				<span>Learning Commons, 2nd floor<br>SKSU Isulan Campus</span>
-			</div>
-			<div>
-				<strong>Office Hours</strong>
-				<p>Monday to Friday<br>8:00 AM - 6:00 PM</p>
-				<p>Follow us on Facebook, Instagram, and YouTube.</p>
-			</div>
-		</div>
-		<div class="footer-bottom">
-			<span>&copy; 2025 Student Body Organization, SKSU Isulan Campus.</span>
-			<span>Designed with students, for students.</span>
-		</div>
-	</footer>
+        function buildDots() {
+            slideDots.innerHTML = '';
+            slides.forEach((_, idx) => {
+                const dot = document.createElement('span');
+                dot.className = `slide-dot${idx === slideIndex ? ' active' : ''}`;
+                dot.addEventListener('click', () => {
+                    slideIndex = idx;
+                    renderSlide(slideIndex);
+                    restartSlideInterval();
+                });
+                slideDots.appendChild(dot);
+            });
+        }
 
-	<div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-		<div class="modal">
-			<header>
-				<div class="section-heading" style="margin-bottom: 1rem;">
-					<h2 id="modal-title" style="margin: 0; font-size: 1.5rem;">Event Details</h2>
-					<button class="modal-close" id="modal-close" aria-label="Close event details">&times;</button>
-				</div>
-			</header>
-			<div id="modal-content"></div>
-		</div>
-	</div>
+        function updateSlide(step) {
+            slideIndex = (slideIndex + step + slides.length) % slides.length;
+            renderSlide(slideIndex);
+        }
 
-	<script>
-		const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-		const toggler = document.getElementById('theme-toggle');
-		const themeIcon = document.getElementById('theme-icon');
+        function restartSlideInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => updateSlide(1), 7000);
+        }
 
-		function applyTheme(mode) {
-			document.documentElement.classList.toggle('dark', mode === 'dark');
-			themeIcon.textContent = mode === 'dark' ? '\u263C' : '\u263E';
-			localStorage.setItem('sbo-theme', mode);
-		}
+        prevBtn.addEventListener('click', () => {
+            updateSlide(-1);
+            restartSlideInterval();
+        });
+        nextBtn.addEventListener('click', () => {
+            updateSlide(1);
+            restartSlideInterval();
+        });
 
-		const storedTheme = localStorage.getItem('sbo-theme');
-		applyTheme(storedTheme || (prefersDark ? 'dark' : 'light'));
-
-		toggler.addEventListener('click', () => {
-			const isDark = document.documentElement.classList.contains('dark');
-			applyTheme(isDark ? 'light' : 'dark');
-		});
-
-		const navLinks = document.querySelectorAll('nav a');
-		const sections = [...document.querySelectorAll('main section')];
-
-		function setActiveLink() {
-			const scrollPos = window.scrollY + 120;
-			sections.forEach(section => {
-				if (scrollPos >= section.offsetTop && scrollPos < section.offsetTop + section.offsetHeight) {
-					navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${section.id}`));
-				}
-			});
-		}
-
-		document.addEventListener('scroll', setActiveLink);
-
-		const stats = [
-			{ id: 'engaged-count', target: 4120 },
-			{ id: 'initiative-count', target: 28 },
-			{ id: 'volunteer-hours', target: 9600 }
-		];
-
-		const observer = new IntersectionObserver(entries => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-					animateCounters();
-					observer.disconnect();
-				}
-			});
-		}, { threshold: 0.4 });
-
-		function animateCounters() {
-			stats.forEach(({ id, target }) => {
-				const el = document.getElementById(id);
-				const duration = 1600;
-				const start = 0;
-				const startTime = performance.now();
-				function tick(now) {
-					const progress = Math.min((now - startTime) / duration, 1);
-					el.textContent = Math.floor(progress * (target - start) + start).toLocaleString('en-US');
-					if (progress < 1) requestAnimationFrame(tick);
-				}
-				requestAnimationFrame(tick);
-			});
-		}
-
-		observer.observe(document.querySelector('.hero-stat'));
-
-		const eventsTimeline = document.getElementById('events-timeline');
-		const filterButtons = document.querySelectorAll('.filter-controls button');
-
-		filterButtons.forEach(button => {
-			button.addEventListener('click', () => {
-				filterButtons.forEach(btn => btn.classList.remove('active'));
-				button.classList.add('active');
-			});
-		});
-
-		const officers = [
-			{ name: 'Alyssa Mae Navarro', role: 'President', program: 'BS Public Administration', quote: 'We listen, co-create, and deliver results with you.' },
-			{ name: 'Jerome Keith Villanueva', role: 'Executive Vice President', program: 'BS Information Technology', quote: 'Tech-enabled governance for every student voice.' },
-			{ name: 'Rhea Dianne Lumabi', role: 'Secretary General', program: 'BS Accountancy', quote: 'Transparent processes ensure equitable access.' },
-			{ name: 'James Carlo Mansueto', role: 'Finance Director', program: 'BS Entrepreneurship', quote: 'Every peso invests in student success.' },
-			{ name: 'Kristine Joy Barbaso', role: 'Academic Affairs Lead', program: 'BA English', quote: 'Scholarship, mentorship, and advocacy in one hub.' },
-			{ name: 'Mark Ivan Pagaduan', role: 'Community Development Lead', program: 'BS Social Work', quote: 'Stronger schools mean stronger barangays.' },
-			{ name: 'Shaira Mae Ajusto', role: 'Culture & Arts Lead', program: 'BFA Visual Communication', quote: 'Creativity is our universal language.' },
-			{ name: 'Eli Jonathan Pascual', role: 'Student Well-being Lead', program: 'BS Psychology', quote: 'We center wellness in every initiative.' }
-		];
-
-		const officersGrid = document.getElementById('officers-grid');
-		officers.forEach(officer => {
-			const card = document.createElement('article');
-			card.className = 'officer-card';
-			card.innerHTML = `
-				<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(officer.name)}&background=17a854&color=fff" alt="${officer.name}">
-				<div class="officer-name">${officer.name}</div>
-				<div class="officer-role">${officer.role}</div>
-				<small>${officer.program}</small>
-				<p style="margin-top:0.75rem; color:var(--gray-700);">"${officer.quote}"</p>
-			`;
-			officersGrid.appendChild(card);
-		});
-
-		const metrics = document.querySelectorAll('.metric-card strong');
-		const metricObserver = new IntersectionObserver(entries => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-					const target = Number(entry.target.dataset.target);
-					const el = entry.target;
-					const startTime = performance.now();
-					const duration = 1800;
-					function animate(now) {
-						const progress = Math.min((now - startTime) / duration, 1);
-						el.textContent = Math.floor(progress * target).toLocaleString('en-US');
-						if (progress < 1) requestAnimationFrame(animate);
-					}
-					requestAnimationFrame(animate);
-					metricObserver.unobserve(entry.target);
-				}
-			});
-		}, { threshold: 0.5 });
-
-		metrics.forEach(metric => metricObserver.observe(metric));
-
-		const faqs = [
-			{ question: 'How do I get involved with SBO programs?', answer: 'Drop by the SBO Hub, message us on our socials, or sign up via the Join SBO form above. We will match you with committees and initiatives aligned with your interests.' },
-			{ question: 'Can organizations request funding or logistics support?', answer: 'Yes. Submit your project brief at least three weeks before your event. Our Finance and Partnerships teams will review and coordinate with you.' },
-			{ question: 'Where can I access minutes of the Student Assembly?', answer: 'All assembly minutes and resolutions are uploaded to the SBO Knowledge Base and shared via your SKSU email every month.' },
-			{ question: 'Do you offer leadership training?', answer: 'We run the Future-ready Leaders Program every semester, plus focused bootcamps on policy design, communications, and community engagement.' }
-		];
-
-		const faqList = document.getElementById('faq-list');
-		faqs.forEach(({ question, answer }) => {
-			const item = document.createElement('article');
-			item.className = 'accordion-item';
-			item.innerHTML = `
-				<button class="accordion-header">
-					${question}
-					<span aria-hidden="true">+</span>
-				</button>
-				<div class="accordion-content">
-					<p>${answer}</p>
-				</div>
-			`;
-			faqList.appendChild(item);
-		});
-
-		faqList.addEventListener('click', event => {
-			if (event.target.closest('.accordion-header')) {
-				const header = event.target.closest('.accordion-header');
-				const content = header.nextElementSibling;
-				const expanded = header.getAttribute('aria-expanded') === 'true';
-				header.setAttribute('aria-expanded', !expanded);
-				header.querySelector('span').textContent = expanded ? '+' : '–';
-				content.style.maxHeight = expanded ? 0 : `${content.scrollHeight}px`;
-			}
-		});
-
-		const modalBackdrop = document.getElementById('modal-backdrop');
-		const modalContent = document.getElementById('modal-content');
-		const modalClose = document.getElementById('modal-close');
-
-		eventsTimeline.addEventListener('click', event => {
-			if (event.target.matches('.call-to-action')) {
-				const eventData = JSON.parse(event.target.dataset.event.replace(/&apos;/g, "'"));
-				modalContent.innerHTML = `
-					<p><strong>${eventData.title}</strong></p>
-					<p>${eventData.description}</p>
-					<p><strong>Date:</strong> ${eventData.date}</p>
-					<p><strong>Venue:</strong> ${eventData.location}</p>
-					<p><strong>Time:</strong> ${eventData.time}</p>
-					<p><strong>Category:</strong> ${eventData.category.toUpperCase()}</p>
-				`;
-				modalBackdrop.style.display = 'flex';
-			}
-		});
-
-		modalClose.addEventListener('click', () => {
-			modalBackdrop.style.display = 'none';
-		});
-
-		modalBackdrop.addEventListener('click', event => {
-			if (event.target === modalBackdrop) {
-				modalBackdrop.style.display = 'none';
-			}
-		});
-
-		const form = document.getElementById('contact-form');
-		const formStatus = document.getElementById('form-status');
-
-		form.addEventListener('submit', event => {
-			event.preventDefault();
-			const data = new FormData(form);
-			const name = data.get('name').trim();
-			const email = data.get('email').trim();
-			const message = data.get('message').trim();
-			if (!name || !email || !message) {
-				formStatus.textContent = 'Please complete all fields before submitting.';
-				formStatus.style.color = 'var(--yellow-400)';
-				return;
-			}
-			if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-				formStatus.textContent = 'Please enter a valid email address.';
-				formStatus.style.color = 'var(--yellow-400)';
-				return;
-			}
-			formStatus.textContent = 'Sending...';
-			formStatus.style.color = 'var(--gray-500)';
-			const endpoint = form.dataset.endpoint;
-			const values = Object.fromEntries(data.entries());
-			if (endpoint && !endpoint.includes('YOUR_FORM_ID') && window.htmx) {
-				const xhr = htmx.ajax('POST', endpoint, {
-					target: '#form-status',
-					swap: 'innerHTML',
-					values
-				});
-				xhr.addEventListener('load', () => {
-					form.reset();
-					formStatus.textContent = 'Thank you! Our team will reach out within two working days.';
-					formStatus.style.color = 'var(--green-700)';
-				});
-				xhr.addEventListener('error', () => {
-					formStatus.textContent = 'We could not send your message right now. Please email sbo@sksu.edu.ph instead.';
-					formStatus.style.color = 'var(--yellow-400)';
-				});
-			} else {
-				setTimeout(() => {
-					form.reset();
-					formStatus.textContent = 'Thank you! Our team will reach out within two working days.';
-					formStatus.style.color = 'var(--green-700)';
-				}, 800);
-			}
-		});
-
-		const statusMessages = [
-			{
-				label: 'Funding',
-				title: 'Project grant cycle closes Oct 30',
-				detail: 'Submit your proposals to finance@sksu.edu.ph'
-			},
-			{
-				label: 'Mentorship',
-				title: '52 mentors ready for career consults',
-				detail: 'Book a slot via the SBO Hub app'
-			},
-			{
-				label: 'Recognition',
-				title: 'Student Laurels nominations now open',
-				detail: 'Celebrate outstanding peers this October'
-			}
-		];
-
-		let statusIndex = 0;
-		const statusBoard = document.getElementById('status-board');
-		setInterval(() => {
-			statusIndex = (statusIndex + 1) % statusMessages.length;
-			const next = statusMessages[statusIndex];
-			statusBoard.innerHTML = `
-				<div class="status-item">
-					<small class="pill">${next.label}</small>
-					<strong>${next.title}</strong>
-					<span>${next.detail}</span>
-				</div>
-			` + statusBoard.innerHTML;
-			if (statusBoard.children.length > 3) {
-				statusBoard.removeChild(statusBoard.lastElementChild);
-			}
-		}, 8000);
-	</script>
+        buildDots();
+        renderSlide(slideIndex);
+        slideInterval = setInterval(() => updateSlide(1), 7000);
+    </script>
 </body>
 </html>
