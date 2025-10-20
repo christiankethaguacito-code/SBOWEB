@@ -345,9 +345,9 @@
         <section class="page-hero">
             <div class="container">
                 <div class="call-to-action" style="width:max-content;">Impact Dashboard</div>
-                <h1>Evidence of student-led governance, community service, and shared wins.</h1>
-                <p>We track participation, policy progress, and civic impact in partnership with college councils, sectoral representatives, and volunteer networks.</p>
-                <a class="ghost-button" href="https://drive.google.com" target="_blank" rel="noopener">Download latest impact brief</a>
+                <h1>Tracking student-led governance, community service, and shared wins.</h1>
+                <p>We publish validated metrics each term with inputs from college councils, sectoral representatives, and volunteer networks.</p>
+                <a class="ghost-button" href="mailto:contact@sksu.edu.ph?subject=Impact%20brief%20request">Request latest summary</a>
             </div>
         </section>
 
@@ -355,20 +355,20 @@
             <div class="container">
                 <div class="metrics-grid">
                     <article class="metric-card">
-                        <strong data-target="4275">0</strong>
-                        <span>Students engaged in SBO-led programs</span>
+                        <strong>Now compiling</strong>
+                        <span>Participation reports submitted by councils</span>
                     </article>
                     <article class="metric-card">
-                        <strong data-target="46">0</strong>
-                        <span>Policy papers endorsed to administration</span>
+                        <strong>Validation stage</strong>
+                        <span>Policy endorsements awaiting administrative countersignature</span>
                     </article>
                     <article class="metric-card">
-                        <strong data-target="820">0</strong>
-                        <span>Scholarship consults facilitated</span>
+                        <strong>Rolling release</strong>
+                        <span>Scholarship and welfare consultations logged this semester</span>
                     </article>
                     <article class="metric-card">
-                        <strong data-target="12800">0</strong>
-                        <span>Community service hours recorded</span>
+                        <strong>Auditing</strong>
+                        <span>Community service hours undergoing documentation checks</span>
                     </article>
                 </div>
             </div>
@@ -378,19 +378,19 @@
             <div class="container">
                 <div class="timeline">
                     <article class="timeline-card">
-                        <time>Sept 2025</time>
-                        <h3>Transparency portal launches real-time budget dashboard</h3>
-                        <p>Students can now monitor disbursements for welfare programs, council grants, and facilities enhancements through an open data interface.</p>
+                        <time>October 2024</time>
+                        <h3>Governance scorecards under review</h3>
+                        <p>Term-end submissions from councils are being cross-checked with the Office of Student Affairs to ensure accuracy before publication.</p>
                     </article>
                     <article class="timeline-card">
-                        <time>Aug 2025</time>
-                        <h3>Barangay Innovation Fellows deploy 12 community pilots</h3>
-                        <p>Teams produced livelihood playbooks, co-ops, and climate resilience guides across the province, generating four permanent partner cooperatives.</p>
+                        <time>September 2024</time>
+                        <h3>Community outreach logs consolidated</h3>
+                        <p>Volunteer leads submitted attendance sheets, photo documentation, and partner acknowledgements now queued for release in the dashboard.</p>
                     </article>
                     <article class="timeline-card">
-                        <time>Jul 2025</time>
-                        <h3>OneSBO Helpdesk resolves 1,200 student concerns in 30 days</h3>
-                        <p>Integrated digital ticketing and on-site help hubs reduced average response times to 36 hours, improving satisfaction scores by 28%.</p>
+                        <time>August 2024</time>
+                        <h3>Helpdesk ticket summaries drafted</h3>
+                        <p>Category-level insights from the OneSBO Helpdesk are drafted and awaiting data privacy clearance prior to public posting.</p>
                     </article>
                 </div>
             </div>
@@ -400,19 +400,19 @@
             <div class="container">
                 <div class="evidence-grid">
                     <article class="evidence-card">
-                        <h3>Participation Heatmap</h3>
-                        <p>College councils report 82% average turnout for governance consultations thanks to hybrid assemblies and asynchronous polling.</p>
-                        <a class="call-to-action" href="https://docs.google.com" target="_blank" rel="noopener">View heatmap</a>
+                        <h3>Participation summaries</h3>
+                        <p>Validated attendance and engagement tallies will be uploaded after the Campus Assembly confirms the consolidated report.</p>
+                        <a class="call-to-action" href="connect.html">Request access update</a>
                     </article>
                     <article class="evidence-card">
-                        <h3>Policy Tracker</h3>
-                        <p>Track the lifecycle of policy endorsements from drafting to administrative approval, including actionable feedback loops.</p>
-                        <a class="call-to-action" href="https://airtable.com" target="_blank" rel="noopener">Open tracker</a>
+                        <h3>Policy tracker</h3>
+                        <p>We are reorganising policy submissions into a readable tracker. Links will display once endorsements receive final notation.</p>
+                        <a class="call-to-action" href="connect.html">Ask for policy status</a>
                     </article>
                     <article class="evidence-card">
-                        <h3>Volunteer Stories</h3>
-                        <p>Read how student volunteers mobilize for relief drives, literacy camps, and sustainability labs across Sultan Kudarat.</p>
-                        <a class="call-to-action" href="newsroom.html#latest">Explore stories</a>
+                        <h3>Volunteer stories</h3>
+                        <p>Spotlights highlighting student volunteers are being curated with consent forms. Expect new features in the Newsroom soon.</p>
+                        <a class="call-to-action" href="newsroom.html#latest">Check newsroom updates</a>
                     </article>
                 </div>
             </div>
@@ -459,7 +459,6 @@
         const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         const toggler = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
-        const metricTargets = document.querySelectorAll('.metric-card strong');
 
         function updateThemeIcon(mode) {
             themeIcon.innerHTML = mode === 'dark' ? '&#9788;' : '&#9790;';
@@ -479,25 +478,6 @@
             applyTheme(isDark ? 'light' : 'dark');
         });
 
-        const metricObserver = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const el = entry.target;
-                    const target = Number(el.dataset.target || '0');
-                    const start = performance.now();
-                    const duration = 1800;
-                    const step = now => {
-                        const progress = Math.min((now - start) / duration, 1);
-                        el.textContent = Math.floor(progress * target).toLocaleString('en-US');
-                        if (progress < 1) requestAnimationFrame(step);
-                    };
-                    requestAnimationFrame(step);
-                    metricObserver.unobserve(el);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        metricTargets.forEach(target => metricObserver.observe(target));
     </script>
 </body>
 </html>
