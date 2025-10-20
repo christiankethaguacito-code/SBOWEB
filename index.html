@@ -40,19 +40,14 @@
             min-height: 100vh;
         }
 
-        img {
-            max-width: 100%;
-            display: block;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
         ul { list-style: none; }
-
         button { font-family: inherit; }
+
+        main { overflow: hidden; }
+        section { padding: 5rem 1.5rem; }
+        .container { max-width: 1220px; margin: 0 auto; }
 
         .announcement-bar {
             background: linear-gradient(135deg, var(--brand-green-900), var(--brand-green-700));
@@ -62,19 +57,11 @@
         }
 
         .announcement-bar .container {
-            max-width: 1220px;
-            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             gap: 1rem;
             align-items: center;
             flex-wrap: wrap;
-        }
-
-        .announcement-bar span {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         header {
@@ -155,7 +142,10 @@
             background: var(--brand-white);
         }
 
-        .theme-toggle:hover { background: rgba(18, 102, 61, 0.1); transform: translateY(-1px); }
+        .theme-toggle:hover {
+            background: rgba(18, 102, 61, 0.1);
+            transform: translateY(-1px);
+        }
 
         .call-to-action {
             padding: 0.65rem 1.1rem;
@@ -173,11 +163,30 @@
 
         .call-to-action:hover { transform: translateY(-2px); }
 
-        main { overflow: hidden; }
+        .ghost-button {
+            padding: 0.6rem 1.1rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            background: transparent;
+            color: var(--brand-green-700);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
 
-        section { padding: 5rem 1.5rem; }
+        .ghost-button:hover {
+            background: rgba(18, 102, 61, 0.12);
+            color: var(--brand-green-800);
+        }
 
-        .container { max-width: 1220px; margin: 0 auto; }
+        #page-content {
+            position: relative;
+            min-height: 60vh;
+            transition: opacity 0.3s ease;
+        }
+
+        .page-shell { display: grid; gap: 0; }
+        .load-error { padding: 4rem 1.5rem; text-align: center; color: var(--brand-green-900); font-weight: 600; }
 
         .showcase {
             position: relative;
@@ -249,17 +258,6 @@
             gap: 1rem;
         }
 
-        .ghost-button {
-            padding: 0.65rem 1rem;
-            border-radius: 0.85rem;
-            border: 1px solid rgba(255, 255, 255, 0.52);
-            background: transparent;
-            color: var(--brand-white);
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
         .ghost-button:hover { background: rgba(255, 255, 255, 0.2); }
 
         .showcase-controls {
@@ -272,11 +270,7 @@
             gap: 1.25rem;
         }
 
-        .slide-nav {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.85rem;
-        }
+        .slide-nav { display: inline-flex; align-items: center; gap: 0.85rem; }
 
         .slide-btn {
             width: 42px;
@@ -292,11 +286,7 @@
 
         .slide-btn:hover { background: rgba(255, 255, 255, 0.22); }
 
-        .slide-dots {
-            display: inline-flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
+        .slide-dots { display: inline-flex; gap: 0.5rem; align-items: center; }
 
         .slide-dot {
             width: 10px;
@@ -306,15 +296,9 @@
             transition: transform 0.3s ease, background 0.3s ease;
         }
 
-        .slide-dot.active {
-            background: var(--brand-gold);
-            transform: scale(1.2);
-        }
+        .slide-dot.active { background: var(--brand-gold); transform: scale(1.2); }
 
-        .feature-video {
-            background: var(--brand-cream);
-            padding: 0 1.5rem 4rem;
-        }
+        .feature-video { background: var(--brand-cream); padding: 0 1.5rem 4rem; }
 
         .feature-video-content {
             max-width: 1220px;
@@ -324,8 +308,6 @@
             gap: 2.5rem;
             align-items: center;
         }
-
-        .feature-video-copy .section-title { margin-bottom: 0.75rem; }
 
         .feature-video-wrapper {
             position: relative;
@@ -348,9 +330,314 @@
             margin-bottom: 1rem;
         }
 
-        .section-subtitle {
-            color: var(--brand-muted);
-            max-width: 640px;
+        .section-subtitle { color: var(--brand-muted); max-width: 640px; }
+
+        .page-hero {
+            position: relative;
+            padding: 6rem 1.5rem 5rem;
+            background: linear-gradient(120deg, rgba(12, 59, 40, 0.92), rgba(18, 102, 61, 0.78));
+            color: var(--brand-white);
+        }
+
+        .page-hero .container { display: grid; gap: 1rem; max-width: 760px; }
+        .page-hero h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); line-height: 1.1; font-weight: 700; }
+        .page-hero p { color: rgba(255, 255, 255, 0.85); font-size: 1.05rem; }
+
+        .news-content { background: var(--brand-cream); }
+        .news-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 2.5rem; align-items: start; }
+        .news-feed { display: grid; gap: 1.5rem; }
+        .news-card {
+            background: var(--brand-white);
+            border-radius: 1.25rem;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-sm);
+            padding: 1.85rem;
+            display: grid;
+            gap: 0.9rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .news-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+        .news-card h2 { font-size: 1.45rem; color: var(--brand-green-900); }
+        .news-card p { color: var(--brand-slate); }
+        .news-meta { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: var(--brand-muted); }
+        .news-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: rgba(18, 102, 61, 0.12);
+            color: var(--brand-green-700);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        .news-side { display: grid; gap: 1.5rem; }
+        .digest-card {
+            background: var(--brand-white);
+            border-radius: 1.25rem;
+            border: 1px solid var(--border-soft);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            display: grid;
+            gap: 0.9rem;
+        }
+
+        .digest-card strong { font-size: 1.1rem; color: var(--brand-green-900); }
+        .digest-list li { margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(12, 59, 40, 0.12); }
+        .digest-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .digest-list span { display: block; font-size: 0.8rem; color: var(--brand-muted); }
+        .news-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+        .programs { background: var(--brand-cream); }
+        .program-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem; }
+        .program-card {
+            background: var(--brand-white);
+            border-radius: 1.5rem;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-soft);
+            padding: 2.1rem 1.9rem;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .program-card h3 { font-size: 1.3rem; color: var(--brand-green-900); }
+        .program-card p { color: var(--brand-slate); }
+        .program-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 0.9rem;
+            border-radius: 999px;
+            background: rgba(30, 167, 90, 0.16);
+            color: var(--brand-green-700);
+            font-weight: 600;
+            font-size: 0.78rem;
+        }
+
+        .program-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .case-studies { background: var(--brand-white); }
+        .case-list { display: grid; gap: 1.5rem; }
+        .case-card {
+            border: 1px solid var(--border-soft);
+            border-radius: 1.25rem;
+            padding: 1.75rem;
+            background: var(--brand-cream);
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .case-meta { font-size: 0.85rem; color: var(--brand-muted); }
+
+        .metrics { background: var(--brand-white); }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .metric-card {
+            background: var(--brand-cream);
+            border: 1px solid var(--border-soft);
+            border-radius: 1.25rem;
+            padding: 2rem 1.75rem;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 0.65rem;
+        }
+
+        .metric-card strong { font-size: 2.6rem; color: var(--brand-green-700); }
+        .metric-card span { font-size: 0.9rem; color: var(--brand-muted); }
+        .milestones { background: var(--brand-cream); }
+        .timeline { display: grid; gap: 1.5rem; }
+        .timeline-card {
+            background: var(--brand-white);
+            border-radius: 1.25rem;
+            border: 1px solid var(--border-soft);
+            padding: 1.75rem;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 0.6rem;
+        }
+
+        .timeline-card h3 { font-size: 1.25rem; color: var(--brand-green-900); }
+        .timeline-card time { font-size: 0.85rem; color: var(--brand-muted); }
+
+        .evidence { background: var(--brand-white); }
+        .evidence-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .evidence-card {
+            border: 1px solid var(--border-soft);
+            border-radius: 1.25rem;
+            padding: 1.9rem;
+            background: var(--brand-cream);
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .event-card {
+            border-radius: 1.25rem;
+            border: 1px solid var(--border-soft);
+            background: var(--brand-white);
+            padding: 1.75rem;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .event-card header { display: flex; justify-content: space-between; align-items: baseline; }
+        .event-card h3 { font-size: 1.2rem; color: var(--brand-green-900); }
+        .event-card time { font-size: 0.85rem; color: var(--brand-muted); }
+        .event-card span { font-size: 0.9rem; color: var(--brand-slate); }
+        .schedule { background: var(--brand-cream); }
+        .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .day-block {
+            background: var(--brand-white);
+            border-radius: 1.25rem;
+            border: 1px solid var(--border-soft);
+            padding: 1.75rem;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 1rem;
+        }
+
+        .day-block h3 { font-size: 1.1rem; color: var(--brand-green-700); }
+        .session { display: grid; gap: 0.35rem; padding-left: 0.5rem; border-left: 2px solid rgba(18, 102, 61, 0.2); }
+        .session time { font-weight: 600; font-size: 0.9rem; color: var(--brand-green-900); }
+        .session span { font-size: 0.88rem; color: var(--brand-slate); }
+        .highlights .highlight-card { display: grid; gap: 0.75rem; border-radius: 1.25rem; border: 1px solid var(--border-soft); background: var(--brand-white); padding: 1.9rem; box-shadow: var(--shadow-soft); }
+
+        .highlights p { color: var(--brand-slate); }
+
+        .role-badge {
+            justify-self: center;
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin-bottom: 0.35rem;
+        }
+
+        .badge-blue { background: #1b4ed0; color: #ffffff; }
+        .badge-green { background: #1ea75a; color: #ffffff; }
+        .badge-yellow { background: #f4b400; color: var(--brand-deep); }
+        .badge-orange { background: #f37c22; color: #ffffff; }
+        .badge-purple { background: #7d4bff; color: #ffffff; }
+        .badge-brown { background: #7a4f2e; color: #ffffff; }
+        .badge-black { background: #222222; color: #ffffff; }
+        .badge-white { background: rgba(255, 255, 255, 0.85); color: var(--brand-green-900); border: 1px solid rgba(12, 59, 40, 0.25); }
+        .badge-teal { background: #0f8b8d; color: #ffffff; }
+
+        .officer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .officer-card {
+            background: var(--brand-white);
+            border-radius: 1.5rem;
+            padding: 1.75rem;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            justify-items: center;
+            gap: 0.75rem;
+            text-align: center;
+        }
+
+        .officer-card figure {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid rgba(18, 102, 61, 0.3);
+            display: grid;
+            place-items: center;
+            background: var(--brand-cream);
+        }
+
+        .officer-card img { width: 100%; height: 100%; object-fit: cover; }
+        .officer-card h3 { font-size: 1.15rem; color: var(--brand-green-900); }
+        .officer-card span { font-size: 0.9rem; color: var(--brand-muted); }
+        .officer-card p { font-size: 0.88rem; color: var(--brand-slate); }
+        .cluster { margin-bottom: 3rem; }
+        .cluster h2 { font-size: 1.7rem; margin-bottom: 1.5rem; color: var(--brand-green-900); }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.75rem;
+            align-items: start;
+        }
+
+        form {
+            background: var(--brand-white);
+            border-radius: 1.5rem;
+            border: 1px solid var(--border-soft);
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 1.1rem;
+        }
+
+        label { font-weight: 600; font-size: 0.9rem; color: var(--brand-green-900); }
+        input, textarea, select {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(12, 59, 40, 0.18);
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: var(--brand-cream);
+            transition: border 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--brand-green-500);
+            box-shadow: 0 0 0 3px rgba(30, 167, 90, 0.2);
+            background: var(--brand-white);
+        }
+
+        textarea { min-height: 160px; resize: vertical; }
+        button[type="submit"] {
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.85rem 1.2rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--brand-green-700), var(--brand-green-500));
+            color: var(--brand-white);
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease;
+        }
+
+        button[type="submit"]:hover { transform: translateY(-2px); }
+
+        .info-card {
+            background: var(--brand-white);
+            border-radius: 1.5rem;
+            border: 1px solid var(--border-soft);
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 1rem;
+        }
+
+        .info-card h2 { font-size: 1.6rem; color: var(--brand-green-900); }
+        .info-card a { color: var(--brand-green-700); font-weight: 600; }
+        .office-hours { display: grid; gap: 0.25rem; }
+        .map { margin-top: 1rem; border-radius: 1.25rem; overflow: hidden; border: 0; width: 100%; height: 260px; box-shadow: var(--shadow-soft); }
+
+        .resources { background: var(--brand-cream); }
+        .resource-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .resource-card {
+            background: var (--brand-white);
+            border-radius: 1.25rem;
+            border: 1px solid var(--border-soft);
+            padding: 1.6rem;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 0.75rem;
         }
 
         footer {
@@ -359,25 +646,9 @@
             padding: 3rem 1.5rem 4rem;
         }
 
-        .footer-grid {
-            max-width: 1220px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 2rem;
-        }
-
-        .footer-brand {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--brand-white);
-        }
-
-        .footer-links a {
-            display: block;
-            margin-bottom: 0.6rem;
-            color: rgba(255, 255, 255, 0.75);
-        }
+        .footer-grid { max-width: 1220px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; }
+        .footer-brand { font-size: 1.15rem; font-weight: 700; color: var(--brand-white); }
+        .footer-links a { display: block; margin-bottom: 0.6rem; color: rgba(255, 255, 255, 0.75); }
 
         .footer-bottom {
             max-width: 1220px;
@@ -391,22 +662,37 @@
         }
 
         .dark body { background: #07160f; color: rgba(255, 255, 255, 0.9); }
-
         .dark header { background: rgba(7, 22, 15, 0.96); border-bottom-color: rgba(255, 255, 255, 0.08); box-shadow: none; }
-
         .dark nav a { color: rgba(255, 255, 255, 0.78); }
-
         .dark nav a:is(:hover, .active) { background: rgba(30, 167, 90, 0.24); color: var(--brand-white); }
+        .dark .news-card,
+        .dark .digest-card,
+        .dark .program-card,
+        .dark .case-card,
+        .dark .metric-card,
+        .dark .timeline-card,
+        .dark .evidence-card,
+        .dark .event-card,
+        .dark .day-block,
+        .dark .highlight-card,
+        .dark .officer-card,
+        .dark form,
+        .dark .info-card,
+        .dark .resource-card { background: rgba(7, 22, 15, 0.92); color: rgba(255, 255, 255, 0.9); border-color: rgba(30, 167, 90, 0.24); }
+
+        .dark input,
+        .dark textarea,
+        .dark select { background: rgba(7, 22, 15, 0.86); color: rgba(255, 255, 255, 0.9); border-color: rgba(30, 167, 90, 0.24); }
+
+        .dark .feature-video-wrapper { background: rgba(7, 22, 15, 0.92); }
 
         @media (max-width: 1024px) {
             nav { display: none; }
+            section { padding: 4.5rem 1.5rem; }
             .showcase-content { padding: 3.5rem 1.5rem; }
             .showcase-controls { inset: auto 1.5rem 1.5rem; }
             .feature-video { padding: 2rem 1.5rem 4rem; }
-            .feature-video-content {
-                margin-top: 0;
-                grid-template-columns: 1fr;
-            }
+            .feature-video-content { margin-top: 0; grid-template-columns: 1fr; }
         }
 
         @media (max-width: 680px) {
@@ -417,11 +703,10 @@
             .slide-nav { gap: 0.5rem; }
             .feature-video { padding: 1rem 1rem 3.5rem; }
             .feature-video-wrapper { border-radius: 1rem; }
+            .contact-grid { grid-template-columns: 1fr; }
         }
 
-        @media (max-width: 520px) {
-            .footer-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 520px) { .footer-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -433,63 +718,67 @@
     </div>
     <header>
         <div class="nav-wrapper">
-            <a class="brand" href="#showcase" aria-label="Student Body Organization home">
+            <a class="brand" href="index.html" aria-label="Student Body Organization home" data-page="home" data-no-active="true">
                 <img src="logo.png" alt="SBO crest">
                 <div>Student Body Organization<br><small>SKSU Isulan Campus</small></div>
             </a>
             <nav aria-label="Primary navigation">
-                    <a href="index.html" class="active">Home</a>
-                    <a href="index.html#feature-video">Feature Reel</a>
-                    <a href="newsroom.html">Newsroom</a>
-                    <a href="initiatives.html">Initiatives</a>
-                    <a href="impact.html">Impact</a>
-                    <a href="events.html">Events</a>
-                    <a href="officers.html">Officers</a>
-                    <a href="connect.html">Connect</a>
+                <a href="index.html" class="active" data-page="home">Home</a>
+                <a href="index.html#feature-video" data-page="home" data-scroll-target="feature-video" data-no-active="true">Feature Reel</a>
+                <a href="newsroom.html" data-page="newsroom">Newsroom</a>
+                <a href="initiatives.html" data-page="initiatives">Initiatives</a>
+                <a href="impact.html" data-page="impact">Impact</a>
+                <a href="events.html" data-page="events">Events</a>
+                <a href="officers.html" data-page="officers">Officers</a>
+                <a href="connect.html" data-page="connect">Connect</a>
             </nav>
             <div class="nav-actions">
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
                     <span id="theme-icon">&#9789;</span>
                 </button>
-                    <a class="call-to-action" href="connect.html">Join SBO</a>
+                <a class="call-to-action" href="connect.html" data-page="connect" data-no-active="true">Join SBO</a>
             </div>
         </div>
     </header>
     <main>
-        <section id="showcase" class="showcase" data-nav-target="showcase">
-            <img src="group.jpg" alt="SBO leaders collaborating at SKSU Isulan Campus" id="showcase-image">
-            <div class="showcase-content">
-                <div class="pill" id="showcase-tag">Student Leadership</div>
-                <h1 id="showcase-title">SBO charts a student-first agenda for A.Y. 2025-2026</h1>
-                <p id="showcase-excerpt">We amplify student voices through collaborative governance, inclusive engagement, and future-ready programs rooted in the SKSU Isulan experience.</p>
-                <div class="showcase-actions">
-                    <a class="call-to-action" id="showcase-link" href="index.html#feature-video">Explore the feature reel</a>
-                </div>
-            </div>
-            <div class="showcase-controls">
-                <div class="slide-nav">
-                    <button class="slide-btn" id="slide-prev" aria-label="Previous headline">&#10094;</button>
-                    <button class="slide-btn" id="slide-next" aria-label="Next headline">&#10095;</button>
-                </div>
-                <div class="slide-dots" id="slide-dots"></div>
-            </div>
-        </section>
+        <div id="page-content" aria-live="polite">
+            <div class="page-shell" data-page-root="home">
+                <section id="showcase" class="showcase" data-home-slider>
+                    <img data-slide-image src="group.jpg" alt="SBO leaders collaborating at SKSU Isulan Campus">
+                    <div class="showcase-content">
+                        <div class="pill" data-slide-tag>Student Leadership</div>
+                        <h1 data-slide-title>SBO charts a student-first agenda for A.Y. 2025-2026</h1>
+                        <p data-slide-excerpt>We amplify student voices through collaborative governance, inclusive engagement, and future-ready programs rooted in the SKSU Isulan experience.</p>
+                        <div class="showcase-actions">
+                            <a class="call-to-action" href="index.html#feature-video" data-page="home" data-scroll-target="feature-video" data-no-active="true">Explore the feature reel</a>
+                        </div>
+                    </div>
+                    <div class="showcase-controls">
+                        <div class="slide-nav">
+                            <button class="slide-btn" type="button" data-slide-prev aria-label="Previous headline">&#10094;</button>
+                            <button class="slide-btn" type="button" data-slide-next aria-label="Next headline">&#10095;</button>
+                        </div>
+                        <div class="slide-dots" data-slide-dots></div>
+                    </div>
+                </section>
 
-        <section id="feature-video" class="feature-video" data-nav-target="feature-video" aria-labelledby="feature-video-title">
-            <div class="container">
-                <div class="feature-video-content">
-                    <div class="feature-video-copy">
-                        <h2 class="section-title" id="feature-video-title">Feature Reel</h2>
-                        <p class="section-subtitle">Experience the latest highlights from the Student Body Organization—streamed directly from campus events and initiatives.</p>
+                <section id="feature-video" class="feature-video" aria-labelledby="feature-video-title">
+                    <div class="container">
+                        <div class="feature-video-content">
+                            <div class="feature-video-copy">
+                                <h2 class="section-title" id="feature-video-title">Feature Reel</h2>
+                                <p class="section-subtitle">Experience the latest highlights from the Student Body Organization—streamed directly from campus events and initiatives.</p>
+                            </div>
+                            <div class="feature-video-wrapper">
+                                <video class="feature-video-player" src="feature.mp4" poster="group.jpg" autoplay muted loop playsinline controls>
+                                    Sorry, your browser does not support embedded videos.
+                                </video>
+                            </div>
+                        </div>
                     </div>
-                    <div class="feature-video-wrapper">
-                        <video class="feature-video-player" src="feature.mp4" poster="group.jpg" autoplay muted loop playsinline controls>
-                            Sorry, your browser does not support embedded videos.
-                        </video>
-                    </div>
-                </div>
+                </section>
             </div>
-        </section>
+        </div>
     </main>
 
     <footer>
@@ -500,27 +789,24 @@
             </div>
             <div class="footer-links">
                 <strong>Explore</strong>
-                <a href="index.html">Home</a>
-                <a href="index.html#feature-video">Feature Reel</a>
-                <a href="newsroom.html">Newsroom</a>
-                <a href="initiatives.html">Initiatives</a>
-                <a href="impact.html">Impact</a>
-                <a href="events.html">Events</a>
-                <a href="officers.html">Officers</a>
-                <a href="connect.html">Connect</a>
+                <a href="index.html" data-page="home" data-no-active="true">Home</a>
+                <a href="index.html#feature-video" data-page="home" data-scroll-target="feature-video" data-no-active="true">Feature Reel</a>
+                <a href="newsroom.html" data-page="newsroom" data-no-active="true">Newsroom</a>
+                <a href="initiatives.html" data-page="initiatives" data-no-active="true">Initiatives</a>
+                <a href="impact.html" data-page="impact" data-no-active="true">Impact</a>
             </div>
             <div class="footer-links">
                 <strong>Resources</strong>
-                <a href="mailto:sbo@sksu.edu.ph">Contact SBO</a>
+                <a href="connect.html" data-page="connect" data-no-active="true">Contact SBO</a>
                 <a href="https://www.facebook.com/SKSUSBO" target="_blank" rel="noopener">Facebook Page</a>
                 <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
                 <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube Channel</a>
             </div>
             <div class="footer-links">
-                <strong>Contact</strong>
+                <strong>Visit</strong>
+                <span>Learning Commons, 2nd floor</span>
                 <a href="mailto:sbo@sksu.edu.ph">sbo@sksu.edu.ph</a>
                 <a href="tel:+639176001234">+63 917 600 1234</a>
-                <span>Learning Commons, 2nd floor</span>
             </div>
         </div>
         <div class="footer-bottom">
@@ -529,30 +815,19 @@
         </div>
     </footer>
 
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     <script>
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const toggler = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
+        const viewConfig = {
+            home: { partial: 'partials/home.html' },
+            newsroom: { partial: 'partials/newsroom.html' },
+            initiatives: { partial: 'partials/initiatives.html' },
+            impact: { partial: 'partials/impact.html' },
+            events: { partial: 'partials/events.html' },
+            officers: { partial: 'partials/officers.html' },
+            connect: { partial: 'partials/connect.html' }
+        };
 
-        function updateThemeIcon(mode) {
-            themeIcon.innerHTML = mode === 'dark' ? '&#9788;' : '&#9790;';
-        }
-
-        function applyTheme(mode) {
-            document.documentElement.classList.toggle('dark', mode === 'dark');
-            updateThemeIcon(mode);
-            localStorage.setItem('sbo-theme', mode);
-        }
-
-        const storedTheme = localStorage.getItem('sbo-theme');
-        applyTheme(storedTheme || (prefersDark ? 'dark' : 'light'));
-
-        toggler.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.contains('dark');
-            applyTheme(isDark ? 'light' : 'dark');
-        });
-
-        const slides = [
+        const homeSlides = [
             {
                 tag: 'Student Leadership',
                 title: 'SBO male officers lead the charge',
@@ -576,64 +851,257 @@
             }
         ];
 
-        const slideImage = document.getElementById('showcase-image');
-        const slideTag = document.getElementById('showcase-tag');
-        const slideTitle = document.getElementById('showcase-title');
-        const slideExcerpt = document.getElementById('showcase-excerpt');
-        const slideLink = document.getElementById('showcase-link');
-        const slideDots = document.getElementById('slide-dots');
-        const prevBtn = document.getElementById('slide-prev');
-        const nextBtn = document.getElementById('slide-next');
-        let slideIndex = 0;
-        let slideInterval;
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const toggler = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const pageContent = document.getElementById('page-content');
 
-        function renderSlide(index) {
-            const slide = slides[index];
-            slideImage.src = slide.image;
-            slideImage.alt = slide.title;
-            slideTag.textContent = slide.tag;
-            slideTitle.textContent = slide.title;
-            slideExcerpt.textContent = slide.excerpt;
-            slideLink.href = slide.link;
-            [...slideDots.children].forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === index));
+        let currentView = 'home';
+        let pendingView = null;
+        let pendingScroll = null;
+        let homeSliderState = null;
+        let impactObserver = null;
+
+        function updateThemeIcon(mode) {
+            themeIcon.innerHTML = mode === 'dark' ? '&#9788;' : '&#9790;';
         }
 
-        function buildDots() {
-            slideDots.innerHTML = '';
-            slides.forEach((_, idx) => {
-                const dot = document.createElement('span');
-                dot.className = `slide-dot${idx === slideIndex ? ' active' : ''}`;
-                dot.addEventListener('click', () => {
-                    slideIndex = idx;
-                    renderSlide(slideIndex);
-                    restartSlideInterval();
-                });
-                slideDots.appendChild(dot);
+        function applyTheme(mode) {
+            document.documentElement.classList.toggle('dark', mode === 'dark');
+            updateThemeIcon(mode);
+            localStorage.setItem('sbo-theme', mode);
+        }
+
+        function scrollToTarget(id) {
+            if (!id) return;
+            const target = document.getElementById(id);
+            if (target) {
+                requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+            }
+        }
+
+        function updateActiveLinks(view) {
+            document.querySelectorAll('a[data-page]').forEach(link => {
+                if (link.dataset.noActive === 'true') {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                    return;
+                }
+                if (link.dataset.page === view) {
+                    link.classList.add('active');
+                    link.setAttribute('aria-current', 'page');
+                } else {
+                    link.classList.remove('active');
+                    link.removeAttribute('aria-current');
+                }
             });
         }
 
-        function updateSlide(step) {
-            slideIndex = (slideIndex + step + slides.length) % slides.length;
-            renderSlide(slideIndex);
+        function teardownPage(view) {
+            if (view === 'home' && homeSliderState?.intervalId) {
+                clearInterval(homeSliderState.intervalId);
+                homeSliderState = null;
+            }
+            if (view === 'impact' && impactObserver) {
+                impactObserver.disconnect();
+                impactObserver = null;
+            }
         }
 
-        function restartSlideInterval() {
-            clearInterval(slideInterval);
-            slideInterval = setInterval(() => updateSlide(1), 7000);
+        function initHome(container) {
+            const slider = container.querySelector('[data-home-slider]');
+            if (!slider || slider.dataset.initialized === 'true') return;
+
+            const image = slider.querySelector('[data-slide-image]');
+            const tagEl = slider.querySelector('[data-slide-tag]');
+            const titleEl = slider.querySelector('[data-slide-title]');
+            const excerptEl = slider.querySelector('[data-slide-excerpt]');
+            const linkEl = slider.querySelector('[data-slide-link]') || slider.querySelector('.showcase-actions a');
+            const dotsEl = slider.querySelector('[data-slide-dots]');
+            const prevBtn = slider.querySelector('[data-slide-prev]');
+            const nextBtn = slider.querySelector('[data-slide-next]');
+
+            let index = 0;
+            let intervalId;
+
+            function renderSlide() {
+                const slide = homeSlides[index];
+                image.src = slide.image;
+                image.alt = slide.title;
+                tagEl.textContent = slide.tag;
+                titleEl.textContent = slide.title;
+                excerptEl.textContent = slide.excerpt;
+                if (linkEl) linkEl.href = slide.link;
+                dotsEl.querySelectorAll('.slide-dot').forEach((dot, dotIndex) => {
+                    dot.classList.toggle('active', dotIndex === index);
+                });
+            }
+
+            function buildDots() {
+                dotsEl.innerHTML = '';
+                homeSlides.forEach((_, dotIndex) => {
+                    const dot = document.createElement('span');
+                    dot.className = `slide-dot${dotIndex === index ? ' active' : ''}`;
+                    dot.addEventListener('click', () => {
+                        index = dotIndex;
+                        renderSlide();
+                        restartInterval();
+                    });
+                    dotsEl.appendChild(dot);
+                });
+            }
+
+            function changeSlide(step) {
+                index = (index + step + homeSlides.length) % homeSlides.length;
+                renderSlide();
+            }
+
+            function restartInterval() {
+                clearInterval(intervalId);
+                intervalId = setInterval(() => changeSlide(1), 7000);
+            }
+
+            prevBtn.addEventListener('click', () => {
+                changeSlide(-1);
+                restartInterval();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                changeSlide(1);
+                restartInterval();
+            });
+
+            buildDots();
+            renderSlide();
+            intervalId = setInterval(() => changeSlide(1), 7000);
+            slider.dataset.initialized = 'true';
+            homeSliderState = { intervalId };
         }
 
-        prevBtn.addEventListener('click', () => {
-            updateSlide(-1);
-            restartSlideInterval();
-        });
-        nextBtn.addEventListener('click', () => {
-            updateSlide(1);
-            restartSlideInterval();
+        function initImpact(container) {
+            const metrics = Array.from(container.querySelectorAll('[data-metric-target]'));
+            if (!metrics.length) return;
+            metrics.forEach(metric => { metric.textContent = '0'; });
+
+            impactObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const el = entry.target;
+                    const targetValue = Number(el.dataset.metricTarget || '0');
+                    const start = performance.now();
+                    const duration = 1800;
+
+                    function step(now) {
+                        const progress = Math.min((now - start) / duration, 1);
+                        el.textContent = Math.floor(progress * targetValue).toLocaleString('en-US');
+                        if (progress < 1) requestAnimationFrame(step);
+                    }
+
+                    requestAnimationFrame(step);
+                    impactObserver.unobserve(el);
+                });
+            }, { threshold: 0.5 });
+
+            metrics.forEach(metric => impactObserver.observe(metric));
+        }
+
+        function initConnect(container) {
+            const form = container.querySelector('#contact-form');
+            if (!form || form.dataset.bound === 'true') return;
+            form.addEventListener('submit', event => {
+                event.preventDefault();
+                form.reset();
+                alert('Thank you for reaching out! The SBO team will respond within two working days.');
+            });
+            form.dataset.bound = 'true';
+        }
+
+        function initPage(view, container) {
+            if (!container) return;
+            switch (view) {
+                case 'home':
+                    initHome(container);
+                    break;
+                case 'impact':
+                    initImpact(container);
+                    break;
+                case 'connect':
+                    initConnect(container);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const storedTheme = localStorage.getItem('sbo-theme');
+            applyTheme(storedTheme || (prefersDark ? 'dark' : 'light'));
+            updateActiveLinks(currentView);
+            initPage(currentView, pageContent);
         });
 
-        buildDots();
-        renderSlide(slideIndex);
-        slideInterval = setInterval(() => updateSlide(1), 7000);
+        toggler.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            applyTheme(isDark ? 'light' : 'dark');
+        });
+
+        document.addEventListener('click', event => {
+            const link = event.target.closest('a[data-page]');
+            if (!link) return;
+            if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+            const page = link.dataset.page;
+            const config = viewConfig[page];
+            const scrollTarget = link.dataset.scrollTarget || null;
+
+            if (!config) {
+                if (page === 'home' && scrollTarget) {
+                    event.preventDefault();
+                    scrollToTarget(scrollTarget);
+                }
+                return;
+            }
+
+            event.preventDefault();
+
+            if (page === currentView) {
+                if (scrollTarget) {
+                    scrollToTarget(scrollTarget);
+                }
+                return;
+            }
+
+            pendingView = page;
+            pendingScroll = scrollTarget;
+            pageContent.style.opacity = '0.35';
+            htmx.ajax('GET', config.partial, '#page-content');
+        });
+
+        document.body.addEventListener('htmx:afterSwap', event => {
+            if (event.detail.target !== pageContent) return;
+            const previousView = currentView;
+            currentView = pendingView || currentView;
+            pendingView = null;
+            pageContent.style.opacity = '1';
+            if (previousView !== currentView) {
+                teardownPage(previousView);
+            }
+            updateActiveLinks(currentView);
+            initPage(currentView, pageContent);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (pendingScroll) {
+                scrollToTarget(pendingScroll);
+                pendingScroll = null;
+            }
+        });
+
+        document.body.addEventListener('htmx:responseError', event => {
+            if (event.detail.target !== pageContent) return;
+            pageContent.style.opacity = '1';
+            pageContent.innerHTML = '<div class="load-error">We could not load that section. Please try again.</div>';
+            pendingView = null;
+            pendingScroll = null;
+        });
     </script>
 </body>
 </html>
