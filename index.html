@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Student Body Organization | SKSU Isulan Campus</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,6 +38,7 @@
             color: var(--brand-deep);
             line-height: 1.65;
             min-height: 100vh;
+            min-height: 100dvh;
         }
 
         img { max-width: 100%; display: block; }
@@ -46,7 +47,7 @@
         button { font-family: inherit; }
 
         main { overflow: hidden; }
-        section { padding: 5rem 1.5rem; }
+    section { padding: clamp(3.5rem, 6vw, 5rem) clamp(1rem, 4vw, 1.5rem); }
         .container { max-width: 1220px; margin: 0 auto; }
 
         .announcement-bar {
@@ -316,14 +317,20 @@
 
         .feature-video-player {
             width: 100%;
-            height: clamp(360px, 70vh, 820px);
+            height: clamp(300px, 65vh, 820px);
             object-fit: cover;
             display: block;
         }
 
+        @supports (height: 100dvh) {
+            .feature-video-player {
+                height: clamp(300px, 65dvh, 820px);
+            }
+        }
+
         .feature-video-caption {
             background: #050d08;
-            padding: 3rem 1.5rem 4rem;
+            padding: clamp(2.5rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 1.5rem) clamp(3rem, 6vw, 4rem);
         }
 
         .feature-video-caption .container {
@@ -810,11 +817,12 @@
         }
 
         @media (max-width: 680px) {
-            section { padding: 4rem 1rem; }
+            header { position: static; }
+            section { padding: clamp(2.75rem, 8vw, 4rem) clamp(0.85rem, 3vw, 1.1rem); }
             .announcement-bar .container { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
             .announcement-bar .quick-links { width: 100%; justify-content: space-between; }
-            .feature-video-player { height: clamp(260px, 55vh, 520px); }
-            .feature-video-caption { padding: 2.5rem 1rem 3.5rem; }
+            .feature-video-player { height: clamp(240px, 60vh, 560px); }
+            .feature-video-caption { padding: clamp(2rem, 6vw, 2.75rem) clamp(1rem, 5vw, 1.25rem) clamp(2.5rem, 7vw, 3rem); }
             .news-announcements { padding: 4rem 1rem; }
             .news-announcements-header { flex-direction: column; align-items: flex-start; }
             .news-announcements-grid { gap: 1.25rem; }
@@ -824,6 +832,12 @@
         @media (max-width: 520px) {
             .footer-grid { grid-template-columns: 1fr; }
             .announcement-bar .quick-links { flex-direction: column; align-items: flex-start; }
+        }
+
+        @media (orientation: landscape) and (max-height: 620px) {
+            section { padding-block: clamp(2.5rem, 10vh, 3.25rem); }
+            .feature-video-player { height: clamp(240px, 88vh, 520px); }
+            .feature-video-caption { padding-block: clamp(2rem, 10vh, 2.9rem); }
         }
     </style>
 </head>
