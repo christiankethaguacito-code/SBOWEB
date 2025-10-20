@@ -182,12 +182,16 @@
 
         .news-layout {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: minmax(0, 1fr);
             gap: 2.5rem;
             align-items: start;
         }
 
-        .news-feed { display: grid; gap: 1.5rem; }
+        .news-feed {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
 
         .news-card {
             background: var(--brand-white);
@@ -444,9 +448,14 @@
                     </article>
                 </div>
 
-                <aside class="news-side">
-                    <div class="digest-card">
-                        <strong>Quick Briefs</strong>
+            </div>
+        </section>
+
+        <section class="news-content" aria-labelledby="newsroom-support-title">
+            <div class="container">
+                <div class="news-side">
+                    <article class="digest-card">
+                        <strong id="newsroom-support-title">Quick Briefs</strong>
                         <ul class="digest-list">
                             <li>
                                 OneSBO Transparency Portal publishes Q3 financial snapshot.
@@ -461,14 +470,14 @@
                                 <span>Posted September 30, 2025</span>
                             </li>
                         </ul>
-                    </div>
+                    </article>
 
-                    <div class="digest-card">
+                    <article class="digest-card">
                         <strong>Press Resources</strong>
                         <p>Download high-resolution media kits, request interviews, or subscribe to the newsroom digest for weekly highlights.</p>
                         <a class="call-to-action" href="mailto:press@sbo.sksu.edu.ph">Connect with press desk</a>
-                    </div>
-                </aside>
+                    </article>
+                </div>
             </div>
         </section>
     </main>

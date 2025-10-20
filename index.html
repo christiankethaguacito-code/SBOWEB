@@ -448,8 +448,17 @@
         .page-hero p { color: rgba(255, 255, 255, 0.85); font-size: 1.05rem; }
 
         .news-content { background: var(--brand-cream); }
-        .news-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 2.5rem; align-items: start; }
-        .news-feed { display: grid; gap: 1.5rem; }
+        .news-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 2.5rem;
+            align-items: start;
+        }
+        .news-feed {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
         .news-card {
             background: var(--brand-white);
             border-radius: 1.25rem;
