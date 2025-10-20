@@ -7,7 +7,7 @@
                         <h2>Michael Abad secures Top 2 USG Senator seat</h2>
                         <div class="news-meta">
                             <span>October 18, 2025</span>
-                            <span>By SBO Communications Council</span>
+                            <span>By SBO Publication Officers</span>
                         </div>
                         <p>Sultan Kudarat State University - Isulan Campus proudly congratulates Michael Abad for securing the Top 2 spot as University Student Government (USG) Senator.</p>
                         <p>His victory reflects unwavering dedication to student leadership. As one of the voices chosen to represent the student body, Michael champions service with purpose and leadership rooted in integrity.</p>
@@ -191,6 +191,33 @@
         .news-meta {
             display: flex;
             flex-wrap: wrap;
+
+        .news-card button[data-detail-toggle] {
+            justify-self: flex-start;
+            padding: 0.55rem 1rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            background: transparent;
+            color: var(--brand-green-700);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .news-card button[data-detail-toggle]:hover {
+            background: rgba(18, 102, 61, 0.1);
+            color: var(--brand-green-800);
+        }
+
+        .news-detail {
+            display: none;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(12, 59, 40, 0.12);
+            gap: 0.75rem;
+            color: var(--brand-slate);
+        }
+
+        .news-detail[aria-hidden="false"] { display: grid; }
             align-items: center;
             gap: 1rem;
             font-size: 0.85rem;
@@ -440,26 +467,20 @@
             </div>
             <div class="footer-links">
                 <strong>Resources</strong>
+                        <button type="button" data-detail-toggle="abad-detail">Read full story</button>
+                        <div class="news-detail" id="abad-detail" aria-hidden="true">
+                            <p>The Sultan Kudarat State University - Isulan Campus proudly congratulates Michael Abad for securing the Top 2 spot as University Student Government (USG) Senator!</p>
+                            <p>Your victory is a reflection of your dedication, passion, and unwavering commitment to student leadership. As one of the voices chosen to represent the student body, your success is not just a personal achievement - it is a triumph for every student who believes in service with purpose and leadership with integrity.</p>
+                            <p>Continue to serve with excellence, lead with compassion, and inspire with action.</p>
+                            <p>Congratulations, Michael Abad - Top 2 USG Senator!</p>
+                        </div>
                 <a href="connect.html">Contact SBO</a>
                 <a href="https://www.facebook.com/SKSUSBO" target="_blank" rel="noopener">Facebook Page</a>
                 <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
                 <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube Channel</a>
             </div>
             <div class="footer-links">
-                <strong>Visit</strong>
-                <span>Learning Commons, 2nd floor</span>
-                <a href="mailto:sbo@sksu.edu.ph">sbo@sksu.edu.ph</a>
-                <a href="tel:+639176001234">+63 917 600 1234</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span>&copy; 2025 Student Body Organization, SKSU Isulan Campus. All rights reserved.</span>
-            <span>Stories of student leadership and community impact.</span>
-        </div>
-    </footer>
-
-    <script>
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    <ul class="digest-list"></ul>
         const toggler = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
 
@@ -479,6 +500,17 @@
         toggler.addEventListener('click', () => {
             const isDark = document.documentElement.classList.contains('dark');
             applyTheme(isDark ? 'light' : 'dark');
+        });
+
+        document.querySelectorAll('[data-detail-toggle]').forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-detail-toggle');
+                const detail = document.getElementById(targetId);
+                if (!detail) return;
+                const isHidden = detail.getAttribute('aria-hidden') !== 'false';
+                detail.setAttribute('aria-hidden', isHidden ? 'false' : 'true');
+                button.textContent = isHidden ? 'Hide full story' : 'Read full story';
+            });
         });
     </script>
 </body>
