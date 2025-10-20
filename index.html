@@ -113,6 +113,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
         nav a {
@@ -133,19 +134,6 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-        }
-
-        .mobile-menu-toggle,
-        .mobile-menu-close {
-            display: none;
-        }
-
-        .mobile-nav-overlay {
-            display: none;
-        }
-
-        .nav-heading {
-            display: none;
         }
 
         .call-to-action {
@@ -669,90 +657,7 @@
             .feature-video { padding: 2rem 1.5rem 4rem; }
             .feature-video-content { margin-top: 0; grid-template-columns: 1fr; }
 
-            .mobile-menu-toggle {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: 42px;
-                height: 42px;
-                border-radius: 50%;
-                border: 1px solid var(--border-soft);
-                background: var(--brand-white);
-                color: var(--brand-green-900);
-                font-size: 1.45rem;
-                cursor: pointer;
-                transition: background 0.3s ease, transform 0.3s ease;
-            }
-
-            .mobile-menu-toggle:hover { background: rgba(18, 102, 61, 0.1); transform: translateY(-1px); }
-
-            nav {
-                display: grid;
-                grid-auto-rows: min-content;
-                position: fixed;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                width: min(320px, 80vw);
-                background: var(--brand-white);
-                box-shadow: -12px 0 32px rgba(12, 59, 40, 0.18);
-                padding: 4.5rem 1.75rem 2.5rem;
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0.75rem;
-                transform: translateX(100%);
-                transition: transform 0.35s ease;
-                z-index: 950;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            nav.open { transform: translateX(0); }
-
-            .nav-heading {
-                display: block;
-                margin: 0 0 1rem;
-                font-size: 1.25rem;
-                font-weight: 700;
-                color: var(--brand-green-900);
-            }
-
-            nav a {
-                display: block;
-                padding: 0.85rem 1rem;
-                border-radius: 0.85rem;
-                border: 1px solid transparent;
-                font-size: 1rem;
-            }
-
-            nav a:is(:hover, .active) { border-color: rgba(18, 102, 61, 0.15); background: rgba(18, 102, 61, 0.08); }
-
-            .mobile-menu-close {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                position: absolute;
-                top: 1.5rem;
-                right: 1.5rem;
-                width: 38px;
-                height: 38px;
-                border-radius: 50%;
-                border: 1px solid var(--border-soft);
-                background: var(--brand-white);
-                color: var(--brand-green-900);
-                font-size: 1.35rem;
-                cursor: pointer;
-            }
-
-            .mobile-nav-overlay.visible {
-                display: block;
-                position: fixed;
-                inset: 0;
-                background: rgba(7, 22, 15, 0.45);
-                z-index: 940;
-            }
-
-            body.mobile-nav-open { overflow: hidden; }
+            nav a { display: inline-flex; }
         }
 
         @media (max-width: 680px) {
@@ -786,8 +691,6 @@
                 </div>
             </a>
             <nav aria-label="Primary navigation">
-                <button class="mobile-menu-close" type="button" id="mobile-menu-close" aria-label="Close navigation">&#10005;</button>
-                <h2 class="nav-heading">Explore</h2>
                 <a href="index.html" class="active" data-page="home">Home</a>
                 <a href="index.html#feature-video" data-page="home" data-scroll-target="feature-video" data-no-active="true">Feature Reel</a>
                 <a href="newsroom.html" data-page="newsroom">Newsroom</a>
@@ -797,12 +700,10 @@
                 <a href="officers.html" data-page="officers">Officers</a>
             </nav>
             <div class="nav-actions">
-                <button class="mobile-menu-toggle" type="button" id="mobile-menu-toggle" aria-label="Open navigation" aria-expanded="false">&#9776;</button>
                 <a class="call-to-action" href="connect.html" data-page="connect" data-no-active="true">Join SBO</a>
             </div>
         </div>
     </header>
-    <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
     <main>
         <div id="page-content" aria-live="polite">
             <div class="page-shell" data-page-root="home">
@@ -917,9 +818,6 @@
         ];
 
         const pageContent = document.getElementById('page-content');
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
-        const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
         const primaryNav = document.querySelector('header nav');
 
         let currentView = 'home';
@@ -927,26 +825,7 @@
         let pendingScroll = null;
         let homeSliderState = null;
         let impactObserver = null;
-        let isMobileNavOpen = false;
         let lastTouchEnd = 0;
-
-        function closeMobileNav() {
-            if (!primaryNav) return;
-            primaryNav.classList.remove('open');
-            document.body.classList.remove('mobile-nav-open');
-            if (mobileNavOverlay) mobileNavOverlay.classList.remove('visible');
-            if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            isMobileNavOpen = false;
-        }
-
-        function openMobileNav() {
-            if (!primaryNav) return;
-            primaryNav.classList.add('open');
-            document.body.classList.add('mobile-nav-open');
-            if (mobileNavOverlay) mobileNavOverlay.classList.add('visible');
-            if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', 'true');
-            isMobileNavOpen = true;
-        }
 
         function scrollToTarget(id) {
             if (!id) return;
@@ -1113,8 +992,6 @@
             const { scrollTarget = null, navigationMode = 'push' } = options;
             const config = viewConfig[view];
 
-            closeMobileNav();
-
             if (!config) {
                 if (view === 'home' && scrollTarget) {
                     if (navigationMode === 'push') {
@@ -1184,17 +1061,6 @@
             }
         });
 
-        mobileMenuToggle?.addEventListener('click', () => {
-            if (primaryNav?.classList.contains('open')) {
-                closeMobileNav();
-            } else {
-                openMobileNav();
-            }
-        });
-
-        mobileMenuClose?.addEventListener('click', closeMobileNav);
-        mobileNavOverlay?.addEventListener('click', closeMobileNav);
-
         document.addEventListener('touchstart', event => {
             if (event.touches.length > 1) {
                 event.preventDefault();
@@ -1226,24 +1092,19 @@
             }
 
             event.preventDefault();
-            closeMobileNav();
             loadView(page, { scrollTarget });
         });
 
         window.addEventListener('resize', () => {
-            if (window.innerWidth > 1024) {
-                closeMobileNav();
-            }
+            /* no-op: legacy handler kept for layout recalculations */
         });
 
         window.addEventListener('orientationchange', () => {
-            closeMobileNav();
+            /* nav no longer collapses, keep handler for potential future use */
         });
 
         document.addEventListener('keydown', event => {
-            if (event.key === 'Escape') {
-                closeMobileNav();
-            }
+            /* keeping listener to avoid regression; no action needed */
         });
 
         window.addEventListener('popstate', event => {
