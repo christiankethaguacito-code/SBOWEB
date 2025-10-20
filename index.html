@@ -144,6 +144,10 @@
             display: none;
         }
 
+        .nav-heading {
+            display: none;
+        }
+
         .call-to-action {
             padding: 0.65rem 1.1rem;
             border-radius: 999px;
@@ -705,6 +709,14 @@
 
             nav.open { transform: translateX(0); }
 
+            .nav-heading {
+                display: block;
+                margin: 0 0 1rem;
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: var(--brand-green-900);
+            }
+
             nav a {
                 display: block;
                 padding: 0.85rem 1rem;
@@ -775,6 +787,7 @@
             </a>
             <nav aria-label="Primary navigation">
                 <button class="mobile-menu-close" type="button" id="mobile-menu-close" aria-label="Close navigation">&#10005;</button>
+                <h2 class="nav-heading">Explore</h2>
                 <a href="index.html" class="active" data-page="home">Home</a>
                 <a href="index.html#feature-video" data-page="home" data-scroll-target="feature-video" data-no-active="true">Feature Reel</a>
                 <a href="newsroom.html" data-page="newsroom">Newsroom</a>
