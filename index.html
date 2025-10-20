@@ -854,13 +854,13 @@
         const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         const toggler = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
-        const pageContent = document.getElementById('page-content');
+    const pageContent = document.getElementById('page-content');
 
-        let currentView = 'home';
-        let pendingView = null;
-        let pendingScroll = null;
-        let homeSliderState = null;
-        let impactObserver = null;
+    let currentView = 'home';
+    let pendingView = null;
+    let pendingScroll = null;
+    let homeSliderState = null;
+    let impactObserver = null;
 
         function updateThemeIcon(mode) {
             themeIcon.innerHTML = mode === 'dark' ? '&#9788;' : '&#9790;';
@@ -1033,11 +1033,79 @@
             }
         }
 
+        function loadView(view, options = {}) {
+            const { scrollTarget = null, navigationMode = 'push' } = options;
+            const config = viewConfig[view];
+
+            if (!config) {
+                if (view === 'home' && scrollTarget) {
+                    if (navigationMode === 'push') {
+                        history.pushState({ view, scrollTarget }, '', `#${scrollTarget}`);
+                    } else if (navigationMode === 'replace') {
+                        history.replaceState({ view, scrollTarget }, '', `#${scrollTarget}`);
+                    }
+                    scrollToTarget(scrollTarget);
+                }
+                return;
+            }
+
+            if (view === currentView) {
+                if (scrollTarget) {
+                    if (navigationMode === 'push') {
+                        history.pushState({ view, scrollTarget }, '', `#${scrollTarget}`);
+                    } else if (navigationMode === 'replace') {
+                        history.replaceState({ view, scrollTarget }, '', `#${scrollTarget}`);
+                    }
+                    scrollToTarget(scrollTarget);
+                }
+                updateActiveLinks(view);
+                return;
+            }
+
+            updateActiveLinks(view);
+
+            if (navigationMode === 'push') {
+                if (view === 'home' && !scrollTarget) {
+                    history.pushState({ view }, '', window.location.pathname + window.location.search);
+                } else {
+                    const hashValue = scrollTarget || view;
+                    history.pushState({ view, scrollTarget }, '', `#${hashValue}`);
+                }
+            } else if (navigationMode === 'replace') {
+                const hashValue = scrollTarget || view;
+                const url = view === 'home' && !scrollTarget
+                    ? window.location.pathname + window.location.search
+                    : `#${hashValue}`;
+                history.replaceState({ view, scrollTarget }, '', url);
+            }
+
+            pendingView = view;
+            pendingScroll = scrollTarget;
+            pageContent.style.opacity = '0.35';
+            pageContent.setAttribute('aria-busy', 'true');
+            htmx.ajax('GET', config.partial, '#page-content');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const storedTheme = localStorage.getItem('sbo-theme');
             applyTheme(storedTheme || (prefersDark ? 'dark' : 'light'));
-            updateActiveLinks(currentView);
-            initPage(currentView, pageContent);
+            const initialHash = window.location.hash.replace('#', '');
+
+            if (initialHash && viewConfig[initialHash]) {
+                loadView(initialHash, { navigationMode: 'replace' });
+            } else {
+                if (!history.state || !history.state.view) {
+                    const url = initialHash
+                        ? `#${initialHash}`
+                        : window.location.pathname + window.location.search;
+                    history.replaceState({ view: currentView, scrollTarget: initialHash || null }, '', url);
+                }
+                updateActiveLinks(currentView);
+                initPage(currentView, pageContent);
+                if (initialHash) {
+                    scrollToTarget(initialHash);
+                }
+            }
         });
 
         toggler.addEventListener('click', () => {
@@ -1051,30 +1119,34 @@
             if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
             const page = link.dataset.page;
-            const config = viewConfig[page];
             const scrollTarget = link.dataset.scrollTarget || null;
 
-            if (!config) {
+            if (!viewConfig[page]) {
                 if (page === 'home' && scrollTarget) {
                     event.preventDefault();
+                    history.pushState({ view: 'home', scrollTarget }, '', `#${scrollTarget}`);
                     scrollToTarget(scrollTarget);
                 }
                 return;
             }
 
             event.preventDefault();
+            loadView(page, { scrollTarget });
+        });
 
-            if (page === currentView) {
-                if (scrollTarget) {
-                    scrollToTarget(scrollTarget);
-                }
-                return;
+        window.addEventListener('popstate', event => {
+            const stateView = event.state?.view;
+            const stateScroll = event.state?.scrollTarget || null;
+            const hash = window.location.hash.replace('#', '');
+            const targetView = stateView || (viewConfig[hash] ? hash : 'home');
+
+            if (viewConfig[targetView]) {
+                loadView(targetView, { scrollTarget: stateScroll || null, navigationMode: 'none' });
+            } else if (hash) {
+                scrollToTarget(hash);
+            } else {
+                loadView('home', { navigationMode: 'none' });
             }
-
-            pendingView = page;
-            pendingScroll = scrollTarget;
-            pageContent.style.opacity = '0.35';
-            htmx.ajax('GET', config.partial, '#page-content');
         });
 
         document.body.addEventListener('htmx:afterSwap', event => {
@@ -1083,6 +1155,7 @@
             currentView = pendingView || currentView;
             pendingView = null;
             pageContent.style.opacity = '1';
+            pageContent.removeAttribute('aria-busy');
             if (previousView !== currentView) {
                 teardownPage(previousView);
             }
@@ -1098,6 +1171,7 @@
         document.body.addEventListener('htmx:responseError', event => {
             if (event.detail.target !== pageContent) return;
             pageContent.style.opacity = '1';
+            pageContent.removeAttribute('aria-busy');
             pageContent.innerHTML = '<div class="load-error">We could not load that section. Please try again.</div>';
             pendingView = null;
             pendingScroll = null;
