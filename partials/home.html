@@ -1,35 +1,64 @@
 <div class="page-shell" data-page-root="home">
-    <section id="showcase" class="showcase" data-home-slider>
-        <img data-slide-image src="group.jpg" alt="SBO leaders collaborating at SKSU Isulan Campus">
-        <div class="showcase-content">
-            <div class="pill" data-slide-tag>Student Leadership</div>
-            <h1 data-slide-title>SBO charts a student-first agenda for A.Y. 2025-2026</h1>
-            <p data-slide-excerpt>We amplify student voices through collaborative governance, inclusive engagement, and future-ready programs rooted in the SKSU Isulan experience.</p>
-            <div class="showcase-actions">
-                <a class="call-to-action" href="index.html#feature-video" data-page="home" data-scroll-target="feature-video" data-no-active="true">Explore the feature reel</a>
+    <section id="feature-video" class="feature-video" aria-labelledby="feature-video-title">
+        <video class="feature-video-player" src="feature.mp4" poster="group.jpg" autoplay muted loop playsinline controls>
+            Sorry, your browser does not support embedded videos.
+        </video>
+        <div class="feature-video-caption">
+            <div class="container">
+                <span class="feature-video-badge">Feature Reel</span>
+                <h2 id="feature-video-title">Experience the SBO story in motion.</h2>
+                <p>Catch highlights from assemblies, community immersions, and student-led breakthroughs shaping the academic year.</p>
+                <a class="call-to-action" href="https://www.facebook.com/TheTechnopipeline" target="_blank" rel="noopener">Watch on Facebook</a>
             </div>
-        </div>
-        <div class="showcase-controls">
-            <div class="slide-nav">
-                <button class="slide-btn" type="button" data-slide-prev aria-label="Previous headline">&#10094;</button>
-                <button class="slide-btn" type="button" data-slide-next aria-label="Next headline">&#10095;</button>
-            </div>
-            <div class="slide-dots" data-slide-dots></div>
         </div>
     </section>
 
-    <section id="feature-video" class="feature-video" aria-labelledby="feature-video-title">
+    <section id="headlines" class="news-announcements" aria-labelledby="news-announcements-title">
         <div class="container">
-            <div class="feature-video-content">
-                <div class="feature-video-copy">
-                    <h2 class="section-title" id="feature-video-title">Feature Reel</h2>
-                    <p class="section-subtitle">Experience the latest highlights from the Student Body Organization—streamed directly from campus events and initiatives.</p>
-                </div>
-                <div class="feature-video-wrapper">
-                    <video class="feature-video-player" src="feature.mp4" poster="group.jpg" autoplay muted loop playsinline controls>
-                        Sorry, your browser does not support embedded videos.
-                    </video>
-                </div>
+            <div class="news-announcements-header">
+                <h2 id="news-announcements-title">News &amp; Announcements</h2>
+                <a class="ghost-button" href="newsroom.html" data-page="newsroom" data-no-active="true">Visit Newsroom</a>
+            </div>
+            <div class="news-announcements-grid">
+                <article class="news-column">
+                    <h3>Notices</h3>
+                    <ul class="news-list">
+                        <li>
+                            <a href="newsroom.html" data-page="newsroom" data-no-active="true">Midterm Examination Schedule, 1st Semester A.Y. 2025-2026</a>
+                            <span>September 27, 2025</span>
+                        </li>
+                        <li>
+                            <a href="events.html" data-page="events" data-no-active="true">Innovation Sprints registration opens for October 28</a>
+                            <span>October 12, 2025</span>
+                        </li>
+                    </ul>
+                </article>
+                <article class="news-column">
+                    <h3>Awards</h3>
+                    <ul class="news-list">
+                        <li>
+                            <a href="newsroom.html" data-page="newsroom" data-no-active="true">Michael Abad ranks Top 2 in USG Senate race</a>
+                            <span>October 9, 2025</span>
+                        </li>
+                        <li>
+                            <a href="newsroom.html" data-page="newsroom" data-no-active="true">SBO Helpdesk earns campus service excellence citation</a>
+                            <span>September 29, 2025</span>
+                        </li>
+                    </ul>
+                </article>
+                <article class="news-column">
+                    <h3>Internationalization</h3>
+                    <ul class="news-list">
+                        <li>
+                            <a href="initiatives.html" data-page="initiatives" data-no-active="true">Barangay Innovation Fellows deploy 12 community pilots</a>
+                            <span>August 2025</span>
+                        </li>
+                        <li>
+                            <a href="impact.html" data-page="impact" data-no-active="true">Transparency portal launches real-time budget dashboard</a>
+                            <span>September 2025</span>
+                        </li>
+                    </ul>
+                </article>
             </div>
         </div>
     </section>
