@@ -91,6 +91,7 @@
             font-weight: 700;
             font-size: 1.05rem;
             color: var(--brand-green-900);
+            min-width: 0;
         }
 
         .brand img {
@@ -101,6 +102,11 @@
             background: var(--brand-white);
             padding: 0.35rem;
             border: 1px solid var(--border-soft);
+        }
+
+        .brand span {
+            display: inline-block;
+            line-height: 1.2;
         }
 
         nav {
@@ -136,24 +142,6 @@
 
         .mobile-nav-overlay {
             display: none;
-        }
-
-        .theme-toggle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 1px solid var(--border-soft);
-            display: grid;
-            place-items: center;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease;
-            color: var(--brand-slate);
-            background: var(--brand-white);
-        }
-
-        .theme-toggle:hover {
-            background: rgba(18, 102, 61, 0.1);
-            transform: translateY(-1px);
         }
 
         .call-to-action {
@@ -670,31 +658,6 @@
             flex-wrap: wrap;
         }
 
-        .dark body { background: #07160f; color: rgba(255, 255, 255, 0.9); }
-        .dark header { background: rgba(7, 22, 15, 0.96); border-bottom-color: rgba(255, 255, 255, 0.08); box-shadow: none; }
-        .dark nav a { color: rgba(255, 255, 255, 0.78); }
-        .dark nav a:is(:hover, .active) { background: rgba(30, 167, 90, 0.24); color: var(--brand-white); }
-        .dark .news-card,
-        .dark .digest-card,
-        .dark .program-card,
-        .dark .case-card,
-        .dark .metric-card,
-        .dark .timeline-card,
-        .dark .evidence-card,
-        .dark .event-card,
-        .dark .day-block,
-        .dark .highlight-card,
-        .dark .officer-card,
-        .dark form,
-        .dark .info-card,
-        .dark .resource-card { background: rgba(7, 22, 15, 0.92); color: rgba(255, 255, 255, 0.9); border-color: rgba(30, 167, 90, 0.24); }
-
-        .dark input,
-        .dark textarea,
-        .dark select { background: rgba(7, 22, 15, 0.86); color: rgba(255, 255, 255, 0.9); border-color: rgba(30, 167, 90, 0.24); }
-
-        .dark .feature-video-wrapper { background: rgba(7, 22, 15, 0.92); }
-
         @media (max-width: 1024px) {
             section { padding: 4.5rem 1.5rem; }
             .showcase-content { padding: 3.5rem 1.5rem; }
@@ -803,7 +766,10 @@
         <div class="nav-wrapper">
             <a class="brand" href="index.html" aria-label="Student Body Organization home" data-page="home" data-no-active="true">
                 <img src="logo.png" alt="SBO crest">
-                <div>Student Body Organization<br><small>SKSU Isulan Campus</small></div>
+                <div>
+                    <span>Student Body Organization</span><br>
+                    <small>SKSU Isulan Campus</small>
+                </div>
             </a>
             <nav aria-label="Primary navigation">
                 <button class="mobile-menu-close" type="button" id="mobile-menu-close" aria-label="Close navigation">&#10005;</button>
@@ -818,9 +784,6 @@
             </nav>
             <div class="nav-actions">
                 <button class="mobile-menu-toggle" type="button" id="mobile-menu-toggle" aria-label="Open navigation" aria-expanded="false">&#9776;</button>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-                    <span id="theme-icon">&#9789;</span>
-                </button>
                 <a class="call-to-action" href="connect.html" data-page="connect" data-no-active="true">Join SBO</a>
             </div>
         </div>
@@ -939,9 +902,6 @@
             }
         ];
 
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const toggler = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
         const pageContent = document.getElementById('page-content');
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const mobileMenuClose = document.getElementById('mobile-menu-close');
@@ -978,16 +938,6 @@
             if (mobileNavOverlay) mobileNavOverlay.classList.add('visible');
             if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', 'true');
             isMobileNavOpen = true;
-        }
-
-        function updateThemeIcon(mode) {
-            themeIcon.innerHTML = mode === 'dark' ? '&#9788;' : '&#9790;';
-        }
-
-        function applyTheme(mode) {
-            document.documentElement.classList.toggle('dark', mode === 'dark');
-            updateThemeIcon(mode);
-            localStorage.setItem('sbo-theme', mode);
         }
 
         function scrollToTarget(id) {
@@ -1207,8 +1157,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const storedTheme = localStorage.getItem('sbo-theme');
-            applyTheme(storedTheme || (prefersDark ? 'dark' : 'light'));
             const initialHash = window.location.hash.replace('#', '');
 
             if (initialHash && viewConfig[initialHash]) {
@@ -1226,11 +1174,6 @@
                     scrollToTarget(initialHash);
                 }
             }
-        });
-
-        toggler.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.contains('dark');
-            applyTheme(isDark ? 'light' : 'dark');
         });
 
         mobileMenuToggle?.addEventListener('click', () => {
