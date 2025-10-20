@@ -782,7 +782,6 @@
                 <a href="impact.html" data-page="impact">Impact</a>
                 <a href="events.html" data-page="events">Events</a>
                 <a href="officers.html" data-page="officers">Officers</a>
-                <a href="connect.html" data-page="connect">Connect</a>
             </nav>
             <div class="nav-actions">
                 <button class="mobile-menu-toggle" type="button" id="mobile-menu-toggle" aria-label="Open navigation" aria-expanded="false">&#9776;</button>
@@ -910,19 +909,13 @@
         const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
         const primaryNav = document.querySelector('header nav');
 
-    let currentView = 'home';
-    let pendingView = null;
-    let pendingScroll = null;
-    let homeSliderState = null;
-    let impactObserver = null;
-    let isMobileNavOpen = false;
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let edgeSwipeActive = false;
-    let navSwipeActive = false;
-    let lastTouchEnd = 0;
-        const EDGE_ACTIVATION_WIDTH = 64;
-        const SWIPE_ACTIVATION_DELTA = 70;
+        let currentView = 'home';
+        let pendingView = null;
+        let pendingScroll = null;
+        let homeSliderState = null;
+        let impactObserver = null;
+        let isMobileNavOpen = false;
+        let lastTouchEnd = 0;
 
         function closeMobileNav() {
             if (!primaryNav) return;
@@ -1189,65 +1182,18 @@
         mobileMenuClose?.addEventListener('click', closeMobileNav);
         mobileNavOverlay?.addEventListener('click', closeMobileNav);
 
-        function handleTouchStart(event) {
-            if (event.touches.length !== 1) return;
-            const touch = event.touches[0];
-            touchStartX = touch.clientX;
-            touchStartY = touch.clientY;
-            edgeSwipeActive = !isMobileNavOpen && touchStartX > window.innerWidth - EDGE_ACTIVATION_WIDTH;
-            if (isMobileNavOpen) {
-                const navWidth = primaryNav?.offsetWidth || 0;
-                navSwipeActive = touchStartX >= window.innerWidth - navWidth;
-            } else {
-                navSwipeActive = false;
-            }
-        }
-
-        function handleTouchMove(event) {
-            if (event.touches.length !== 1) return;
-            const touch = event.touches[0];
-            const deltaX = touch.clientX - touchStartX;
-            const deltaY = touch.clientY - touchStartY;
-
-            if (Math.abs(deltaY) > Math.abs(deltaX)) {
-                edgeSwipeActive = false;
-                navSwipeActive = false;
-                return;
-            }
-
-            if (edgeSwipeActive && deltaX < -SWIPE_ACTIVATION_DELTA) {
-                openMobileNav();
-                edgeSwipeActive = false;
-            }
-
-            if (navSwipeActive && deltaX > SWIPE_ACTIVATION_DELTA) {
-                closeMobileNav();
-                navSwipeActive = false;
-            }
-        }
-
-        function resetSwipeState() {
-            edgeSwipeActive = false;
-            navSwipeActive = false;
-        }
-
         document.addEventListener('touchstart', event => {
             if (event.touches.length > 1) {
                 event.preventDefault();
-                return;
             }
-            handleTouchStart(event);
         }, { passive: false });
-        document.addEventListener('touchmove', handleTouchMove, { passive: true });
         document.addEventListener('touchend', event => {
             const now = Date.now();
             if (now - lastTouchEnd <= 300) {
                 event.preventDefault();
             }
             lastTouchEnd = now;
-            resetSwipeState();
         }, { passive: false });
-        document.addEventListener('touchcancel', resetSwipeState, { passive: true });
 
         document.addEventListener('click', event => {
             const link = event.target.closest('a[data-page]');
