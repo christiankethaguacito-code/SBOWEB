@@ -946,11 +946,18 @@
         const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
         const primaryNav = document.querySelector('header nav');
 
-    let currentView = 'home';
-    let pendingView = null;
-    let pendingScroll = null;
-    let homeSliderState = null;
-    let impactObserver = null;
+        let currentView = 'home';
+        let pendingView = null;
+        let pendingScroll = null;
+        let homeSliderState = null;
+        let impactObserver = null;
+        let isMobileNavOpen = false;
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let edgeSwipeActive = false;
+        let navSwipeActive = false;
+        const EDGE_ACTIVATION_WIDTH = 64;
+        const SWIPE_ACTIVATION_DELTA = 70;
 
         function closeMobileNav() {
             if (!primaryNav) return;
@@ -958,6 +965,7 @@
             document.body.classList.remove('mobile-nav-open');
             if (mobileNavOverlay) mobileNavOverlay.classList.remove('visible');
             if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', 'false');
+            isMobileNavOpen = false;
         }
 
         function openMobileNav() {
@@ -966,6 +974,7 @@
             document.body.classList.add('mobile-nav-open');
             if (mobileNavOverlay) mobileNavOverlay.classList.add('visible');
             if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', 'true');
+            isMobileNavOpen = true;
         }
 
         function updateThemeIcon(mode) {
@@ -1231,6 +1240,53 @@
 
         mobileMenuClose?.addEventListener('click', closeMobileNav);
         mobileNavOverlay?.addEventListener('click', closeMobileNav);
+
+        function handleTouchStart(event) {
+            if (event.touches.length !== 1) return;
+            const touch = event.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            edgeSwipeActive = !isMobileNavOpen && touchStartX > window.innerWidth - EDGE_ACTIVATION_WIDTH;
+            if (isMobileNavOpen) {
+                const navWidth = primaryNav?.offsetWidth || 0;
+                navSwipeActive = touchStartX >= window.innerWidth - navWidth;
+            } else {
+                navSwipeActive = false;
+            }
+        }
+
+        function handleTouchMove(event) {
+            if (event.touches.length !== 1) return;
+            const touch = event.touches[0];
+            const deltaX = touch.clientX - touchStartX;
+            const deltaY = touch.clientY - touchStartY;
+
+            if (Math.abs(deltaY) > Math.abs(deltaX)) {
+                edgeSwipeActive = false;
+                navSwipeActive = false;
+                return;
+            }
+
+            if (edgeSwipeActive && deltaX < -SWIPE_ACTIVATION_DELTA) {
+                openMobileNav();
+                edgeSwipeActive = false;
+            }
+
+            if (navSwipeActive && deltaX > SWIPE_ACTIVATION_DELTA) {
+                closeMobileNav();
+                navSwipeActive = false;
+            }
+        }
+
+        function resetSwipeState() {
+            edgeSwipeActive = false;
+            navSwipeActive = false;
+        }
+
+        document.addEventListener('touchstart', handleTouchStart, { passive: true });
+        document.addEventListener('touchmove', handleTouchMove, { passive: true });
+        document.addEventListener('touchend', resetSwipeState, { passive: true });
+        document.addEventListener('touchcancel', resetSwipeState, { passive: true });
 
         document.addEventListener('click', event => {
             const link = event.target.closest('a[data-page]');
