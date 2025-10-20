@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Student Body Organization | SKSU Isulan Campus</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -734,6 +734,8 @@
                 transform: translateX(100%);
                 transition: transform 0.35s ease;
                 z-index: 950;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
             }
 
             nav.open { transform: translateX(0); }
@@ -946,16 +948,17 @@
         const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
         const primaryNav = document.querySelector('header nav');
 
-        let currentView = 'home';
-        let pendingView = null;
-        let pendingScroll = null;
-        let homeSliderState = null;
-        let impactObserver = null;
-        let isMobileNavOpen = false;
-        let touchStartX = 0;
-        let touchStartY = 0;
-        let edgeSwipeActive = false;
-        let navSwipeActive = false;
+    let currentView = 'home';
+    let pendingView = null;
+    let pendingScroll = null;
+    let homeSliderState = null;
+    let impactObserver = null;
+    let isMobileNavOpen = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let edgeSwipeActive = false;
+    let navSwipeActive = false;
+    let lastTouchEnd = 0;
         const EDGE_ACTIVATION_WIDTH = 64;
         const SWIPE_ACTIVATION_DELTA = 70;
 
@@ -1283,9 +1286,22 @@
             navSwipeActive = false;
         }
 
-        document.addEventListener('touchstart', handleTouchStart, { passive: true });
+        document.addEventListener('touchstart', event => {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+                return;
+            }
+            handleTouchStart(event);
+        }, { passive: false });
         document.addEventListener('touchmove', handleTouchMove, { passive: true });
-        document.addEventListener('touchend', resetSwipeState, { passive: true });
+        document.addEventListener('touchend', event => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+            resetSwipeState();
+        }, { passive: false });
         document.addEventListener('touchcancel', resetSwipeState, { passive: true });
 
         document.addEventListener('click', event => {
@@ -1314,6 +1330,10 @@
             if (window.innerWidth > 1024) {
                 closeMobileNav();
             }
+        });
+
+        window.addEventListener('orientationchange', () => {
+            closeMobileNav();
         });
 
         document.addEventListener('keydown', event => {
