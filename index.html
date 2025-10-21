@@ -156,6 +156,7 @@
         <div class="footer-bottom">
             <span>&copy; 2025 Student Body Organization, SKSU Isulan Campus. All rights reserved.</span>
             <span>Your partner in student leadership and community impact.</span>
+            <button id="analytics-settings" class="ghost-button" title="Analytics settings">Analytics settings</button>
         </div>
     </footer>
 
@@ -596,6 +597,17 @@
 
             document.getElementById('consent-accept').addEventListener('click', () => setConsent(true));
             document.getElementById('consent-decline').addEventListener('click', () => setConsent(false));
+
+            // Allow users to reopen the consent banner to change their choice
+            const settingsBtn = document.getElementById('analytics-settings');
+            if (settingsBtn) {
+                settingsBtn.addEventListener('click', () => {
+                    banner.hidden = false;
+                    // move focus into banner for accessibility
+                    const accept = document.getElementById('consent-accept');
+                    if (accept) accept.focus();
+                });
+            }
 
             if (stored === 'granted') {
                 setConsent(true);
