@@ -4,6 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Student Body Organization | SKSU Isulan Campus</title>
+    <!-- Force load Google Analytics (gtag) immediately to ensure monitoring is active -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SDFV8LQ21J"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){window.dataLayer.push(arguments);} 
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', 'G-SDFV8LQ21J', { send_page_view: false });
+        window._gtag_loaded = true;
+        // If analytics was already set to enabled by the page, send a page_view now
+        try {
+            if (localStorage.getItem('sbo_analytics_consent_v1') === 'granted') {
+                // prefer the page's trackPageView helper if present
+                if (typeof window.trackPageView === 'function') {
+                    window.trackPageView();
+                } else if (typeof gtag === 'function') {
+                    gtag('event', 'page_view', { page_path: window.location.pathname + window.location.search + window.location.hash });
+                }
+            }
+        } catch (e) { /* ignore localStorage errors */ }
+    </script>
     <script src="scripts/analytics.js" defer></script>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
