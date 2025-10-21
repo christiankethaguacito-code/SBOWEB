@@ -11,7 +11,7 @@
         function gtag(){window.dataLayer.push(arguments);} 
         window.gtag = gtag;
         gtag('js', new Date());
-        gtag('config', 'G-SDFV8LQ21J', { send_page_view: false });
+    gtag('config', 'G-SDFV8LQ21J', { send_page_view: false, debug_mode: true });
         window._gtag_loaded = true;
         // If analytics was already set to enabled by the page, send a page_view now
         try {
@@ -20,7 +20,8 @@
                 if (typeof window.trackPageView === 'function') {
                     window.trackPageView();
                 } else if (typeof gtag === 'function') {
-                    gtag('event', 'page_view', { page_path: window.location.pathname + window.location.search + window.location.hash });
+                    gtag('event', 'page_view', { page_path: window.location.pathname + window.location.search + window.location.hash, debug_mode: true });
+                    console.debug('gtag page_view (forced):', window.location.href);
                 }
             }
         } catch (e) { /* ignore localStorage errors */ }

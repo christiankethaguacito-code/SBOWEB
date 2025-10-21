@@ -27,11 +27,15 @@
 
     function sendPageView(path) {
         if (typeof window.gtag !== 'function') return;
-        window.gtag('event', 'page_view', {
+        const payload = {
             page_path: path || (window.location.pathname + window.location.search + window.location.hash),
             page_location: window.location.href,
-            page_title: document.title
-        });
+            page_title: document.title,
+            debug_mode: true
+        };
+        window.gtag('event', 'page_view', payload);
+        // Also emit a console debug message to aid realtime troubleshooting
+        try { console.debug('trackPageView ->', payload); } catch (e) { /* ignore */ }
     }
 
     // Exported helper — respects analytics.enabled
