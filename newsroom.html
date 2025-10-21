@@ -153,8 +153,8 @@
             color: var(--brand-green-800);
         }
 
-        main { overflow: hidden; }
-        section { padding: 5rem 1.5rem; }
+    main { overflow: hidden; }
+    section { padding: clamp(3.25rem, 6vw, 5rem) clamp(1rem, 4vw, 1.5rem); }
         .container { max-width: 1220px; margin: 0 auto; }
 
         .page-hero {
@@ -190,7 +190,7 @@
         .news-feed {
             display: grid;
             gap: 1.5rem;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         }
 
         .news-card {
@@ -337,16 +337,17 @@
             .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
 
-        @media (max-width: 520px) {
-            .footer-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 1024px) {
+            nav { display: none; }
+            section { padding: clamp(3.25rem, 8vw, 4.5rem) 1.5rem; }
     </style>
 </head>
 <body>
-    <div class="announcement-bar">
+            section { padding: clamp(3rem, 8vw, 4rem) 1rem; }
         <div class="container">
             <span>OneSBO Spotlight: Innovation Sprints return October 28 - November 15.</span>
-            <span>Need assistance? Email <a href="mailto:contact@sksu.edu.ph" style="color:#ffe6a6;">contact@sksu.edu.ph</a> or visit the SBO Hub.</span>
+            .news-feed { grid-template-columns: 1fr; }
+            <span>Need assistance? Email <a href="mailto:sksustudentbodyorganizationisu@gmail.com" style="color:#ffe6a6;">sksustudentbodyorganizationisu@gmail.com</a> or visit the SBO Hub.</span>
         </div>
     </div>
     <header>
@@ -359,7 +360,7 @@
                 <a href="index.html">Home</a>
                 <a href="index.html#feature-video">Feature Reel</a>
                 <a href="newsroom.html" class="active">Newsroom</a>
-                <a href="initiatives.html">Initiatives</a>
+                <a href="initiatives.html">Evaluation</a>
                 <a href="impact.html">Impact</a>
                 <a href="events.html">Events</a>
                 <a href="officers.html">Officers</a>
@@ -369,7 +370,7 @@
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
                     <span id="theme-icon">&#9789;</span>
                 </button>
-                <a class="call-to-action" href="connect.html">Join SBO</a>
+                <a class="call-to-action" href="sksumanual.pdf" download>Download Student Manual</a>
             </div>
         </div>
     </header>
@@ -382,7 +383,7 @@
                 <p>Stay current with campus governance, community projects, and student-led breakthroughs curated by the SBO Communications Council.</p>
                 <div class="news-actions">
                     <a class="call-to-action" href="#latest">Read latest briefs</a>
-                    <a class="ghost-button" href="mailto:press@sbo.sksu.edu.ph">Submit a story tip</a>
+                    <a class="ghost-button" href="mailto:sksustudentbodyorganizationisu@gmail.com">Submit a story tip</a>
                 </div>
             </div>
         </section>
@@ -475,7 +476,7 @@
                     <article class="digest-card">
                         <strong>Press Resources</strong>
                         <p>Download high-resolution media kits, request interviews, or subscribe to the newsroom digest for weekly highlights.</p>
-                        <a class="call-to-action" href="mailto:press@sbo.sksu.edu.ph">Connect with press desk</a>
+                        <a class="call-to-action" href="mailto:sksustudentbodyorganizationisu@gmail.com">Connect with press desk</a>
                     </article>
                 </div>
             </div>
@@ -493,7 +494,7 @@
                 <a href="index.html">Home</a>
                 <a href="index.html#feature-video">Feature Reel</a>
                 <a href="newsroom.html" class="active">Newsroom</a>
-                <a href="initiatives.html">Initiatives</a>
+                <a href="initiatives.html">Evaluation</a>
                 <a href="impact.html">Impact</a>
                 <a href="events.html">Events</a>
                 <a href="officers.html">Officers</a>
@@ -511,6 +512,7 @@
                 <a href="https://www.facebook.com/SKSUSBO" target="_blank" rel="noopener">Facebook Page</a>
                 <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
                 <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube Channel</a>
+                <a href="sksumanual.pdf" download>Student Manual (PDF)</a>
             </div>
             <div class="footer-links">
                     <ul class="digest-list"></ul>

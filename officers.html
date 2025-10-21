@@ -171,8 +171,8 @@
         .badge-white { background: rgba(255, 255, 255, 0.85); color: var(--brand-green-900); border: 1px solid rgba(12, 59, 40, 0.25); }
         .badge-teal { background: #0f8b8d; color: #ffffff; }
 
-        main { overflow: hidden; }
-        section { padding: 5rem 1.5rem; }
+    main { overflow: hidden; }
+    section { padding: clamp(3.25rem, 6vw, 5rem) clamp(1rem, 4vw, 1.5rem); }
         .container { max-width: 1220px; margin: 0 auto; }
 
         .page-hero {
@@ -280,13 +280,14 @@
 
         @media (max-width: 1024px) {
             nav { display: none; }
-            section { padding: 4.5rem 1.5rem; }
+            section { padding: clamp(3.25rem, 8vw, 4.5rem) 1.5rem; }
         }
 
         @media (max-width: 680px) {
-            section { padding: 4rem 1rem; }
+            section { padding: clamp(3rem, 8vw, 4rem) 1rem; }
             .announcement-bar .container { flex-direction: column; align-items: flex-start; }
             .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .officer-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 520px) {
@@ -311,7 +312,7 @@
                 <a href="index.html">Home</a>
                 <a href="index.html#feature-video">Feature Reel</a>
                 <a href="newsroom.html">Newsroom</a>
-                <a href="initiatives.html">Initiatives</a>
+                <a href="initiatives.html">Evaluation</a>
                 <a href="impact.html">Impact</a>
                 <a href="events.html">Events</a>
                 <a href="officers.html" class="active">Officers</a>
@@ -586,7 +587,7 @@
                 <a href="index.html">Home</a>
                 <a href="index.html#feature-video">Feature Reel</a>
                 <a href="newsroom.html">Newsroom</a>
-                <a href="initiatives.html">Initiatives</a>
+                <a href="initiatives.html">Evaluation</a>
                 <a href="impact.html">Impact</a>
                 <a href="events.html">Events</a>
                 <a href="officers.html" class="active">Officers</a>
@@ -597,12 +598,13 @@
                 <a href="https://www.facebook.com/SKSUSBO" target="_blank" rel="noopener">Facebook Page</a>
                 <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
                 <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube Channel</a>
+                <a href="sksumanual.pdf" download>Student Manual (PDF)</a>
             </div>
             <div class="footer-links">
                 <strong>Visit</strong>
                 <span>Learning Commons, 2nd floor</span>
-                <a href="mailto:contact@sksu.edu.ph">contact@sksu.edu.ph</a>
-                <a href="tel:+639000000000">09XX XXX XXXX</a>
+                <a href="mailto:sksustudentbodyorganizationisu@gmail.com">sksustudentbodyorganizationisu@gmail.com</a>
+                <a href="tel:+639497833448">09497833448</a>
             </div>
         </div>
         <div class="footer-bottom">

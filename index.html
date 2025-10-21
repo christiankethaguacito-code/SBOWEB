@@ -313,19 +313,52 @@
         .feature-video {
             background: #000;
             margin: 0;
+            padding: 0;
+        }
+
+        .feature-video-media {
+            position: relative;
+            background: #000;
         }
 
         .feature-video-player {
             width: 100%;
-            height: clamp(300px, 65vh, 820px);
-            object-fit: cover;
             display: block;
+            background: #000;
+            border: 0;
+            max-height: clamp(320px, 70vh, 720px);
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
         }
 
-        @supports (height: 100dvh) {
-            .feature-video-player {
-                height: clamp(300px, 65dvh, 820px);
-            }
+        .feature-video-fallback {
+            display: grid;
+            place-items: center;
+            gap: 1.1rem;
+            padding: clamp(3rem, 8vw, 4.5rem) clamp(1.25rem, 5vw, 2.5rem);
+            background: radial-gradient(circle at top, rgba(30, 167, 90, 0.25), rgba(5, 13, 8, 0.92));
+            text-align: center;
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        .feature-video-fallback[hidden] {
+            display: none;
+        }
+
+        .feature-video-fallback img {
+            width: clamp(140px, 16vw, 220px);
+            filter: drop-shadow(0 18px 42px rgba(5, 13, 8, 0.6));
+            border-radius: 1.5rem;
+        }
+
+        .feature-video-fallback strong {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            color: rgba(255, 255, 255, 0.94);
+        }
+
+        .feature-video-fallback p {
+            max-width: 520px;
+            color: rgba(255, 255, 255, 0.78);
         }
 
         .feature-video-caption {
@@ -576,6 +609,104 @@
 
         .case-meta { font-size: 0.85rem; color: var(--brand-muted); }
 
+        .evaluation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-card { gap: 1rem; }
+
+        .form-frame {
+            position: relative;
+            width: 100%;
+            padding-top: 125%;
+            border-radius: 1rem;
+            overflow: hidden;
+            background: rgba(12, 59, 40, 0.12);
+            border: 1px solid var(--border-soft);
+        }
+
+        .form-frame iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .evaluation-hint {
+            margin-top: 2.5rem;
+            padding: 1.75rem;
+            border-radius: 1.25rem;
+            border: 1px dashed rgba(30, 167, 90, 0.4);
+            background: rgba(30, 167, 90, 0.1);
+            color: var(--brand-green-900);
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .evaluation-hint strong { font-size: 1.05rem; }
+
+        .results { background: var(--brand-white); }
+        .results-header { display: grid; gap: 0.75rem; margin-bottom: 2rem; }
+    .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .result-card {
+            background: var(--brand-cream);
+            border: 1px solid var(--border-soft);
+            border-radius: 1.25rem;
+            padding: 1.9rem;
+            box-shadow: var(--shadow-soft);
+            display: grid;
+            gap: 0.9rem;
+        }
+        .result-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            background: rgba(30, 167, 90, 0.16);
+            color: var(--brand-green-700);
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .result-frame {
+            position: relative;
+            width: 100%;
+            padding-top: 65%;
+            border-radius: 1rem;
+            overflow: hidden;
+            background: var(--brand-white);
+            border: 1px solid var(--border-soft);
+        }
+        .result-frame iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .result-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.05rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-soft);
+            background: transparent;
+            color: var(--brand-green-700);
+            font-weight: 600;
+            font-size: 0.92rem;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .result-link:hover {
+            background: rgba(18, 102, 61, 0.12);
+            color: var(--brand-green-800);
+        }
+
         .metrics { background: var(--brand-white); }
         .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
         .metric-card {
@@ -618,7 +749,7 @@
             gap: 0.75rem;
         }
 
-        .event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
         .event-card {
             border-radius: 1.25rem;
             border: 1px solid var(--border-soft);
@@ -634,7 +765,7 @@
         .event-card time { font-size: 0.85rem; color: var(--brand-muted); }
         .event-card span { font-size: 0.9rem; color: var(--brand-slate); }
         .schedule { background: var(--brand-cream); }
-        .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .schedule-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
         .day-block {
             background: var(--brand-white);
             border-radius: 1.25rem;
@@ -708,7 +839,7 @@
 
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.75rem;
             align-items: start;
         }
@@ -771,7 +902,25 @@
         .info-card h2 { font-size: 1.6rem; color: var(--brand-green-900); }
         .info-card a { color: var(--brand-green-700); font-weight: 600; }
         .office-hours { display: grid; gap: 0.25rem; }
-        .map { margin-top: 1rem; border-radius: 1.25rem; overflow: hidden; border: 0; width: 100%; height: 260px; box-shadow: var(--shadow-soft); }
+        .map-frame {
+            margin-top: 1rem;
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-soft);
+            background: var(--brand-white);
+        }
+
+        .map-frame iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
 
         .resources { background: var(--brand-cream); }
         .resource-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
@@ -783,6 +932,10 @@
             box-shadow: var(--shadow-soft);
             display: grid;
             gap: 0.75rem;
+        }
+
+        .resource-card .call-to-action {
+            justify-self: flex-start;
         }
 
         footer {
@@ -835,12 +988,18 @@
             .news-announcements { padding: 4rem 1rem; }
             .news-announcements-header { flex-direction: column; align-items: flex-start; }
             .news-announcements-grid { gap: 1.25rem; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .results-grid { grid-template-columns: 1fr; }
+            .evaluation-grid { grid-template-columns: 1fr; }
+            .event-grid { grid-template-columns: 1fr; }
+            .schedule-grid { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
 
         @media (max-width: 520px) {
             .footer-grid { grid-template-columns: 1fr; }
             .announcement-bar .quick-links { flex-direction: column; align-items: flex-start; }
+            .map-frame { aspect-ratio: 1; }
         }
 
         @media (orientation: landscape) and (max-height: 620px) {
@@ -855,8 +1014,8 @@
         <div class="container">
             <div class="contact-info">
                 <span>Have any questions?</span>
-                <a href="tel:+639000000000">09XX XXX XXXX</a>
-                <a href="mailto:contact@sksu.edu.ph">contact@sksu.edu.ph</a>
+                <a href="tel:+639497833448">09497833448</a>
+                <a href="mailto:sksustudentbodyorganizationisu@gmail.com">sksustudentbodyorganizationisu@gmail.com</a>
             </div>
             <div class="quick-links">
                 <a href="connect.html" data-page="connect" data-no-active="true">Helpdesk</a>
@@ -879,14 +1038,14 @@
             <nav aria-label="Primary navigation">
                 <a href="index.html" data-page="home">Home</a>
                 <a href="newsroom.html" data-page="newsroom">Newsroom</a>
-                <a href="initiatives.html" data-page="initiatives">Initiatives</a>
+                <a href="initiatives.html" data-page="initiatives">Evaluation</a>
                 <a href="impact.html" data-page="impact">Impact</a>
                 <a href="events.html" data-page="events">Events</a>
                 <a href="officers.html" data-page="officers">Officers</a>
                 <a href="connect.html" data-page="connect">Connect</a>
             </nav>
             <div class="nav-actions">
-                <a class="call-to-action" href="connect.html" data-page="connect" data-no-active="true">Join SBO</a>
+                <a class="call-to-action" href="sksumanual.pdf" download>Download Student Manual</a>
             </div>
         </div>
     </header>
@@ -894,15 +1053,33 @@
         <div id="page-content" aria-live="polite">
             <div class="page-shell" data-page-root="home">
                 <section id="feature-video" class="feature-video" aria-labelledby="feature-video-title">
-                    <video class="feature-video-player" src="feature.mp4" poster="group.jpg" autoplay muted loop playsinline controls>
-                        Sorry, your browser does not support embedded videos.
-                    </video>
+                    <div class="feature-video-media">
+                        <video
+                            class="feature-video-player"
+                            data-feature-embed
+                            title="Student Body Organization feature reel"
+                            controls
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            poster="group.jpg">
+                            <source src="feature.mp4" type="video/mp4">
+                            Your browser does not support inline video. Watch the feature reel using the download button below.
+                        </video>
+                        <div class="feature-video-fallback" data-feature-fallback hidden>
+                            <img src="group.jpg" alt="Student Body Organization feature reel preview" loading="lazy">
+                            <strong>Inline playback temporarily unavailable</strong>
+                            <p>We are serving a lighter preview while the video loads. Use the button below to watch the complete cut.</p>
+                        </div>
+                    </div>
                     <div class="feature-video-caption">
                         <div class="container">
                             <span class="feature-video-badge">Feature Reel</span>
                             <h2 id="feature-video-title">Experience the SBO story in motion.</h2>
                             <p>Catch highlights from assemblies, community immersions, and student-led breakthroughs shaping the academic year.</p>
-                            <a class="call-to-action" href="https://www.facebook.com/TheTechnopipeline" target="_blank" rel="noopener">Watch on Facebook</a>
+                            <a class="call-to-action" href="https://www.facebook.com/TheTechnopipeline" target="_blank" rel="noopener">Watch full video</a>
                         </div>
                     </div>
                 </section>
@@ -971,7 +1148,7 @@
                 <a href="index.html" data-page="home" data-no-active="true">Home</a>
                 <a href="index.html#feature-video" data-page="home" data-scroll-target="feature-video" data-no-active="true">Feature Reel</a>
                 <a href="newsroom.html" data-page="newsroom" data-no-active="true">Newsroom</a>
-                <a href="initiatives.html" data-page="initiatives" data-no-active="true">Initiatives</a>
+                <a href="initiatives.html" data-page="initiatives" data-no-active="true">Evaluation</a>
                 <a href="impact.html" data-page="impact" data-no-active="true">Impact</a>
                 <a href="events.html" data-page="events" data-no-active="true">Events</a>
                 <a href="officers.html" data-page="officers" data-no-active="true">Officers</a>
@@ -982,12 +1159,13 @@
                 <a href="https://www.facebook.com/SKSUSBO" target="_blank" rel="noopener">Facebook Page</a>
                 <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
                 <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube Channel</a>
+                <a href="sksumanual.pdf" download>Student Manual (PDF)</a>
             </div>
             <div class="footer-links">
                 <strong>Visit</strong>
                 <span>Learning Commons, 2nd floor</span>
-                <a href="mailto:contact@sksu.edu.ph">contact@sksu.edu.ph</a>
-                <a href="tel:+639000000000">09XX XXX XXXX</a>
+                <a href="mailto:sksustudentbodyorganizationisu@gmail.com">sksustudentbodyorganizationisu@gmail.com</a>
+                <a href="tel:+639497833448">09497833448</a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -1078,6 +1256,35 @@
         }
 
         function initHome(container) {
+            const featureEmbed = container.querySelector('[data-feature-embed]');
+            const featureFallback = container.querySelector('[data-feature-fallback]');
+
+            if (featureEmbed && featureFallback && featureEmbed.dataset.fallbackBound !== 'true') {
+                const fallbackTimer = setTimeout(() => {
+                    featureFallback.hidden = false;
+                }, 8000);
+
+                const handleSuccess = () => {
+                    clearTimeout(fallbackTimer);
+                    featureFallback.hidden = true;
+                };
+
+                if (featureEmbed.tagName === 'IFRAME') {
+                    featureEmbed.addEventListener('load', handleSuccess, { once: true });
+                } else if (featureEmbed.tagName === 'VIDEO') {
+                    if (featureEmbed.readyState >= 2) {
+                        handleSuccess();
+                    } else {
+                        featureEmbed.addEventListener('loadeddata', handleSuccess, { once: true });
+                    }
+                    featureEmbed.addEventListener('error', () => {
+                        featureFallback.hidden = false;
+                    }, { once: true });
+                }
+
+                featureEmbed.dataset.fallbackBound = 'true';
+            }
+
             const slider = container.querySelector('[data-home-slider]');
             if (!slider || slider.dataset.initialized === 'true') return;
 

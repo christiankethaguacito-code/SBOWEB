@@ -1,14 +1,32 @@
 <div class="page-shell" data-page-root="home">
     <section id="feature-video" class="feature-video" aria-labelledby="feature-video-title">
-        <video class="feature-video-player" src="feature.mp4" poster="group.jpg" autoplay muted loop playsinline controls>
-            Sorry, your browser does not support embedded videos.
-        </video>
+        <div class="feature-video-media">
+            <video
+                class="feature-video-player"
+                data-feature-embed
+                title="Student Body Organization feature reel"
+                controls
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                poster="group.jpg">
+                <source src="feature.mp4" type="video/mp4">
+                Your browser does not support inline video. Watch the feature reel using the download button below.
+            </video>
+            <div class="feature-video-fallback" data-feature-fallback hidden>
+                <img src="group.jpg" alt="Student Body Organization feature reel preview" loading="lazy">
+                <strong>Inline playback temporarily unavailable</strong>
+                <p>We are serving a lighter preview while the video loads. Use the button below to watch the complete cut.</p>
+            </div>
+        </div>
         <div class="feature-video-caption">
             <div class="container">
                 <span class="feature-video-badge">Feature Reel</span>
                 <h2 id="feature-video-title">Experience the SBO story in motion.</h2>
                 <p>Catch highlights from assemblies, community immersions, and student-led breakthroughs shaping the academic year.</p>
-                <a class="call-to-action" href="https://www.facebook.com/TheTechnopipeline" target="_blank" rel="noopener">Watch on Facebook</a>
+                <a class="call-to-action" href="https://www.facebook.com/TheTechnopipeline" target="_blank" rel="noopener">Watch full video</a>
             </div>
         </div>
     </section>

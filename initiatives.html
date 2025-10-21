@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Initiatives | Student Body Organization - SKSU Isulan Campus</title>
+    <title>Evaluation | Student Body Organization - SKSU Isulan Campus</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -163,8 +163,8 @@
 
         .ghost-button:hover { background: rgba(18, 102, 61, 0.12); color: var(--brand-green-800); }
 
-        main { overflow: hidden; }
-        section { padding: 5rem 1.5rem; }
+    main { overflow: hidden; }
+    section { padding: clamp(3.25rem, 6vw, 5rem) clamp(1rem, 4vw, 1.5rem); }
         .container { max-width: 1220px; margin: 0 auto; }
 
         .page-hero {
@@ -186,7 +186,7 @@
         .programs { background: var(--brand-cream); }
         .program-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.75rem;
         }
 
@@ -236,6 +236,45 @@
 
         .case-meta { font-size: 0.85rem; color: var(--brand-muted); }
 
+        .evaluation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-card { gap: 1rem; }
+
+        .form-frame {
+            position: relative;
+            width: 100%;
+            padding-top: 125%;
+            border-radius: 1rem;
+            overflow: hidden;
+            background: rgba(12, 59, 40, 0.12);
+            border: 1px solid var(--border-soft);
+        }
+
+        .form-frame iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .evaluation-hint {
+            margin-top: 2.5rem;
+            padding: 1.75rem;
+            border-radius: 1.25rem;
+            border: 1px dashed rgba(30, 167, 90, 0.4);
+            background: rgba(30, 167, 90, 0.1);
+            color: var(--brand-green-900);
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .evaluation-hint strong { font-size: 1.05rem; }
+
         footer {
             background: var(--brand-green-900);
             color: rgba(255, 255, 255, 0.82);
@@ -273,13 +312,15 @@
 
         @media (max-width: 1024px) {
             nav { display: none; }
-            section { padding: 4.5rem 1.5rem; }
+            section { padding: clamp(3.25rem, 8vw, 4.5rem) 1.5rem; }
         }
 
         @media (max-width: 680px) {
-            section { padding: 4rem 1rem; }
+            section { padding: clamp(3rem, 8vw, 4rem) 1rem; }
             .announcement-bar .container { flex-direction: column; align-items: flex-start; }
             .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .program-grid { grid-template-columns: 1fr; }
+            .evaluation-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 520px) {
@@ -291,7 +332,7 @@
     <div class="announcement-bar">
         <div class="container">
             <span>OneSBO Spotlight: Innovation Sprints return October 28 - November 15.</span>
-            <span>Need assistance? Email <a href="mailto:contact@sksu.edu.ph" style="color:#ffe6a6;">contact@sksu.edu.ph</a> or visit the SBO Hub.</span>
+            <span>Need assistance? Email <a href="mailto:sksustudentbodyorganizationisu@gmail.com" style="color:#ffe6a6;">sksustudentbodyorganizationisu@gmail.com</a> or visit the SBO Hub.</span>
         </div>
     </div>
     <header>
@@ -304,86 +345,125 @@
                 <a href="index.html">Home</a>
                 <a href="index.html#feature-video">Feature Reel</a>
                 <a href="newsroom.html">Newsroom</a>
-                <a href="initiatives.html" class="active">Initiatives</a>
+                <a href="initiatives.html" class="active">Evaluation</a>
                 <a href="impact.html">Impact</a>
                 <a href="events.html">Events</a>
                 <a href="officers.html">Officers</a>
                 <a href="connect.html">Connect</a>
             </nav>
-            <div class="nav-actions">
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-                    <span id="theme-icon">&#9789;</span>
-                </button>
-                <a class="call-to-action" href="connect.html">Join SBO</a>
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <section class="page-hero">
-            <div class="container">
-                <div class="program-pill">Strategic Initiatives</div>
-                <h1>Programs grounded in student priorities for the current academic year.</h1>
-                <p>We are consolidating initiative briefs with college councils and partner offices. The focus areas below reflect what is confirmed so far.</p>
-                <div class="program-actions">
-                    <a class="call-to-action" href="#programs">View focus areas</a>
-                    <a class="ghost-button" href="connect.html">Share an initiative idea</a>
+                <div class="evaluation-grid">
+                    <article class="case-card form-card">
+                        <span class="program-pill">Intramurals 2025</span>
+                        <h3>Athletics &amp; Cultural Meet Feedback</h3>
+                        <p>Capture crowd experience, safety checkpoints, officiating, and event logistics for the campus intramurals.</p>
+                        <div class="form-frame">
+                            <iframe
+                                title="Intramurals 2025 Evaluation Form"
+                                src="https://docs.google.com/forms/d/e/REPLACE_WITH_INTRAMURALS_2025_FORM_ID/viewform?embedded=true"
+                                loading="lazy"
+                                allowfullscreen>
+                                Loading…
+                            </iframe>
+                        </div>
+                        <a class="ghost-button" href="https://docs.google.com/forms/d/e/REPLACE_WITH_INTRAMURALS_2025_FORM_ID/viewform" target="_blank" rel="noopener">Open form in new tab</a>
+                    </article>
+                    <article class="case-card form-card">
+                        <span class="program-pill">Kambuniyan 2025</span>
+                        <h3>Festival &amp; Cultural Night Feedback</h3>
+                        <p>Gather impressions on program flow, student booths, performances, and inclusivity for Kambuniyan celebrations.</p>
+                        <div class="form-frame">
+                            <iframe
+                                title="Kambuniyan 2025 Evaluation Form"
+                                src="https://docs.google.com/forms/d/e/REPLACE_WITH_KAMBUNIYAN_2025_FORM_ID/viewform?embedded=true"
+                                loading="lazy"
+                                allowfullscreen>
+                                Loading…
+                            </iframe>
+                        </div>
+                        <a class="ghost-button" href="https://docs.google.com/forms/d/e/REPLACE_WITH_KAMBUNIYAN_2025_FORM_ID/viewform" target="_blank" rel="noopener">Open form in new tab</a>
+                    </article>
+                    <article class="case-card form-card">
+                        <span class="program-pill">Valentines 2025</span>
+                        <h3>Valentines Escapade Feedback</h3>
+                        <p>Log feedback on venue ambience, performances, crowd management, and fundraising transparency.</p>
+                        <div class="form-frame">
+                            <iframe
+                                title="Valentines Escapade 2025 Evaluation Form"
+                                src="https://docs.google.com/forms/d/e/REPLACE_WITH_VALENTINES_2025_FORM_ID/viewform?embedded=true"
+                                loading="lazy"
+                                allowfullscreen>
+                                Loading…
+                            </iframe>
+                        </div>
+                        <a class="ghost-button" href="https://docs.google.com/forms/d/e/REPLACE_WITH_VALENTINES_2025_FORM_ID/viewform" target="_blank" rel="noopener">Open form in new tab</a>
+                    </article>
+                    <article class="case-card form-card">
+                        <span class="program-pill">Additional Events</span>
+                        <h3>Duplicate for future programs</h3>
+                        <p>Create a copy of this block whenever a new evaluation cycle opens. Update the labels and replace the form ID with the new Google Form embed URL.</p>
+                        <div class="form-frame">
+                            <iframe
+                                title="SBO Event Evaluation Form"
+                                src="https://docs.google.com/forms/d/e/REPLACE_WITH_EVENT_FORM_ID/viewform?embedded=true"
+                                loading="lazy"
+                                allowfullscreen>
+                                Loading…
+                            </iframe>
+                        </div>
+                        <a class="ghost-button" href="https://docs.google.com/forms/d/e/REPLACE_WITH_EVENT_FORM_ID/viewform" target="_blank" rel="noopener">Open form in new tab</a>
+                    </article>
+                </div>
+                        <div class="program-pill">Step 2</div>
+                        <h3>Answer honestly</h3>
+                        <p>Sign in with your SKSU email so we can validate attendance and follow up when needed. Comments feed straight to the organizing council and SBO advisers.</p>
+                    </article>
+                    <article class="program-card">
+                        <div class="program-pill">Step 3</div>
+                        <h3>Watch the improvements</h3>
+                        <p>Highlights, action items, and urgent fixes are reported back during the next general assembly. Critical concerns get escalated within 24 hours.</p>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <section id="programs" class="programs">
+        <section class="case-studies" id="evaluation-forms">
             <div class="container">
-                <div class="program-grid">
-                    <article class="program-card">
-                        <div class="program-pill">Academic Support</div>
-                        <h3>Academic Support Clinics</h3>
-                        <p>Peer tutoring, review partnerships, and study groups coordinated with department societies. Schedules are posted each midterm and finals week.</p>
-                        <a class="call-to-action" href="connect.html">Ask about tutoring slots</a>
+                <h2 class="section-title">Active evaluation forms</h2>
+                <div class="evaluation-grid">
+                    <article class="case-card form-card">
+                        <span class="program-pill">Campus-wide</span>
+                        <h3>General Assembly Feedback</h3>
+                        <p>Ideal for university-wide briefings and flagship programs. Update the iframe URL with your actual form ID.</p>
+                        <div class="form-frame">
+                            <iframe
+                                title="General Assembly Evaluation Form"
+                                src="https://docs.google.com/forms/d/e/REPLACE_WITH_FORM_ID/viewform?embedded=true"
+                                loading="lazy"
+                                allowfullscreen>
+                                Loading…
+                            </iframe>
+                        </div>
+                        <a class="ghost-button" href="https://docs.google.com/forms/d/e/REPLACE_WITH_FORM_ID/viewform" target="_blank" rel="noopener">Open form in new tab</a>
                     </article>
-                    <article class="program-card">
-                        <div class="program-pill">Student Wellness</div>
-                        <h3>Student Wellness Circles</h3>
-                        <p>Guided check-ins, rest spaces, and referral pathways facilitated alongside Guidance and student advocates. Participation guidelines will be released per college.</p>
-                        <a class="call-to-action" href="connect.html">Facilitate a circle</a>
-                    </article>
-                    <article class="program-card">
-                        <div class="program-pill">Community Engagement</div>
-                        <h3>Community Outreach Brigades</h3>
-                        <p>Joint visits with partner barangays focusing on literacy, livelihood, and disaster readiness. Deployment briefs are shared once clearances are complete.</p>
-                        <a class="call-to-action" href="connect.html">Coordinate a partner site</a>
-                    </article>
-                    <article class="program-card">
-                        <div class="program-pill">Governance</div>
-                        <h3>Governance Support Desk</h3>
-                        <p>Budget reviews, policy consultations, and student rights clinics held with council officers. Documentation packages are being standardised for publication.</p>
-                        <a class="call-to-action" href="connect.html">Request a consultation</a>
+                    <article class="case-card form-card">
+                        <span class="program-pill">College / Cluster</span>
+                        <h3>Special Event Evaluation</h3>
+                        <p>Duplicate this card for each council-led activity. Note the event name and date inside your Google Form description.</p>
+                        <div class="form-frame">
+                            <iframe
+                                title="Cluster Event Evaluation Form"
+                                src="https://docs.google.com/forms/d/e/REPLACE_WITH_FORM_ID/viewform?embedded=true"
+                                loading="lazy"
+                                allowfullscreen>
+                                Loading…
+                            </iframe>
+                        </div>
+                        <a class="ghost-button" href="https://docs.google.com/forms/d/e/REPLACE_WITH_FORM_ID/viewform" target="_blank" rel="noopener">Open form in new tab</a>
                     </article>
                 </div>
-            </div>
-        </section>
-
-        <section class="case-studies">
-            <div class="container">
-                <div class="case-list">
-                    <article class="case-card">
-                        <span class="program-pill">Update</span>
-                        <h3>Program briefs under review</h3>
-                        <p>We are finalising initiative write-ups with verified data from council submissions. Summaries will be posted after the General Assembly sign-off.</p>
-                        <span class="case-meta">Status as of October 2024</span>
-                    </article>
-                    <article class="case-card">
-                        <span class="program-pill">Call for stories</span>
-                        <h3>Share outcomes from your college or org</h3>
-                        <p>Submit photos, testimonials, or outcome logs so we can feature them in the initiatives gallery once documentation is cleared.</p>
-                        <span class="case-meta">Email files to contact@sksu.edu.ph</span>
-                    </article>
-                    <article class="case-card">
-                        <span class="program-pill">Next steps</span>
-                        <h3>Implementation dashboards coming soon</h3>
-                        <p>We are building simple trackers to show where each initiative stands. Expect links to deployment calendars and volunteer rosters after QA.</p>
-                        <span class="case-meta">Watch for release on this page</span>
-                    </article>
+                <div class="evaluation-hint">
+                    <strong>Need a new form?</strong>
+                    <p>Copy an existing Google Form so question IDs stay consistent, link its responses to the shared SBO Drive spreadsheet, and assign a council officer to monitor submissions daily.</p>
                 </div>
             </div>
         </section>
@@ -400,7 +480,7 @@
                 <a href="index.html">Home</a>
                 <a href="index.html#feature-video">Feature Reel</a>
                 <a href="newsroom.html">Newsroom</a>
-                <a href="initiatives.html" class="active">Initiatives</a>
+                <a href="initiatives.html" class="active">Evaluation</a>
                 <a href="impact.html">Impact</a>
                 <a href="events.html">Events</a>
                 <a href="officers.html">Officers</a>
@@ -411,17 +491,18 @@
                 <a href="https://www.facebook.com/SKSUSBO" target="_blank" rel="noopener">Facebook Page</a>
                 <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
                 <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube Channel</a>
+                <a href="sksumanual.pdf" download>Student Manual (PDF)</a>
             </div>
             <div class="footer-links">
                 <strong>Visit</strong>
                 <span>Learning Commons, 2nd floor</span>
-                <a href="mailto:contact@sksu.edu.ph">contact@sksu.edu.ph</a>
-                <a href="tel:+639000000000">09XX XXX XXXX</a>
+                <a href="mailto:sksustudentbodyorganizationisu@gmail.com">sksustudentbodyorganizationisu@gmail.com</a>
+                <a href="tel:+639497833448">09497833448</a>
             </div>
         </div>
         <div class="footer-bottom">
             <span>&copy; 2025 Student Body Organization, SKSU Isulan Campus. All rights reserved.</span>
-            <span>Programs driving student leadership and innovation.</span>
+            <span>Feedback that shapes every next SBO experience.</span>
         </div>
     </footer>
 
