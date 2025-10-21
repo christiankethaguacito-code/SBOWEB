@@ -43,4 +43,16 @@
         }
         sendPageView(path);
     };
+
+    // If the user previously granted consent, load gtag now (covers cases where
+    // the consent banner set localStorage before this script executed).
+    try {
+        const stored = localStorage.getItem('sbo_analytics_consent_v1');
+        if (stored === 'granted') {
+            window.analytics.enabled = true;
+            if (typeof window.loadGtag === 'function') window.loadGtag();
+        }
+    } catch (err) {
+        // ignore localStorage access errors (private mode, etc.)
+    }
 })();
