@@ -4,215 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Student Body Organization | SKSU Isulan Campus</title>
-    <!-- Google Analytics 4 instrumentation -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SDFV8LQ21J"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        window.GA_MEASUREMENT_ID = 'G-SDFV8LQ21J';
-        gtag('js', new Date());
-        gtag('config', window.GA_MEASUREMENT_ID, { send_page_view: false });
-        function trackPageView(path) {
-            if (typeof gtag !== 'function' || !window.GA_MEASUREMENT_ID) return;
-            gtag('event', 'page_view', {
-                page_path: path || window.location.pathname + window.location.search + window.location.hash,
-                page_location: window.location.href,
-                page_title: document.title
-            });
-        }
-    </script>
+    <script src="scripts/analytics.js" defer></script>
+    <link rel="stylesheet" href="styles/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --brand-green-900: #0c3b28;
-            --brand-green-800: #0f4a32;
-            --brand-green-700: #14663d;
-            --brand-green-500: #1ea75a;
-            --brand-green-300: #c8f0d9;
-            --brand-gold: #ffcc4d;
-            --brand-cream: #f7faf5;
-            --brand-white: #ffffff;
-            --brand-deep: #0a1d14;
-            --brand-slate: #4a5a55;
-            --brand-muted: #6c7b74;
-            --border-soft: rgba(12, 59, 40, 0.12);
-            --border-strong: rgba(12, 59, 40, 0.24);
-            --shadow-soft: 0 18px 48px rgba(12, 59, 40, 0.12);
-            --shadow-sm: 0 10px 24px rgba(12, 59, 40, 0.08);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--brand-cream);
-            color: var(--brand-deep);
-            line-height: 1.65;
-            min-height: 100vh;
-            min-height: 100dvh;
-        }
-
-        img { max-width: 100%; display: block; }
-        a { color: inherit; text-decoration: none; }
-        ul { list-style: none; }
-        button { font-family: inherit; }
-
-        main { overflow: hidden; }
-    section { padding: clamp(3.5rem, 6vw, 5rem) clamp(1rem, 4vw, 1.5rem); }
-        .container { max-width: 1220px; margin: 0 auto; }
-
-        .announcement-bar {
-            background: var(--brand-green-900);
-            color: var(--brand-white);
-            padding: 0.45rem 1.5rem;
-            font-size: 0.82rem;
-        }
-
-        .announcement-bar .container {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .announcement-bar .contact-info,
-        .announcement-bar .quick-links {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .announcement-bar .contact-info a,
-        .announcement-bar .quick-links a {
-            color: var(--brand-white);
-            font-weight: 600;
-        }
-
-        .announcement-bar .quick-links a {
-            text-transform: uppercase;
-            font-size: 0.78rem;
-            letter-spacing: 0.04em;
-        }
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 900;
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-soft);
-            box-shadow: 0 12px 30px rgba(12, 59, 40, 0.06);
-        }
-
-        .nav-wrapper {
-            max-width: 1220px;
-            margin: 0 auto;
-            padding: 1.1rem 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            flex-wrap: wrap;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: var(--brand-green-900);
-            min-width: 0;
-        }
-
-        .brand img {
-            width: 64px;
-            height: 64px;
-            border-radius: 16px;
-            object-fit: contain;
-            background: transparent;
-            padding: 0;
-            border: 0;
-        }
-
-        .brand span {
-            display: inline-block;
-            line-height: 1.2;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 0.9rem;
-            flex: 1 1 auto;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            font-size: 0.92rem;
-            font-weight: 600;
-            padding: 0.45rem 0.75rem;
-            border-radius: 999px;
-            color: var(--brand-slate);
-            transition: background 0.25s ease, color 0.25s ease;
-        }
-
-        nav a:is(:hover, .active) {
-            background: rgba(18, 102, 61, 0.12);
-            color: var(--brand-green-700);
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .call-to-action {
-            padding: 0.65rem 1.1rem;
-            border-radius: 999px;
-            background: linear-gradient(135deg, var(--brand-green-700), var(--brand-green-500));
-            color: var(--brand-white);
-            font-weight: 600;
-            font-size: 0.95rem;
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .call-to-action:hover { transform: translateY(-2px); }
-
-        .ghost-button {
-            padding: 0.6rem 1.1rem;
-            border-radius: 999px;
-            border: 1px solid var(--border-soft);
-            background: transparent;
-            color: var(--brand-green-700);
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        .ghost-button:hover {
-            background: rgba(18, 102, 61, 0.12);
-            color: var(--brand-green-800);
-        }
-
-        #page-content {
-            position: relative;
-            min-height: 60vh;
-            transition: opacity 0.3s ease;
-        }
+    <!-- main styles moved to styles/main.css -->
 
         .page-shell { display: grid; gap: 0; }
         .load-error { padding: 4rem 1.5rem; text-align: center; color: var(--brand-green-900); font-weight: 600; }
@@ -1024,7 +821,8 @@
             .feature-video-player { height: clamp(240px, 88vh, 520px); }
             .feature-video-caption { padding-block: clamp(2rem, 10vh, 2.9rem); }
         }
-    </style>
+    <!-- styles moved to styles/main.css -->
+    
 </head>
 <body>
     <div class="announcement-bar">
@@ -1177,6 +975,7 @@
                 <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
                 <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube Channel</a>
                 <a href="sksumanual.pdf" download>Student Manual (PDF)</a>
+                <a href="downloads/sbo-app.txt" download>Download SBO App (guidance)</a>
             </div>
             <div class="footer-links">
                 <strong>Visit</strong>
@@ -1596,6 +1395,48 @@
             pendingView = null;
             pendingScroll = null;
         });
+    </script>
+    <!-- Consent banner -->
+    <div id="consent-banner" role="dialog" aria-live="polite" aria-label="Analytics consent" hidden>
+        <p>We use analytics to improve the site. By clicking "Accept" you consent to anonymous usage tracking.</p>
+        <div class="consent-actions">
+            <button class="btn-decline" id="consent-decline">Decline</button>
+            <button class="btn-accept" id="consent-accept">Accept</button>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const banner = document.getElementById('consent-banner');
+            const ACCEPT_KEY = 'sbo_analytics_consent_v1';
+            const stored = localStorage.getItem(ACCEPT_KEY);
+
+            // default: not allowed until user accepts
+            window.analytics = window.analytics || { enabled: false };
+
+            function setConsent(bool) {
+                window.analytics.enabled = !!bool;
+                localStorage.setItem(ACCEPT_KEY, bool ? 'granted' : 'denied');
+                banner.hidden = true;
+                if (bool && typeof window.loadGtag === 'function') {
+                    window.loadGtag();
+                    // fire a page view after consent
+                    if (typeof window.trackPageView === 'function') window.trackPageView();
+                }
+            }
+
+            document.getElementById('consent-accept').addEventListener('click', () => setConsent(true));
+            document.getElementById('consent-decline').addEventListener('click', () => setConsent(false));
+
+            if (stored === 'granted') {
+                setConsent(true);
+            } else if (stored === 'denied') {
+                setConsent(false);
+            } else {
+                // first visit: show banner
+                banner.hidden = false;
+            }
+        })();
     </script>
 </body>
 </html>

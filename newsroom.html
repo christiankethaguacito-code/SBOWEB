@@ -341,23 +341,8 @@
             nav { display: none; }
             section { padding: clamp(3.25rem, 8vw, 4.5rem) 1.5rem; }
     </style>
-    <!-- Google Analytics 4 instrumentation -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SDFV8LQ21J"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-    window.GA_MEASUREMENT_ID = 'G-SDFV8LQ21J';
-        gtag('js', new Date());
-        gtag('config', window.GA_MEASUREMENT_ID, { send_page_view: false });
-        function trackPageView(path) {
-            if (typeof gtag !== 'function' || !window.GA_MEASUREMENT_ID) return;
-            gtag('event', 'page_view', {
-                page_path: path || window.location.pathname + window.location.search + window.location.hash,
-                page_location: window.location.href,
-                page_title: document.title
-            });
-        }
-    </script>
+    <!-- Centralized analytics loader -->
+    <script src="scripts/analytics.js" defer></script>
 </head>
 <body>
             section { padding: clamp(3rem, 8vw, 4rem) 1rem; }

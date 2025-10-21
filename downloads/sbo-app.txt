@@ -1,0 +1,24 @@
+SBO App download guidance
+
+If you plan to offer an APK for direct download, follow these best-practices:
+
+1. Hosting
+- Use a reliable CDN or object storage (e.g., GitHub Releases for small APKs, Amazon S3, Google Cloud Storage, or Firebase Hosting). Avoid committing large binaries to the git repository.
+
+2. Checksum
+- Provide an SHA256 checksum so users can verify integrity after download. Example:
+  SHA256(sbo-app-v1.0.0.apk) = <replace-with-sha256-here>
+
+3. Sideload instructions (Android)
+- On the device, enable Install unknown apps for the browser used to download the APK.
+- Open the downloaded APK and follow the prompts to install.
+- Revoke unknown app permission after installation if desired.
+
+4. Security
+- Sign your APK with a release key. If distributing via Play Store, use app signing by Google Play.
+- Keep versioning clear and include a changelog.
+
+5. Size considerations
+- If the APK is >100MB, consider hosting externally and offering a lightweight web install/launcher instead.
+
+Replace the placeholder checksum above with the output of `sha256sum` or a similar tool when you have the APK ready.
