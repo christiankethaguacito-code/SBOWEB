@@ -156,7 +156,6 @@
         <div class="footer-bottom">
             <span>&copy; 2025 Student Body Organization, SKSU Isulan Campus. All rights reserved.</span>
             <span>Your partner in student leadership and community impact.</span>
-            <button id="analytics-settings" class="ghost-button" title="Analytics settings">Analytics settings</button>
         </div>
     </footer>
 
@@ -566,56 +565,15 @@
             pendingScroll = null;
         });
     </script>
-    <!-- Consent banner -->
-    <div id="consent-banner" role="dialog" aria-live="polite" aria-label="Analytics consent" hidden>
-        <p>We use analytics to improve the site. By clicking "Accept" you consent to anonymous usage tracking.</p>
-        <div class="consent-actions">
-            <button class="btn-decline" id="consent-decline">Decline</button>
-            <button class="btn-accept" id="consent-accept">Accept</button>
-        </div>
-    </div>
-
+    <!-- Analytics auto-enabled (consent persisted as 'granted') -->
     <script>
         (function () {
-            const banner = document.getElementById('consent-banner');
             const ACCEPT_KEY = 'sbo_analytics_consent_v1';
-            const stored = localStorage.getItem(ACCEPT_KEY);
-
-            // default: not allowed until user accepts
-            window.analytics = window.analytics || { enabled: false };
-
-            function setConsent(bool) {
-                window.analytics.enabled = !!bool;
-                localStorage.setItem(ACCEPT_KEY, bool ? 'granted' : 'denied');
-                banner.hidden = true;
-                if (bool && typeof window.loadGtag === 'function') {
-                    window.loadGtag();
-                    // fire a page view after consent
-                    if (typeof window.trackPageView === 'function') window.trackPageView();
-                }
-            }
-
-            document.getElementById('consent-accept').addEventListener('click', () => setConsent(true));
-            document.getElementById('consent-decline').addEventListener('click', () => setConsent(false));
-
-            // Allow users to reopen the consent banner to change their choice
-            const settingsBtn = document.getElementById('analytics-settings');
-            if (settingsBtn) {
-                settingsBtn.addEventListener('click', () => {
-                    banner.hidden = false;
-                    // move focus into banner for accessibility
-                    const accept = document.getElementById('consent-accept');
-                    if (accept) accept.focus();
-                });
-            }
-
-            if (stored === 'granted') {
-                setConsent(true);
-            } else if (stored === 'denied') {
-                setConsent(false);
-            } else {
-                // first visit: show banner
-                banner.hidden = false;
+            try { localStorage.setItem(ACCEPT_KEY, 'granted'); } catch (e) { /* ignore */ }
+            window.analytics = window.analytics || { enabled: true };
+            if (typeof window.loadGtag === 'function') {
+                window.loadGtag();
+                if (typeof window.trackPageView === 'function') window.trackPageView();
             }
         })();
     </script>
