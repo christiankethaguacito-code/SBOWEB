@@ -1065,7 +1065,7 @@
                             playsinline
                             preload="metadata"
                             poster="group.jpg">
-                            <source src="feature.mp4" type="video/mp4">
+                            <source src="feature-web.mp4" type="video/mp4">
                             Your browser does not support inline video. Watch the feature reel using the download button below.
                         </video>
                         <div class="feature-video-fallback" data-feature-fallback hidden>
@@ -1262,7 +1262,7 @@
             if (featureEmbed && featureFallback && featureEmbed.dataset.fallbackBound !== 'true') {
                 const fallbackTimer = setTimeout(() => {
                     featureFallback.hidden = false;
-                }, 8000);
+                }, 15000);
 
                 const handleSuccess = () => {
                     clearTimeout(fallbackTimer);
